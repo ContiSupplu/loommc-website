@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loom &mdash; A Minecraft Launcher</title>
+  <meta name="description" content="Loom is a free Minecraft launcher for Windows with a built-in Dynamic Island HUD, AI assistant, and one-click mod management." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title" content="Loom &mdash; A Minecraft Launcher" />
+  <meta property="og:description" content="A Minecraft launcher with Dynamic Island HUD, AI assistant, and one-click mod management." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://loommc.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- ═══ Nav ═══ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Loom</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#dynamic-island" class="nav-link">Dynamic Island</a>
+        <a href="#loomie" class="nav-link">Loomie</a>
+        <a href="/download/Loom-Setup.exe" class="nav-link nav-link-cta" download>Download</a>
+      </div>
+      <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ═══ Hero ═══ -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Loom</h1>
+      <p class="hero-tagline">A better way to play Minecraft.</p>
+      <p class="hero-desc">A launcher for Windows with a living in-game HUD, a built-in AI assistant, and one-click mod management. Free, forever.</p>
+      <div class="hero-actions">
+        <a href="/download/Loom-Setup.exe" class="btn-hero" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download for Windows
+        </a>
+      </div>
+      <p class="hero-note">Windows 10 or later &middot; Free</p>
+    </div>
+    <div class="hero-fade"></div>
+  </section>
+
+
+  <!-- ═══ Features ═══ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-heading">What you get</h2>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="card-title">One-click instances</h3>
+          <p class="card-text">Pick a version and loader. Loom handles Java, libraries, and assets. Your instance is ready in seconds.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="card-title">Mod management</h3>
+          <p class="card-text">Browse and install from Modrinth. Drag-and-drop JARs. Automatic compatibility checks.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="card-title">Fast launches</h3>
+          <p class="card-text">Parallel downloads, background caching, pre-fetched manifests. No waiting around.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-indigo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="card-title">Discord presence</h3>
+          <p class="card-text">Shows your instance, game time, and version on your Discord profile.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <h3 class="card-title">Skin browser</h3>
+          <p class="card-text">Look up players, preview skins in 3D, and manage your friends list.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-warm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="3"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="card-title">Clean interface</h3>
+          <p class="card-text">Dark glass-effect design inspired by macOS. No ads, no clutter, no noise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ Dynamic Island ═══ -->
+  <section class="section section-di" id="dynamic-island">
+    <div class="container">
+      <div class="di-layout">
+        <div class="di-text">
+          <h2 class="section-heading section-heading-lg">Dynamic Island</h2>
+          <p class="di-lead">A HUD that renders directly inside Minecraft as a Fabric mod. It sits at the top of your screen and changes based on what you're doing &mdash; without blocking gameplay.</p>
+          <p class="di-compat">Available on 1.21.1 and 1.21.11 with Fabric. Installs automatically.</p>
+        </div>
+
+        <div class="di-list">
+          <div class="di-item">
+            <svg class="di-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <div>
+              <h4 class="di-item-name">Spotify controls</h4>
+              <p class="di-item-desc">Current track, artist, album art. Skip, pause, and adjust volume from the island.</p>
+            </div>
+          </div>
+          <div class="di-item">
+            <svg class="di-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            <div>
+              <h4 class="di-item-name">Waypoint navigation</h4>
+              <p class="di-item-desc">Live compass with distance counting down as you walk toward your target.</p>
+            </div>
+          </div>
+          <div class="di-item">
+            <svg class="di-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2l6 6-7 7-6-6 7-7z"/><path d="M5.5 21.5l3-3"/><path d="M9 14l-4 4"/></svg>
+            <div>
+              <h4 class="di-item-name">Combat tracker</h4>
+              <p class="di-item-desc">Auto-detects PvP. Shows opponent health, armor, and weapon in real-time.</p>
+            </div>
+          </div>
+          <div class="di-item">
+            <svg class="di-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <h4 class="di-item-name">Timers and alerts</h4>
+              <p class="di-item-desc">Countdown timers, weather alerts, low-health warnings, and biome notifications.</p>
+            </div>
+          </div>
+          <div class="di-item">
+            <svg class="di-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M2 17l5-5 4 4 4-4 5 5"/></svg>
+            <div>
+              <h4 class="di-item-name">Five themes</h4>
+              <p class="di-item-desc">Midnight, Neon, Ember, Arctic, and Album Art. Switch with a keybind.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ Loomie ═══ -->
+  <section class="section" id="loomie">
+    <div class="container container-mid">
+      <div class="loomie-orb-wrap">
+        <div class="loomie-orb"></div>
+      </div>
+      <h2 class="section-heading section-heading-lg section-heading-center">Loomie</h2>
+      <p class="loomie-lead">An AI assistant built into the launcher and accessible from the Dynamic Island. Powered by Gemini, trained on everything Minecraft.</p>
+
+      <div class="loomie-grid">
+        <div class="loomie-card">
+          <h4 class="loomie-card-title">Full Minecraft knowledge</h4>
+          <p class="loomie-card-text">Crafting recipes, enchantment tables, brewing charts, mob stats, biome details, redstone mechanics. Ask in plain English.</p>
+        </div>
+        <div class="loomie-card">
+          <h4 class="loomie-card-title">Conversational</h4>
+          <p class="loomie-card-text">&ldquo;What does Smite V do?&rdquo; or &ldquo;How do I find a nether fortress?&rdquo; &mdash; Loomie answers naturally.</p>
+        </div>
+        <div class="loomie-card">
+          <h4 class="loomie-card-title">Available in-game</h4>
+          <p class="loomie-card-text">Open Loomie from the Dynamic Island while playing. No alt-tabbing. Answers appear on your screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ Download ═══ -->
+  <section class="section section-dl" id="download">
+    <div class="dl-glow"></div>
+    <div class="container container-mid" style="position:relative;z-index:2;text-align:center">
+      <h2 class="dl-heading">Download Loom</h2>
+      <p class="dl-sub">Free, and under active development.</p>
+      <a href="/download/Loom-Setup.exe" class="btn-hero btn-hero-dl" download>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download for Windows
+      </a>
+      <p class="dl-meta">v1.0.1 &middot; ~115 MB &middot; Windows 10+</p>
+    </div>
+  </section>
+
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Loom</span>
+      <p class="footer-copy">Not affiliated with Mojang Studios or Microsoft.</p>
+    </div>
+  </footer>
+
+  <script src="/src/main.js"></script>
+</body>
+</html>
