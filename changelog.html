@@ -4,221 +4,153 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Changelog — Loom</title>
-  <meta name="description" content="Every Loom update, documented. See what's new in each release.">
+  <meta name="description" content="See what's new in every version of Loom.">
   <link rel="icon" href="/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="nav">
-    <div class="nav-inner">
+    <div class="wrap">
       <a href="/" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-          <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGrad)" />
-          <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <defs>
-            <linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30">
-              <stop stop-color="#d97706"/>
-              <stop offset="1" stop-color="#b91c1c"/>
-            </linearGradient>
-          </defs>
-        </svg>
-        <span>Loom</span>
+        <svg viewBox="0 0 32 32" width="30" height="30" fill="none"><rect x="2" y="2" width="28" height="28" rx="6" fill="url(#lg)"/><path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="lg" x1="2" y1="2" x2="30" y2="30"><stop stop-color="#d97706"/><stop offset="1" stop-color="#b91c1c"/></linearGradient></defs></svg>
+        Loom
       </a>
       <div class="nav-links">
-        <a href="/#features" class="nav-link">Features</a>
-        <a href="/pricing.html" class="nav-link">Pricing</a>
-        <a href="/download.html" class="nav-link">Download</a>
-        <a href="/changelog.html" class="nav-link active">Changelog</a>
+        <a href="/#features">Features</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/download.html">Download</a>
+        <a href="/changelog.html" class="active">Changelog</a>
       </div>
-      <div class="nav-cta">
-        <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-link nav-link-subtle">Discord</a>
+      <div class="nav-right">
+        <a href="https://discord.gg/loom" target="_blank" rel="noopener" class="discord-link">Discord</a>
         <a href="/download.html" class="btn btn-primary btn-sm">Download</a>
       </div>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- Changelog Header -->
-  <section class="section section-page-header">
-    <div class="container container-narrow">
-      <div class="features-header reveal">
-        <h1 class="section-title">Changelog</h1>
-        <p class="section-subtitle">Every update, documented.</p>
-      </div>
+  <div class="page-header">
+    <div class="wrap">
+      <h1 class="section-title reveal">Changelog</h1>
+      <p class="section-sub reveal">Every version, every improvement.</p>
     </div>
-  </section>
+  </div>
 
-  <!-- Changelog Timeline -->
-  <section class="section">
-    <div class="container container-narrow">
-      <div class="changelog-timeline">
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="changelog-list">
 
-        <!-- v1.6 Netherite -->
-        <div class="changelog-entry latest reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <div class="changelog-header">
-              <h2>v1.6 "Netherite"</h2>
-              <div class="hero-badge"><span class="hero-badge-dot"></span>Latest</div>
-            </div>
-            <time class="changelog-date">June 1, 2026</time>
-            <ul class="changelog-list">
-              <li>Quick Servers landing page</li>
-              <li>Cache &amp; Skip performance mod</li>
-              <li>Advanced settings section</li>
-              <li>Async file operations for smoother UI</li>
-              <li>Bedrock crossplay toggle</li>
-              <li>Plugin browser with Modrinth integration</li>
-              <li>App icon and auto-update fixes</li>
-            </ul>
+        <div class="cl-entry latest reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.6 Netherite</span>
+            <span class="cl-tag">Latest</span>
+            <span class="cl-date">June 2026</span>
           </div>
+          <ul>
+            <li>Quick Servers — instant multiplayer from the launcher</li>
+            <li>Loomie AI crash detection and auto-diagnosis</li>
+            <li>In-game recording with FFmpeg integration</li>
+            <li>Async instance I/O for instant UI response</li>
+            <li>Complete website redesign</li>
+          </ul>
         </div>
 
-        <!-- v1.5 Obsidian -->
-        <div class="changelog-entry reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <h2>v1.5 "Obsidian"</h2>
-            <time class="changelog-date">May 29, 2026</time>
-            <ul class="changelog-list">
-              <li>Bedrock Edition support</li>
-              <li>Add-On Browser</li>
-              <li>Smart Downloads</li>
-              <li>Privacy Mode</li>
-              <li>File sync across instances</li>
-            </ul>
+        <div class="cl-entry reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.5 Diamond</span>
+            <span class="cl-date">May 2026</span>
           </div>
+          <ul>
+            <li>Dynamic Island — Apple-style HUD overlay</li>
+            <li>Loomie AI assistant (Gemini 2.5 Flash)</li>
+            <li>Skin manager — upload, preview, change variants</li>
+            <li>File sync across instances</li>
+          </ul>
         </div>
 
-        <!-- v1.4 Diamond -->
-        <div class="changelog-entry reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <h2>v1.4 "Diamond"</h2>
-            <time class="changelog-date">May 28, 2026</time>
-            <ul class="changelog-list">
-              <li>Gallery page with screenshots and recordings</li>
-              <li>In-game recording via FFmpeg</li>
-              <li>Clip editor</li>
-            </ul>
+        <div class="cl-entry reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.4 Emerald</span>
+            <span class="cl-date">April 2026</span>
           </div>
+          <ul>
+            <li>Modpack import (Modrinth + CurseForge)</li>
+            <li>Spotify integration with in-game widget</li>
+            <li>NeoForge and Quilt loader support</li>
+            <li>Instance cloning and profiles</li>
+          </ul>
         </div>
 
-        <!-- v1.3 Redstone -->
-        <div class="changelog-entry reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <h2>v1.3 "Redstone"</h2>
-            <time class="changelog-date">May 27, 2026</time>
-            <ul class="changelog-list">
-              <li>Loomie AI assistant</li>
-              <li>Multi-loader support</li>
-            </ul>
+        <div class="cl-entry reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.3 Gold</span>
+            <span class="cl-date">March 2026</span>
           </div>
+          <ul>
+            <li>Performance mod auto-installer</li>
+            <li>Mod deduplication store (save disk space)</li>
+            <li>Windows Defender exclusion opt-in</li>
+          </ul>
         </div>
 
-        <!-- v1.2 Gold -->
-        <div class="changelog-entry reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <h2>v1.2 "Gold"</h2>
-            <time class="changelog-date">May 27, 2026</time>
-            <ul class="changelog-list">
-              <li>Mod browser</li>
-              <li>Player Lookup</li>
-            </ul>
+        <div class="cl-entry reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.2 Iron</span>
+            <span class="cl-date">February 2026</span>
           </div>
+          <ul>
+            <li>Forge and Fabric auto-installation</li>
+            <li>Modrinth mod browser and search</li>
+            <li>Instance file explorer</li>
+          </ul>
         </div>
 
-        <!-- v1.1 Iron -->
-        <div class="changelog-entry reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <h2>v1.1 "Iron"</h2>
-            <time class="changelog-date">May 26, 2026</time>
-            <ul class="changelog-list">
-              <li>Performance optimizations</li>
-              <li>Crash detection</li>
-              <li>Discord Rich Presence</li>
-            </ul>
+        <div class="cl-entry reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.1 Stone</span>
+            <span class="cl-date">January 2026</span>
           </div>
+          <ul>
+            <li>Multi-account Microsoft auth</li>
+            <li>Custom JVM arguments per instance</li>
+            <li>Auto-updater</li>
+          </ul>
         </div>
 
-        <!-- v1.0 Cobblestone -->
-        <div class="changelog-entry reveal">
-          <div class="changelog-marker"></div>
-          <div class="changelog-content">
-            <h2>v1.0 "Cobblestone"</h2>
-            <time class="changelog-date">May 26, 2026</time>
-            <ul class="changelog-list">
-              <li>Initial release</li>
-            </ul>
+        <div class="cl-entry reveal">
+          <div class="cl-head">
+            <span class="cl-ver">v1.0 Cobblestone</span>
+            <span class="cl-date">December 2025</span>
           </div>
+          <ul>
+            <li>Initial release</li>
+            <li>Instance management and vanilla launching</li>
+            <li>Microsoft authentication</li>
+          </ul>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="container">
+    <div class="wrap">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="/" class="footer-brand-logo">
-            <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
-              <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGradF)" />
-              <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <defs>
-                <linearGradient id="logoGradF" x1="2" y1="2" x2="30" y2="30">
-                  <stop stop-color="#d97706"/>
-                  <stop offset="1" stop-color="#b91c1c"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <span>Loom</span>
-          </a>
-          <p class="footer-description">A next-generation Minecraft launcher with AI, mods, and everything you need to play — built by _jackoboy.</p>
+          <div class="logo">
+            <svg viewBox="0 0 32 32" width="24" height="24" fill="none"><rect x="2" y="2" width="28" height="28" rx="6" fill="url(#lg2)"/><path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="lg2" x1="2" y1="2" x2="30" y2="30"><stop stop-color="#d97706"/><stop offset="1" stop-color="#b91c1c"/></linearGradient></defs></svg>
+            Loom
+          </div>
+          <p class="desc">A next-generation Minecraft launcher with AI, mods, and everything you need — built by _jackoboy.</p>
         </div>
-        <div class="footer-column">
-          <h4>Product</h4>
-          <ul>
-            <li><a href="/#features">Features</a></li>
-            <li><a href="/pricing.html">Pricing</a></li>
-            <li><a href="/download.html">Download</a></li>
-            <li><a href="/changelog.html">Changelog</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Support</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Community</h4>
-          <ul>
-            <li><a href="https://discord.gg/placeholder" target="_blank" rel="noopener">Discord</a></li>
-            <li><a href="https://github.com/ContiSupplu/Cobble" target="_blank" rel="noopener">GitHub</a></li>
-          </ul>
-        </div>
+        <div class="footer-col"><h4>Product</h4><ul><li><a href="/#features">Features</a></li><li><a href="/pricing.html">Pricing</a></li><li><a href="/download.html">Download</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div>
+        <div class="footer-col"><h4>Resources</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">FAQ</a></li><li><a href="#">Support</a></li></ul></div>
+        <div class="footer-col"><h4>Community</h4><ul><li><a href="https://discord.gg/loom" target="_blank" rel="noopener">Discord</a></li><li><a href="https://github.com/ContiSupplu/Cobble" target="_blank" rel="noopener">GitHub</a></li></ul></div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">&copy; 2026 Loom. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Terms</a>
-          <a href="#">Privacy</a>
-          <a href="#">Refund Policy</a>
-        </div>
+        <small>&copy; 2026 Loom. All rights reserved.</small>
+        <div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Refund Policy</a></div>
       </div>
       <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
     </div>
