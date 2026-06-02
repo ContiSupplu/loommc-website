@@ -409,6 +409,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .hero-sub { font-size: var(--text-small); }
 }
 
+/* ── More Features Grid ── */
+.more {
+  padding-top: var(--sp-64);
+  padding-bottom: var(--sp-96);
+}
+.more-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--sp-40);
+}
+.more-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-32) var(--sp-48);
+}
+.more-item h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--text-0);
+  margin-bottom: var(--sp-4);
+}
+.more-item p {
+  font-size: var(--text-small);
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.more-item .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--brand);
+  background: rgba(139, 111, 232, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: var(--sp-8);
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .more-grid { grid-template-columns: 1fr; }
+}
+
 /* ── Focus ── */
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--brand);
@@ -458,40 +506,82 @@ a:focus-visible, button:focus-visible {
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- Features — Top 3 -->
   <section class="features" id="features">
     <div class="contain">
-      <p class="features-label">Features</p>
+      <p class="features-label">What sets Loom apart</p>
 
       <article class="feature">
         <h3 class="feature-name">Loomie AI</h3>
-        <p class="feature-desc">Crash mid-game? Loomie reads the log, identifies the broken mod, and tells you exactly how to fix it. Powered by Gemini 2.5 Flash. No more pasting stack traces into Discord and waiting for someone to reply.</p>
-      </article>
-
-      <article class="feature">
-        <h3 class="feature-name">Smart Library</h3>
-        <p class="feature-desc">Every instance, mod, and version in a single sidebar. Filter by loader, sort by last played, clone an instance in two clicks. Your library adapts as your modding setup grows.</p>
-      </article>
-
-      <article class="feature">
-        <h3 class="feature-name">Quick Servers</h3>
-        <p class="feature-desc">Two clicks to host. Share a link with friends. No port forwarding, no Aternos queues, no waiting. Multiplayer should be that simple.</p>
+        <p class="feature-desc">Crash mid-game? Loomie reads the log, identifies the broken mod, and tells you exactly how to fix it. Powered by Gemini 2.5 Flash. Ask it to install mods, adjust settings, or explain what went wrong — by text, voice, or screenshot. No other launcher has this.</p>
       </article>
 
       <article class="feature">
         <h3 class="feature-name">Dynamic Island</h3>
-        <p class="feature-desc">A floating HUD borrowed from Apple — tracks download progress, launch state, and server status. Shows up when something is happening, disappears when it is not.</p>
-      </article>
-
-      <article class="feature">
-        <h3 class="feature-name">Built-in Performance</h3>
-        <p class="feature-desc">Sodium, Lithium, Iris, and a tuned mod stack come pre-installed on every instance. Loom keeps them updated and resolves version conflicts automatically.</p>
+        <p class="feature-desc">A floating HUD borrowed from Apple that morphs between states — download progress, Spotify controls, launch status, crash alerts, and embedded Loomie chat. Works inside the launcher and as a transparent overlay on top of the running game.</p>
       </article>
 
       <article class="feature">
         <h3 class="feature-name">Java + Bedrock</h3>
-        <p class="feature-desc">Both editions in the same launcher, the same library, the same UI. Switch between Java and Bedrock without switching apps.</p>
+        <p class="feature-desc">Both editions in the same launcher, the same library, the same UI. Browse Bedrock worlds, install addons, block Marketplace ads, and launch — all without switching apps. No other third-party launcher supports both.</p>
       </article>
+    </div>
+  </section>
+
+  <!-- Features — Everything Else -->
+  <section class="more">
+    <div class="contain">
+      <p class="more-label">And everything else</p>
+      <div class="more-grid">
+        <div class="more-item">
+          <h3>Quick Servers <span class="tag">Coming soon</span></h3>
+          <p>Host a multiplayer server in two clicks. No port forwarding, no queues. Friends join with a link.</p>
+        </div>
+        <div class="more-item">
+          <h3>Spotify Integration</h3>
+          <p>Control playback, see album art, and read lyrics — all from inside the launcher and the in-game overlay.</p>
+        </div>
+        <div class="more-item">
+          <h3>Twitch + In-Game Media</h3>
+          <p>Follow streams, get live notifications, and watch Twitch or YouTube inside Minecraft.</p>
+        </div>
+        <div class="more-item">
+          <h3>Recording + Video Editor</h3>
+          <p>Record gameplay, save replays from a rolling buffer, then trim, speed-ramp, add text, and merge clips — all built in.</p>
+        </div>
+        <div class="more-item">
+          <h3>Performance Mods</h3>
+          <p>Sodium, Lithium, and Iris come pre-installed on new instances. Loom keeps them updated and conflict-free.</p>
+        </div>
+        <div class="more-item">
+          <h3>All 4 Mod Loaders</h3>
+          <p>Fabric, Forge, NeoForge, and Quilt. Install any loader on any version with one click.</p>
+        </div>
+        <div class="more-item">
+          <h3>Mod Vault</h3>
+          <p>Hard-link deduplication across instances. Same mod used by 5 instances? Stored once. Saves gigabytes.</p>
+        </div>
+        <div class="more-item">
+          <h3>Launcher Migration</h3>
+          <p>Import instances, worlds, mods, and settings from Prism, MultiMC, CurseForge, ATLauncher, or vanilla.</p>
+        </div>
+        <div class="more-item">
+          <h3>File Sync</h3>
+          <p>Keep configs, mods, and resource packs in sync across instances with bi-directional sync groups.</p>
+        </div>
+        <div class="more-item">
+          <h3>Modpack Import</h3>
+          <p>Install Modrinth modpacks in one click, or drop in a local .mrpack file.</p>
+        </div>
+        <div class="more-item">
+          <h3>Skin Management</h3>
+          <p>Upload skins, preview your full body, switch between Classic and Slim, or reset to default.</p>
+        </div>
+        <div class="more-item">
+          <h3>Security + Privacy</h3>
+          <p>Region-based privacy controls, encrypted proxy credentials, and a dedicated privacy policy — your data stays yours.</p>
+        </div>
+      </div>
     </div>
   </section>
 
