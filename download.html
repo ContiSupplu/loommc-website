@@ -3,94 +3,188 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Download — Loom</title>
-  <meta name="description" content="Download Loom for Windows — the all-in-one Minecraft launcher for Java and Bedrock Edition." />
-  <meta name="theme-color" content="#0a0a0a" />
-  <link rel="icon" href="/loom-icon.png" />
+  <title>Download — Loom Launcher</title>
+  <meta name="description" content="Download the latest version of Loom Launcher for Windows." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <nav class="nav" id="nav">
-    <div class="container nav-inner">
-      <a href="/" class="nav-brand"><img src="/loom-icon.png" alt="Loom" class="nav-logo" /><span class="nav-wordmark">Loom</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="/" class="nav-link">Home</a></li>
-        <li><a href="/#features" class="nav-link">Features</a></li>
-        <li><a href="/changelog.html" class="nav-link">Changelog</a></li>
-        <li><a href="/download.html" class="nav-cta">Download</a></li>
-      </ul>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__brand">
+        <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+        <span>Loom</span>
+      </a>
+      <div class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/#features" class="nav__link">Features</a>
+        <a href="/changelog.html" class="nav__link">Changelog</a>
+        <a href="/download.html" class="nav__cta">Download</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
 
-  <main class="download-page">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label" style="justify-content: center;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download
-        </div>
-        <h1 class="section-title">Get Loom</h1>
-        <p class="section-sub" style="margin: 0 auto;">Free. No account required. Auto-updates included.</p>
-      </div>
 
-      <div class="download-card reveal reveal-delay-1">
-        <img src="/loom-icon.png" alt="Loom" class="download-icon" />
-        <div class="download-name">Loom for Windows</div>
-        <div class="download-version">v1.5.0 "Obsidian" — Latest</div>
-        <a href="https://github.com/ContiSupplu/Cobble/releases/latest/download/Loom-Setup-1.5.0.exe" class="download-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Installer
-        </a>
-        <div class="download-meta">Windows 10+ required</div>
-      </div>
-
-      <div class="sysreq reveal reveal-delay-2 mt-64">
-        <div class="sysreq-title">Installation</div>
-        <div class="changelog-body" style="max-width: 480px; margin: 0 auto;">
-          <ul class="changelog-list mb-0">
-            <li>Download the installer above</li>
-            <li>Run <strong>Loom Setup 1.5.0.exe</strong></li>
-            <li>Follow the on-screen instructions</li>
-            <li>Loom will auto-update whenever a new version is released</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="sysreq reveal reveal-delay-3 mt-48">
-        <div class="sysreq-title">System Requirements</div>
-        <div class="sysreq-grid">
-          <div class="sysreq-item"><div class="sysreq-label">OS</div><div class="sysreq-value">Windows 10 or later</div></div>
-          <div class="sysreq-item"><div class="sysreq-label">Architecture</div><div class="sysreq-value">x64 (64-bit)</div></div>
-          <div class="sysreq-item"><div class="sysreq-label">Memory</div><div class="sysreq-value">4 GB RAM minimum</div></div>
-          <div class="sysreq-item"><div class="sysreq-label">Disk Space</div><div class="sysreq-value">~200 MB for Loom</div></div>
-          <div class="sysreq-item"><div class="sysreq-label">Java Runtime</div><div class="sysreq-value">Downloaded automatically</div></div>
-          <div class="sysreq-item"><div class="sysreq-label">Internet</div><div class="sysreq-value">Required for login and mods</div></div>
-        </div>
-      </div>
-
-      <div class="reveal mt-64" style="padding-bottom: 80px;">
-        <p class="text-center" style="font-size: 14px; color: var(--text-3);">
-          Looking for an older version? <a href="https://github.com/ContiSupplu/Cobble/releases" target="_blank" style="color: var(--text-2);">View all releases on GitHub</a>
-        </p>
-      </div>
+  <!-- ===== Download Hero ===== -->
+  <section class="download-hero">
+    <div class="container reveal">
+      <h1 class="download-hero__title">Download Loom</h1>
+      <p class="download-hero__subtitle">Get the latest version and start playing in under a minute.</p>
     </div>
-  </main>
+  </section>
 
+
+  <!-- ===== Download Section ===== -->
+  <section class="download-section">
+    <div class="container">
+
+      <!-- Download Card -->
+      <div class="download-card reveal">
+        <div class="download-card__badge">
+          <span class="badge--latest">Latest</span>
+        </div>
+        <h2 class="download-card__version">v1.6.2</h2>
+        <p class="download-card__codename">Netherite</p>
+        <a href="https://github.com/ContiSupplu/Cobble/releases/latest/download/Loom-Setup-1.6.2.exe"
+           class="btn btn--primary download-card__btn">
+          Download for Windows
+          <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </a>
+        <p class="download-card__meta">Loom-Setup-1.6.2.exe &middot; Windows Installer</p>
+      </div>
+
+      <!-- Requirements -->
+      <div class="requirements reveal">
+        <div class="requirements__card">
+          <h3 class="requirements__title">System Requirements</h3>
+          <div class="requirements__list">
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Windows 10 or later</span>
+            </div>
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>4 GB RAM minimum</span>
+            </div>
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>500 MB available disk space</span>
+            </div>
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Internet connection required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="requirements__card">
+          <h3 class="requirements__title">What's Included</h3>
+          <div class="requirements__list">
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Loom Launcher application</span>
+            </div>
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Loomie AI assistant</span>
+            </div>
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Java and Bedrock support</span>
+            </div>
+            <div class="requirements__item">
+              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Automatic updates</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Installation Steps -->
+      <div class="install-steps reveal">
+        <h3 class="install-steps__title">Installation</h3>
+        <div class="install-step">
+          <div class="install-step__number">1</div>
+          <div class="install-step__content">
+            <h3>Download the installer</h3>
+            <p>Click the download button above to get the latest Loom setup file for Windows.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-step__number">2</div>
+          <div class="install-step__content">
+            <h3>Run the setup</h3>
+            <p>Open the downloaded file and follow the installation wizard. Loom will install in seconds.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-step__number">3</div>
+          <div class="install-step__content">
+            <h3>Sign in and play</h3>
+            <p>Launch Loom, sign in with your Microsoft account, and start playing Minecraft right away.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand"><div class="footer-brand-row"><img src="/loom-icon.png" alt="Loom" /><span>Loom</span></div><p class="footer-tagline">The all-in-one Minecraft launcher for Java and Bedrock Edition.</p></div>
-        <div class="footer-col"><div class="footer-col-title">Product</div><a href="/#features">Features</a><a href="/download.html">Download</a><a href="/changelog.html">Changelog</a></div>
-        <div class="footer-col"><div class="footer-col-title">Resources</div><a href="https://github.com/ContiSupplu/Cobble" target="_blank">GitHub</a><a href="https://github.com/ContiSupplu/Cobble/issues" target="_blank">Report a Bug</a></div>
-        <div class="footer-col"><div class="footer-col-title">Community</div><a href="https://github.com/ContiSupplu/Cobble/discussions" target="_blank">Discussions</a></div>
+      <div class="footer__grid">
+        <div>
+          <a href="/" class="nav__brand">
+            <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+            <span>Loom</span>
+          </a>
+          <p class="footer__brand-description">
+            A modern Minecraft launcher built for players who expect more. Manage, mod, and play — all in one place.
+          </p>
+        </div>
+        <div>
+          <p class="footer__heading">Product</p>
+          <div class="footer__links">
+            <a href="/#features" class="footer__link">Features</a>
+            <a href="/download.html" class="footer__link">Download</a>
+            <a href="/changelog.html" class="footer__link">Changelog</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__heading">Resources</p>
+          <div class="footer__links">
+            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/ContiSupplu/Cobble/issues" class="footer__link" target="_blank" rel="noopener">Report a Bug</a>
+            <a href="https://github.com/ContiSupplu/Cobble/releases" class="footer__link" target="_blank" rel="noopener">Releases</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__heading">Community</p>
+          <div class="footer__links">
+            <a href="#" class="footer__link">Discord</a>
+            <a href="#" class="footer__link">Twitter</a>
+            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
       </div>
-      <div class="footer-bottom"><span>&copy; 2026 Loom. Not affiliated with Mojang or Microsoft.</span></div>
+      <div class="footer__bottom">
+        <span>2026 Loom Launcher. All rights reserved.</span>
+        <span>Made for the Minecraft community.</span>
+      </div>
     </div>
   </footer>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

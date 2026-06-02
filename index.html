@@ -3,74 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loom — The All-in-One Minecraft Launcher</title>
-  <meta name="description" content="Loom is a premium Minecraft launcher for Java and Bedrock Edition. Smart mod management, AI companion, dynamic HUD, and more." />
-  <meta name="theme-color" content="#0a0a0a" />
-  <meta property="og:title" content="Loom — The All-in-One Minecraft Launcher" />
-  <meta property="og:description" content="Java and Bedrock Edition, together in one premium launcher. Download for free." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://loommc.com" />
-  <link rel="icon" href="/loom-icon.png" />
+  <title>Loom Launcher — Your Minecraft. Elevated.</title>
+  <meta name="description" content="A premium Minecraft launcher with smart instance management, AI companion, Bedrock support, and more." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
 
-  <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
-  <nav class="nav" id="nav">
-    <div class="container nav-inner">
-      <a href="/" class="nav-brand">
-        <img src="/loom-icon.png" alt="Loom" class="nav-logo" />
-        <span class="nav-wordmark">Loom</span>
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__brand">
+        <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+        <span>Loom</span>
       </a>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <div class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="#features" class="nav__link">Features</a>
+        <a href="/changelog.html" class="nav__link">Changelog</a>
+        <a href="/download.html" class="nav__cta">Download</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="/" class="nav-link active">Home</a></li>
-        <li><a href="/#features" class="nav-link">Features</a></li>
-        <li><a href="/changelog.html" class="nav-link">Changelog</a></li>
-        <li><a href="/download.html" class="nav-cta">Download</a></li>
-      </ul>
     </div>
   </nav>
 
 
-  <!-- ═══════════════════ HERO ═══════════════════ -->
-  <section class="hero" id="hero">
-    <div class="hero-blobs">
-      <div class="hero-blob"></div>
-      <div class="hero-blob"></div>
-      <div class="hero-blob"></div>
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__blob hero__blob--1"></div>
+      <div class="hero__blob hero__blob--2"></div>
+      <div class="hero__blob hero__blob--3"></div>
     </div>
-    <div class="hero-grid"></div>
-
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        v1.5 Obsidian — Now with Bedrock Edition
+    <div class="hero__content reveal">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        v1.6 Netherite — Now Available
       </div>
-
-      <h1 class="hero-title">
-        Your Minecraft.<br/><span class="gradient">Elevated.</span>
+      <h1 class="hero__title">
+        Your Minecraft.<br /><span class="gradient-text">Elevated.</span>
       </h1>
-
-      <p class="hero-sub">
-        The all-in-one launcher for Java and Bedrock Edition.
-        Smart mod management, an AI companion, a living HUD, and more — all in one place.
+      <p class="hero__subtitle">
+        A launcher built for the modern player. Manage instances, install mods,
+        launch Bedrock, and let AI handle the rest.
       </p>
-
-      <div class="hero-actions">
-        <a href="/download.html" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download for Windows
+      <div class="hero__actions">
+        <a href="/download.html" class="btn btn--primary btn--large">
+          Download Loom
+          <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
         </a>
-        <a href="/changelog.html" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12 8 12 12 14 14"/><circle cx="12" cy="12" r="10"/></svg>
+        <a href="/changelog.html" class="btn btn--secondary btn--large">
           View Changelog
         </a>
       </div>
@@ -78,180 +67,274 @@
   </section>
 
 
-  <!-- ═══════════════════ FEATURES ═══════════════════ -->
+  <!-- ===== Features ===== -->
   <section class="section" id="features">
     <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          Features
-        </div>
-        <h2 class="section-title">Everything you need.<br/>Nothing you don't.</h2>
-        <p class="section-sub">
-          Built from the ground up for performance, simplicity, and a premium experience.
+      <div class="section__header reveal">
+        <p class="section__label">Features</p>
+        <h2 class="section__title">Everything you need,<br />nothing you don't.</h2>
+        <p class="section__description">
+          Loom packs a full toolkit into one clean launcher. From AI-powered help
+          to one-click servers, it all just works.
         </p>
       </div>
 
-      <div class="features-grid">
+      <div class="features__grid">
+
+        <!-- Card 1: Smart Library -->
         <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
           </div>
-          <div class="feature-name">Smart Library</div>
-          <p class="feature-desc">Create isolated instances for every version, modpack, or server. Manage mods, resource packs, and settings — all from one clean interface.</p>
+          <h3 class="feature-card__title">Smart Library</h3>
+          <p class="feature-card__description">
+            Create and manage instances, mods, and versions from a single unified library. Everything organized, always accessible.
+          </p>
         </div>
 
+        <!-- Card 2: Loomie AI -->
         <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon purple">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z"/></svg>
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v8a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-8a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg>
           </div>
-          <div class="feature-name">Loomie AI</div>
-          <p class="feature-desc">Your personal Minecraft companion powered by Gemini. Ask any question, get crafting recipes, troubleshoot crashes, or just chat while you play.</p>
+          <h3 class="feature-card__title">Loomie AI</h3>
+          <p class="feature-card__description">
+            Your Gemini-powered companion. Get instant help with crashes, mod conflicts, performance tuning, and setup guidance.
+          </p>
         </div>
 
+        <!-- Card 3: Dynamic Island -->
         <div class="feature-card reveal reveal-delay-3">
-          <div class="feature-icon cyan">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="17" cy="12" r="3"/></svg>
           </div>
-          <div class="feature-name">Dynamic Island</div>
-          <p class="feature-desc">A living HUD that floats above your game. See health, coordinates, Spotify playback, and more — without leaving fullscreen.</p>
+          <h3 class="feature-card__title">Dynamic Island</h3>
+          <p class="feature-card__description">
+            An Apple-style HUD overlay that shows real-time launch progress, download status, and game state at a glance.
+          </p>
         </div>
 
-        <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <!-- Card 4: Bedrock Edition -->
+        <div class="feature-card reveal reveal-delay-4">
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M1 9h3"/><path d="M1 15h3"/><path d="M20 9h3"/><path d="M20 15h3"/></svg>
           </div>
-          <div class="feature-name">Bedrock Edition</div>
-          <p class="feature-desc">Full Bedrock support with add-on browsing from MCPEDL, CurseForge, and more. Download, auto-install, and manage packs — all built-in.</p>
+          <h3 class="feature-card__title">Bedrock Edition</h3>
+          <p class="feature-card__description">
+            Launch and manage Bedrock Edition directly. Browse add-ons, configure settings, and play with friends across platforms.
+          </p>
         </div>
 
-        <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon pink">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <!-- Card 5: Quick Servers -->
+        <div class="feature-card reveal reveal-delay-5">
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1"/><circle cx="6" cy="18" r="1"/></svg>
           </div>
-          <div class="feature-name">Browse and Install</div>
-          <p class="feature-desc">Search Modrinth's entire catalog. One-click install for mods, shaders, and resource packs — with automatic dependency resolution.</p>
+          <h3 class="feature-card__title">
+            Quick Servers
+            <span class="badge--soon">Coming Soon</span>
+          </h3>
+          <p class="feature-card__description">
+            One-click server hosting built right into the launcher. Create, configure, and share servers with zero friction.
+          </p>
         </div>
 
-        <div class="feature-card reveal reveal-delay-3">
-          <div class="feature-icon yellow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <!-- Card 6: Performance -->
+        <div class="feature-card reveal reveal-delay-6">
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <div class="feature-name">Auto-Optimization</div>
-          <p class="feature-desc">Loomie automatically installs performance mods, detects crashes, and removes conflicting packages — so your game just works.</p>
+          <h3 class="feature-card__title">Performance</h3>
+          <p class="feature-card__description">
+            Optimized JVM flags, automatic performance mods, and Cache & Skip for faster load times. Every frame counts.
+          </p>
         </div>
+
+        <!-- Card 7: Gallery -->
+        <div class="feature-card reveal reveal-delay-7">
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          </div>
+          <h3 class="feature-card__title">Gallery</h3>
+          <p class="feature-card__description">
+            Record gameplay and capture screenshots without leaving the launcher. Your best moments, saved and organized.
+          </p>
+        </div>
+
+        <!-- Card 8: Browse & Install -->
+        <div class="feature-card reveal">
+          <div class="feature-card__glow"></div>
+          <div class="feature-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <h3 class="feature-card__title">Browse & Install</h3>
+          <p class="feature-card__description">
+            Search Modrinth, CurseForge, and more. Find mods, modpacks, shaders, and resource packs in one unified browser.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
 
 
-  <!-- ═══════════════════ EDITIONS ═══════════════════ -->
-  <section class="section">
+  <!-- ===== Editions ===== -->
+  <section class="section" style="background: var(--bg-secondary);">
     <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-          Two Editions
-        </div>
-        <h2 class="section-title">One launcher.<br/>Both editions.</h2>
-        <p class="section-sub">Java and Bedrock Edition, side by side. No compromise.</p>
+      <div class="section__header reveal">
+        <p class="section__label">Editions</p>
+        <h2 class="section__title">Two editions. One launcher.</h2>
+        <p class="section__description">
+          Whether you play Java or Bedrock, Loom handles both with full-featured support.
+        </p>
       </div>
 
-      <div class="editions">
+      <div class="editions__grid">
         <div class="edition-card reveal reveal-delay-1">
-          <div class="edition-badge java">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 8l4 4-4 4"/><path d="M3 12h18"/></svg>
-            Java Edition
+          <p class="edition-card__label">Java Edition</p>
+          <h3 class="edition-card__title">The classic experience</h3>
+          <p class="edition-card__description">
+            Full mod support, custom instances, Fabric and Forge loaders, and a massive ecosystem of community content.
+          </p>
+          <div class="edition-card__features">
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Fabric, Forge, and NeoForge</span>
+            </div>
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Mod browser with 4 sources</span>
+            </div>
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Optimized JVM configuration</span>
+            </div>
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Gallery and screen recording</span>
+            </div>
           </div>
-          <h3 class="edition-title">Full Mod Support</h3>
-          <p class="edition-desc">Fabric, NeoForge, Quilt — every loader, every version. Create instances, browse mods, and manage everything with zero friction.</p>
-          <ul class="edition-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Isolated instances per version and modpack</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> One-click mod install from Modrinth</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Automatic performance optimization</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Crash detection and smart recovery</li>
-          </ul>
         </div>
 
         <div class="edition-card reveal reveal-delay-2">
-          <div class="edition-badge bedrock">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-            Bedrock Edition
+          <p class="edition-card__label">Bedrock Edition</p>
+          <h3 class="edition-card__title">Cross-platform play</h3>
+          <p class="edition-card__description">
+            Launch and manage Bedrock Edition with add-on support, smart downloads, and crossplay-ready features.
+          </p>
+          <div class="edition-card__features">
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Direct Bedrock launch</span>
+            </div>
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Add-on browser and installer</span>
+            </div>
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Crossplay server toggle</span>
+            </div>
+            <div class="edition-card__feature">
+              <svg class="edition-card__feature-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Smart download management</span>
+            </div>
           </div>
-          <h3 class="edition-title">Add-Ons Built In</h3>
-          <p class="edition-desc">Browse MCPEDL, CurseForge, ModBay, and Planet Minecraft. Download add-ons and they install automatically — no manual steps.</p>
-          <ul class="edition-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Embedded add-on browser with 4 sites</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Auto-download and auto-install to Minecraft</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Manage worlds, resource packs, and behaviors</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Launch Bedrock directly from Loom</li>
-          </ul>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ═══════════════════ STATS ═══════════════════ -->
-  <section class="section">
-    <div class="container reveal">
-      <div class="stats">
-        <div class="stat"><div class="stat-value"><span class="gradient">6</span></div><div class="stat-label">Major Releases</div></div>
-        <div class="stat"><div class="stat-value"><span class="gradient">2</span></div><div class="stat-label">Editions Supported</div></div>
-        <div class="stat"><div class="stat-value"><span class="gradient">4</span></div><div class="stat-label">Mod Sources</div></div>
-        <div class="stat"><div class="stat-value"><span class="gradient">1</span></div><div class="stat-label">AI Companion</div></div>
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="reveal reveal-delay-1">
+          <p class="stat__value">7</p>
+          <p class="stat__label">Major Releases</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="stat__value">2</p>
+          <p class="stat__label">Editions</p>
+        </div>
+        <div class="reveal reveal-delay-3">
+          <p class="stat__value">4</p>
+          <p class="stat__label">Mod Sources</p>
+        </div>
+        <div class="reveal reveal-delay-4">
+          <p class="stat__value">1</p>
+          <p class="stat__label">AI Companion</p>
+        </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ═══════════════════ CTA ═══════════════════ -->
-  <section class="cta-section">
-    <div class="cta-glow"></div>
-    <div class="container cta-content reveal">
-      <h2 class="cta-title">Ready to play?</h2>
-      <p class="cta-sub">Download Loom for free. No account required.</p>
-      <a href="/download.html" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download for Windows
-      </a>
+  <!-- ===== CTA ===== -->
+  <section class="section cta">
+    <div class="cta__glow"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 class="cta__title">Ready to play?</h2>
+        <p class="cta__subtitle">Download Loom and see what Minecraft should feel like.</p>
+        <a href="/download.html" class="btn btn--primary btn--large">
+          Download Loom
+          <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
 
-  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-brand-row"><img src="/loom-icon.png" alt="Loom" /><span>Loom</span></div>
-          <p class="footer-tagline">The all-in-one Minecraft launcher for Java and Bedrock Edition. Built with care by _jackoboy.</p>
+      <div class="footer__grid">
+        <div>
+          <a href="/" class="nav__brand">
+            <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+            <span>Loom</span>
+          </a>
+          <p class="footer__brand-description">
+            A modern Minecraft launcher built for players who expect more. Manage, mod, and play — all in one place.
+          </p>
         </div>
-        <div class="footer-col">
-          <div class="footer-col-title">Product</div>
-          <a href="/#features">Features</a>
-          <a href="/download.html">Download</a>
-          <a href="/changelog.html">Changelog</a>
+        <div>
+          <p class="footer__heading">Product</p>
+          <div class="footer__links">
+            <a href="/#features" class="footer__link">Features</a>
+            <a href="/download.html" class="footer__link">Download</a>
+            <a href="/changelog.html" class="footer__link">Changelog</a>
+          </div>
         </div>
-        <div class="footer-col">
-          <div class="footer-col-title">Resources</div>
-          <a href="https://github.com/ContiSupplu/Cobble" target="_blank">GitHub</a>
-          <a href="https://github.com/ContiSupplu/Cobble/issues" target="_blank">Report a Bug</a>
-          <a href="https://github.com/ContiSupplu/Cobble/releases" target="_blank">All Releases</a>
+        <div>
+          <p class="footer__heading">Resources</p>
+          <div class="footer__links">
+            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/ContiSupplu/Cobble/issues" class="footer__link" target="_blank" rel="noopener">Report a Bug</a>
+            <a href="https://github.com/ContiSupplu/Cobble/releases" class="footer__link" target="_blank" rel="noopener">Releases</a>
+          </div>
         </div>
-        <div class="footer-col">
-          <div class="footer-col-title">Community</div>
-          <a href="https://github.com/ContiSupplu/Cobble/discussions" target="_blank">Discussions</a>
-          <a href="https://github.com/ContiSupplu/Cobble" target="_blank">Contribute</a>
+        <div>
+          <p class="footer__heading">Community</p>
+          <div class="footer__links">
+            <a href="#" class="footer__link">Discord</a>
+            <a href="#" class="footer__link">Twitter</a>
+            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>&copy; 2026 Loom. Not affiliated with Mojang or Microsoft.</span>
-        <div class="footer-socials">
-          <a href="https://github.com/ContiSupplu/Cobble" target="_blank" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          </a>
-        </div>
+      <div class="footer__bottom">
+        <span>2026 Loom Launcher. All rights reserved.</span>
+        <span>Made for the Minecraft community.</span>
       </div>
     </div>
   </footer>

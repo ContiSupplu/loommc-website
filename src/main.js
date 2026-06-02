@@ -1,131 +1,129 @@
-/* ═══════════════════════════════════════════════════════
-   Loom Website — Interactions
-   ═══════════════════════════════════════════════════════ */
+/* ============================================
+   Loom Launcher — Interactions
+   v1.6.1 "Netherite"
+   ============================================ */
 
-;(function () {
-  'use strict'
+// --- Scroll Reveal with IntersectionObserver ---
+function initReveal() {
+  const reveals = document.querySelectorAll('.reveal');
+  if (!reveals.length) return;
 
-  /* ── Nav scroll effect ── */
-  const nav = document.getElementById('nav')
-  let lastScroll = 0
-
-  function handleScroll() {
-    const y = window.scrollY
-    if (nav) {
-      nav.classList.toggle('scrolled', y > 40)
-    }
-    lastScroll = y
-  }
-
-  window.addEventListener('scroll', handleScroll, { passive: true })
-  handleScroll() // initial state
-
-  /* ── Mobile nav toggle ── */
-  const toggle = document.getElementById('navToggle')
-  const links = document.getElementById('navLinks')
-
-  if (toggle && links) {
-    toggle.addEventListener('click', () => {
-      links.classList.toggle('open')
-      // Animate hamburger → X
-      const isOpen = links.classList.contains('open')
-      toggle.innerHTML = isOpen
-        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
-        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>'
-    })
-
-    // Close on link click
-    links.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        links.classList.remove('open')
-        toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>'
-      })
-    })
-  }
-
-
-  /* ── Scroll-reveal (IntersectionObserver) ── */
-  const revealElements = document.querySelectorAll('.reveal')
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target) // Only animate once
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -60px 0px',
-      }
-    )
-
-    revealElements.forEach(el => observer.observe(el))
-  } else {
-    // Fallback: show everything
-    revealElements.forEach(el => el.classList.add('visible'))
-  }
-
-
-  /* ── Smooth scroll for anchor links ── */
-  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href')
-      if (!href) return
-
-      // Only handle same-page anchors
-      const hashIndex = href.indexOf('#')
-      const hash = href.substring(hashIndex)
-      const pagePath = href.substring(0, hashIndex)
-
-      // If clicking from same page or no page path
-      if (!pagePath || pagePath === window.location.pathname.split('/').pop()) {
-        const target = document.querySelector(hash)
-        if (target) {
-          e.preventDefault()
-          const navHeight = nav ? nav.offsetHeight : 0
-          const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 20
-          window.scrollTo({ top, behavior: 'smooth' })
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
         }
-      }
-    })
-  })
+      });
+    },
+    {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px',
+    }
+  );
+
+  reveals.forEach((el) => observer.observe(el));
+}
 
 
-  /* ── Parallax blobs on mouse move ── */
-  const blobs = document.querySelectorAll('.hero-blob')
-  if (blobs.length > 0) {
-    document.addEventListener('mousemove', (e) => {
-      const cx = e.clientX / window.innerWidth - 0.5
-      const cy = e.clientY / window.innerHeight - 0.5
+// --- Nav Scroll Effect ---
+function initNavScroll() {
+  const nav = document.querySelector('.nav');
+  if (!nav) return;
 
-      blobs.forEach((blob, i) => {
-        const speed = (i + 1) * 15
-        const x = cx * speed
-        const y = cy * speed
-        blob.style.transform = `translate(${x}px, ${y}px)`
-      })
-    })
+  let ticking = false;
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        if (window.scrollY > 20) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
   }
 
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
 
-  /* ── Active nav link highlight ── */
-  function setActiveNav() {
-    const path = window.location.pathname.split('/').pop() || 'index.html'
-    const hash = window.location.hash
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.remove('active')
-      const href = link.getAttribute('href')
-      if (href === path || (path === '' && href === 'index.html')) {
-        link.classList.add('active')
-      }
-    })
-  }
+// --- Mobile Nav Toggle ---
+function initMobileNav() {
+  const toggle = document.querySelector('.nav__toggle');
+  const links = document.querySelector('.nav__links');
+  if (!toggle || !links) return;
 
-  setActiveNav()
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    links.classList.toggle('open');
+  });
 
-})()
+  // Close nav when a link is clicked
+  links.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      toggle.classList.remove('active');
+      links.classList.remove('open');
+    });
+  });
+}
+
+
+// --- Feature Card Mouse-Tracking Glow ---
+function initFeatureGlow() {
+  const cards = document.querySelectorAll('.feature-card');
+  if (!cards.length) return;
+
+  cards.forEach((card) => {
+    const glow = card.querySelector('.feature-card__glow');
+    if (!glow) return;
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      glow.style.background = `radial-gradient(
+        400px circle at ${x}px ${y}px,
+        rgba(217, 119, 6, 0.08),
+        transparent 60%
+      )`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      glow.style.background = '';
+    });
+  });
+}
+
+
+// --- Smooth Scroll for Anchor Links ---
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  });
+}
+
+
+// --- Initialize Everything ---
+document.addEventListener('DOMContentLoaded', () => {
+  initReveal();
+  initNavScroll();
+  initMobileNav();
+  initFeatureGlow();
+  initSmoothScroll();
+});
