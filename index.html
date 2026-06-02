@@ -13,7 +13,7 @@
 
   <!-- Navigation -->
   <nav class="nav">
-    <div class="nav-container">
+    <div class="nav-inner">
       <a href="/" class="nav-logo">
         <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
           <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGrad)" />
@@ -33,41 +33,31 @@
         <a href="/download.html" class="nav-link">Download</a>
         <a href="/changelog.html" class="nav-link">Changelog</a>
       </div>
-      <div class="nav-actions">
+      <div class="nav-cta">
         <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-link nav-link-subtle">Discord</a>
         <a href="/download.html" class="btn btn-primary btn-sm">Download</a>
       </div>
-      <button class="nav-mobile-toggle" aria-label="Toggle menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-    </div>
-    <div class="nav-mobile-menu">
-      <a href="/#features" class="nav-mobile-link">Features</a>
-      <a href="/pricing.html" class="nav-mobile-link">Pricing</a>
-      <a href="/download.html" class="nav-mobile-link">Download</a>
-      <a href="/changelog.html" class="nav-mobile-link">Changelog</a>
-      <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-mobile-link">Discord</a>
-      <a href="/download.html" class="btn btn-primary" style="margin-top: 0.5rem;">Download</a>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-container">
+    <div class="hero-inner">
       <div class="hero-content reveal">
-        <div class="badge">v1.6 Netherite — Now Available</div>
+        <div class="hero-badge"><span class="hero-badge-dot"></span>v1.6 Netherite — Now Available</div>
         <h1 class="hero-title">
           Your Minecraft launcher,<br>
           <span class="gradient-text">built different.</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-description">
           Manage instances, install mods, launch Bedrock, and let AI handle the rest. One launcher, zero hassle.
         </p>
-        <div class="hero-buttons">
+        <div class="hero-ctas">
           <a href="https://github.com/ContiSupplu/Cobble/releases/latest/download/Loom-Setup-1.6.3.exe" class="btn btn-primary btn-lg">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -86,9 +76,9 @@
   </section>
 
   <!-- Features Section -->
-  <section class="section" id="features">
+  <section class="section features" id="features">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="features-header reveal">
         <h2 class="section-title">Everything you need, nothing you don't.</h2>
         <p class="section-subtitle">Loom packs a full toolkit into one clean launcher.</p>
       </div>
@@ -103,8 +93,8 @@
               <rect x="14" y="14" width="7" height="7" rx="1"/>
             </svg>
           </div>
-          <h3>Smart Library</h3>
-          <p>Create and manage instances, mods, and versions from a single unified library.</p>
+          <h3 class="feature-title">Smart Library</h3>
+          <p class="feature-description">Create and manage instances, mods, and versions from a single unified library.</p>
         </div>
 
         <div class="feature-card reveal">
@@ -114,8 +104,8 @@
               <circle cx="12" cy="9" r="2"/>
             </svg>
           </div>
-          <h3>Loomie AI</h3>
-          <p>Your Gemini-powered companion. Get instant help with crashes, mod conflicts, and setup.</p>
+          <h3 class="feature-title">Loomie AI</h3>
+          <p class="feature-description">Your Gemini-powered companion. Get instant help with crashes, mod conflicts, and setup.</p>
         </div>
 
         <div class="feature-card reveal">
@@ -125,8 +115,8 @@
               <circle cx="8" cy="12" r="3"/>
             </svg>
           </div>
-          <h3>Dynamic Island</h3>
-          <p>An Apple-style HUD overlay that shows launch progress, download status, and game state.</p>
+          <h3 class="feature-title">Dynamic Island</h3>
+          <p class="feature-description">An Apple-style HUD overlay that shows launch progress, download status, and game state.</p>
         </div>
 
         <div class="feature-card reveal">
@@ -137,8 +127,8 @@
               <path d="M2 12l10 5 10-5"/>
             </svg>
           </div>
-          <h3>Built-in Mods</h3>
-          <p>Performance mods, recording, Spotify integration — all pre-installed and managed for you.</p>
+          <h3 class="feature-title">Built-in Mods</h3>
+          <p class="feature-description">Performance mods, recording, Spotify integration — all pre-installed and managed for you.</p>
         </div>
 
       </div>
@@ -146,9 +136,9 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="section section-cta">
+  <section class="section cta-section">
     <div class="container">
-      <div class="cta-card reveal">
+      <div class="cta-content reveal">
         <h2 class="section-title">Ready to play?</h2>
         <p class="section-subtitle">Download Loom and join the next generation of Minecraft launchers.</p>
         <a href="https://github.com/ContiSupplu/Cobble/releases/latest/download/Loom-Setup-1.6.3.exe" class="btn btn-primary btn-lg">
@@ -168,7 +158,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="/" class="nav-logo">
+          <a href="/" class="footer-brand-logo">
             <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
               <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGradF)" />
               <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>

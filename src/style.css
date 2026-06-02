@@ -117,6 +117,10 @@ button {
   padding: 0 24px;
 }
 
+.container-narrow {
+  max-width: 800px;
+}
+
 .section {
   padding: var(--section-py) 0;
   position: relative;
@@ -262,7 +266,20 @@ button {
 }
 
 .nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   flex-shrink: 0;
+}
+
+.nav-link-subtle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.nav-link-subtle:hover {
+  color: var(--text-primary);
 }
 
 /* Mobile Nav Toggle */
@@ -350,6 +367,27 @@ button {
   transform: translateY(0) scale(0.98);
 }
 
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.btn-outline:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
 .btn-sm {
   padding: 8px 20px;
   font-size: 0.85rem;
@@ -399,6 +437,9 @@ button {
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: center;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .hero-content {
@@ -1047,6 +1088,221 @@ button {
 
 
 /* ============================================================
+   PAGE HEADER (Sub-pages: pricing, download, changelog)
+   ============================================================ */
+.section-page-header {
+  padding-top: calc(var(--nav-height) + 40px);
+  padding-bottom: 0;
+}
+
+
+/* ============================================================
+   PRICING — ADDITIONAL CLASSES
+   ============================================================ */
+.pricing-card-featured {
+  border-color: transparent;
+  position: relative;
+  overflow: visible;
+}
+
+.pricing-card-featured::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-card);
+  padding: 1px;
+  background: var(--gradient-netherite);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.pricing-card-featured:hover {
+  box-shadow: 0 12px 40px rgba(217, 119, 6, 0.15), var(--shadow-card-hover);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  background: var(--gradient-netherite);
+  border-radius: var(--radius-badge);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pricing-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.pricing-amount {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pricing-period {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+
+/* ============================================================
+   DOWNLOAD — ADDITIONAL CLASSES
+   ============================================================ */
+.download-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.download-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  transition: var(--transition-base);
+}
+
+.download-info-card:hover {
+  border-color: var(--border-card-hover);
+}
+
+.download-info-card h3 {
+  font-size: 1rem;
+  font-weight: 650;
+  margin-bottom: 16px;
+}
+
+.download-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.download-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.download-list li svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--accent-amber);
+  margin-top: 3px;
+}
+
+.download-os-detect {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.download-link-sub {
+  margin-top: 16px;
+  font-size: 0.85rem;
+}
+
+.download-link-sub a {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.download-link-sub a:hover {
+  color: var(--text-primary);
+}
+
+
+/* ============================================================
+   FAQ SECTION
+   ============================================================ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.faq-item:hover {
+  border-color: var(--border-card-hover);
+}
+
+.faq-item[open] {
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question::marker {
+  display: none;
+  content: '';
+}
+
+.faq-chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--accent-amber);
+}
+
+.faq-answer {
+  padding: 0 24px 20px;
+}
+
+.faq-answer p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+
+/* ============================================================
    CHANGELOG PAGE
    ============================================================ */
 .changelog-header {
@@ -1260,7 +1516,8 @@ button {
     margin: 0 auto;
   }
 
-  .download-info {
+  .download-info,
+  .download-info-grid {
     grid-template-columns: 1fr;
     gap: 32px;
   }
