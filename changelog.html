@@ -1,258 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog — Loom Launcher</title>
-  <meta name="description" content="See what's new in every version of Loom Launcher." />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/src/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — Loom</title>
+  <meta name="description" content="Every Loom update, documented. See what's new in each release.">
+  <link rel="icon" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-  <!-- ===== Navigation ===== -->
+  <!-- Navigation -->
   <nav class="nav">
-    <div class="nav__inner">
-      <a href="/" class="nav__brand">
-        <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+          <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGrad)" />
+          <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30">
+              <stop stop-color="#d97706"/>
+              <stop offset="1" stop-color="#b91c1c"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <span>Loom</span>
       </a>
-      <div class="nav__links">
-        <a href="/" class="nav__link">Home</a>
-        <a href="/#features" class="nav__link">Features</a>
-        <a href="/changelog.html" class="nav__link">Changelog</a>
-        <a href="/download.html" class="nav__cta">Download</a>
+      <div class="nav-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/pricing.html" class="nav-link">Pricing</a>
+        <a href="/download.html" class="nav-link">Download</a>
+        <a href="/changelog.html" class="nav-link active">Changelog</a>
       </div>
-      <button class="nav__toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="nav-actions">
+        <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-link nav-link-subtle">Discord</a>
+        <a href="/download.html" class="btn btn-primary btn-sm">Download</a>
+      </div>
+      <button class="nav-mobile-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
       </button>
+    </div>
+    <div class="nav-mobile-menu">
+      <a href="/#features" class="nav-mobile-link">Features</a>
+      <a href="/pricing.html" class="nav-mobile-link">Pricing</a>
+      <a href="/download.html" class="nav-mobile-link">Download</a>
+      <a href="/changelog.html" class="nav-mobile-link">Changelog</a>
+      <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-mobile-link">Discord</a>
+      <a href="/download.html" class="btn btn-primary" style="margin-top: 0.5rem;">Download</a>
     </div>
   </nav>
 
-
-  <!-- ===== Changelog Hero ===== -->
-  <section class="changelog-hero">
-    <div class="container reveal">
-      <h1 class="changelog-hero__title">Changelog</h1>
-      <p class="changelog-hero__subtitle">Every improvement, feature, and fix across all releases.</p>
+  <!-- Changelog Header -->
+  <section class="section section-page-header">
+    <div class="container container-narrow">
+      <div class="section-header reveal">
+        <h1 class="section-title">Changelog</h1>
+        <p class="section-subtitle">Every update, documented.</p>
+      </div>
     </div>
   </section>
 
-
-  <!-- ===== Timeline ===== -->
-  <section class="section" style="padding-top: 0;">
-    <div class="container container--narrow">
-      <div class="timeline">
+  <!-- Changelog Timeline -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="changelog-timeline">
 
         <!-- v1.6 Netherite -->
-        <div class="timeline__item timeline__item--latest reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.6</h2>
-            <span class="timeline__codename">Netherite</span>
-            <span class="badge--latest">Latest</span>
-            <span class="timeline__date">June 1, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Quick Servers landing page with Coming Soon gate</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Cache & Skip model and atlas caching mod for faster load times</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Advanced settings panel with new performance toggles</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Improved mod auto-installer for Fabric loader</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Bedrock crossplay toggle for server instances</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Plugin browser with Modrinth integration</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>File manager for server instances</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Stability improvements and bug fixes</span>
-              </div>
+        <div class="changelog-entry latest reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <div class="changelog-header">
+              <h2>v1.6 "Netherite"</h2>
+              <div class="badge">Latest</div>
             </div>
+            <time class="changelog-date">June 1, 2026</time>
+            <ul class="changelog-list">
+              <li>Quick Servers landing page</li>
+              <li>Cache &amp; Skip performance mod</li>
+              <li>Advanced settings section</li>
+              <li>Async file operations for smoother UI</li>
+              <li>Bedrock crossplay toggle</li>
+              <li>Plugin browser with Modrinth integration</li>
+              <li>App icon and auto-update fixes</li>
+            </ul>
           </div>
         </div>
 
         <!-- v1.5 Obsidian -->
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.5</h2>
-            <span class="timeline__codename">Obsidian</span>
-            <span class="timeline__date">May 29, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Bedrock Edition support with direct launch integration</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Add-On browser for Bedrock resource and behavior packs</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Smart Downloads for optimized asset management</span>
-              </div>
-            </div>
+        <div class="changelog-entry reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <h2>v1.5 "Obsidian"</h2>
+            <time class="changelog-date">May 29, 2026</time>
+            <ul class="changelog-list">
+              <li>Bedrock Edition support</li>
+              <li>Add-On Browser</li>
+              <li>Smart Downloads</li>
+              <li>Privacy Mode</li>
+              <li>File sync across instances</li>
+            </ul>
           </div>
         </div>
 
         <!-- v1.4 Diamond -->
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.4</h2>
-            <span class="timeline__codename">Diamond</span>
-            <span class="timeline__date">May 28, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Gallery for managing screenshots and recordings</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Screen recording with configurable quality settings</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>One-click screenshots saved to organized library</span>
-              </div>
-            </div>
+        <div class="changelog-entry reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <h2>v1.4 "Diamond"</h2>
+            <time class="changelog-date">May 28, 2026</time>
+            <ul class="changelog-list">
+              <li>Gallery page with screenshots and recordings</li>
+              <li>In-game recording via FFmpeg</li>
+              <li>Clip editor</li>
+            </ul>
           </div>
         </div>
 
         <!-- v1.3 Redstone -->
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.3</h2>
-            <span class="timeline__codename">Redstone</span>
-            <span class="timeline__date">May 27, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Loomie AI assistant powered by Google Gemini</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Intelligent crash analysis and troubleshooting</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Context-aware setup and configuration guidance</span>
-              </div>
-            </div>
+        <div class="changelog-entry reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <h2>v1.3 "Redstone"</h2>
+            <time class="changelog-date">May 27, 2026</time>
+            <ul class="changelog-list">
+              <li>Loomie AI assistant</li>
+              <li>Multi-loader support</li>
+            </ul>
           </div>
         </div>
 
         <!-- v1.2 Gold -->
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.2</h2>
-            <span class="timeline__codename">Gold</span>
-            <span class="timeline__date">May 27, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Integrated mod browser with Modrinth and CurseForge support</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Player Lookup for viewing player profiles and skins</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>One-click mod installation from search results</span>
-              </div>
-            </div>
+        <div class="changelog-entry reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <h2>v1.2 "Gold"</h2>
+            <time class="changelog-date">May 27, 2026</time>
+            <ul class="changelog-list">
+              <li>Mod browser</li>
+              <li>Player Lookup</li>
+            </ul>
           </div>
         </div>
 
         <!-- v1.1 Iron -->
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.1</h2>
-            <span class="timeline__codename">Iron</span>
-            <span class="timeline__date">May 26, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Performance optimizations across the entire launcher</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Automatic JVM flag configuration for optimal gameplay</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Memory allocation tuning and garbage collection profiles</span>
-              </div>
-            </div>
+        <div class="changelog-entry reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <h2>v1.1 "Iron"</h2>
+            <time class="changelog-date">May 26, 2026</time>
+            <ul class="changelog-list">
+              <li>Performance optimizations</li>
+              <li>Crash detection</li>
+              <li>Discord Rich Presence</li>
+            </ul>
           </div>
         </div>
 
         <!-- v1.0 Cobblestone -->
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__header">
-            <h2 class="timeline__version">v1.0</h2>
-            <span class="timeline__codename">Cobblestone</span>
-            <span class="timeline__date">May 26, 2026</span>
-          </div>
-          <div class="timeline__card">
-            <div class="timeline__changes">
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Initial release of Loom Launcher</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Instance creation and management</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Microsoft account authentication</span>
-              </div>
-              <div class="timeline__change">
-                <svg class="timeline__change-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Dynamic Island status overlay</span>
-              </div>
-            </div>
+        <div class="changelog-entry reveal">
+          <div class="changelog-marker"></div>
+          <div class="changelog-content">
+            <h2>v1.0 "Cobblestone"</h2>
+            <time class="changelog-date">May 26, 2026</time>
+            <ul class="changelog-list">
+              <li>Initial release</li>
+            </ul>
           </div>
         </div>
 
@@ -260,49 +177,60 @@
     </div>
   </section>
 
-
-  <!-- ===== Footer ===== -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer__grid">
-        <div>
-          <a href="/" class="nav__brand">
-            <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo">
+            <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGradF)" />
+              <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="logoGradF" x1="2" y1="2" x2="30" y2="30">
+                  <stop stop-color="#d97706"/>
+                  <stop offset="1" stop-color="#b91c1c"/>
+                </linearGradient>
+              </defs>
+            </svg>
             <span>Loom</span>
           </a>
-          <p class="footer__brand-description">
-            A modern Minecraft launcher built for players who expect more. Manage, mod, and play — all in one place.
-          </p>
+          <p class="footer-description">A next-generation Minecraft launcher with AI, mods, and everything you need to play — built by _jackoboy.</p>
         </div>
-        <div>
-          <p class="footer__heading">Product</p>
-          <div class="footer__links">
-            <a href="/#features" class="footer__link">Features</a>
-            <a href="/download.html" class="footer__link">Download</a>
-            <a href="/changelog.html" class="footer__link">Changelog</a>
-          </div>
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/pricing.html">Pricing</a></li>
+            <li><a href="/download.html">Download</a></li>
+            <li><a href="/changelog.html">Changelog</a></li>
+          </ul>
         </div>
-        <div>
-          <p class="footer__heading">Resources</p>
-          <div class="footer__links">
-            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://github.com/ContiSupplu/Cobble/issues" class="footer__link" target="_blank" rel="noopener">Report a Bug</a>
-            <a href="https://github.com/ContiSupplu/Cobble/releases" class="footer__link" target="_blank" rel="noopener">Releases</a>
-          </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
         </div>
-        <div>
-          <p class="footer__heading">Community</p>
-          <div class="footer__links">
-            <a href="#" class="footer__link">Discord</a>
-            <a href="#" class="footer__link">Twitter</a>
-            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
-          </div>
+        <div class="footer-column">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="https://discord.gg/placeholder" target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://github.com/ContiSupplu/Cobble" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
         </div>
       </div>
-      <div class="footer__bottom">
-        <span>2026 Loom Launcher. All rights reserved.</span>
-        <span>Made for the Minecraft community.</span>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2026 Loom. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Refund Policy</a>
+        </div>
       </div>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
     </div>
   </footer>
 

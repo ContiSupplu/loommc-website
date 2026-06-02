@@ -1,187 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Download — Loom Launcher</title>
-  <meta name="description" content="Download the latest version of Loom Launcher for Windows." />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/src/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download — Loom</title>
+  <meta name="description" content="Download Loom for Windows. One installer, ready in seconds.">
+  <link rel="icon" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-  <!-- ===== Navigation ===== -->
+  <!-- Navigation -->
   <nav class="nav">
-    <div class="nav__inner">
-      <a href="/" class="nav__brand">
-        <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+          <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGrad)" />
+          <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30">
+              <stop stop-color="#d97706"/>
+              <stop offset="1" stop-color="#b91c1c"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <span>Loom</span>
       </a>
-      <div class="nav__links">
-        <a href="/" class="nav__link">Home</a>
-        <a href="/#features" class="nav__link">Features</a>
-        <a href="/changelog.html" class="nav__link">Changelog</a>
-        <a href="/download.html" class="nav__cta">Download</a>
+      <div class="nav-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/pricing.html" class="nav-link">Pricing</a>
+        <a href="/download.html" class="nav-link active">Download</a>
+        <a href="/changelog.html" class="nav-link">Changelog</a>
       </div>
-      <button class="nav__toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="nav-actions">
+        <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-link nav-link-subtle">Discord</a>
+        <a href="/download.html" class="btn btn-primary btn-sm">Download</a>
+      </div>
+      <button class="nav-mobile-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
       </button>
+    </div>
+    <div class="nav-mobile-menu">
+      <a href="/#features" class="nav-mobile-link">Features</a>
+      <a href="/pricing.html" class="nav-mobile-link">Pricing</a>
+      <a href="/download.html" class="nav-mobile-link">Download</a>
+      <a href="/changelog.html" class="nav-mobile-link">Changelog</a>
+      <a href="https://discord.gg/placeholder" target="_blank" rel="noopener" class="nav-mobile-link">Discord</a>
+      <a href="/download.html" class="btn btn-primary" style="margin-top: 0.5rem;">Download</a>
     </div>
   </nav>
 
-
-  <!-- ===== Download Hero ===== -->
-  <section class="download-hero">
-    <div class="container reveal">
-      <h1 class="download-hero__title">Download Loom</h1>
-      <p class="download-hero__subtitle">Get the latest version and start playing in under a minute.</p>
-    </div>
-  </section>
-
-
-  <!-- ===== Download Section ===== -->
-  <section class="download-section">
+  <!-- Download Hero -->
+  <section class="section section-page-header">
     <div class="container">
-
-      <!-- Download Card -->
       <div class="download-card reveal">
-        <div class="download-card__badge">
-          <span class="badge--latest">Latest</span>
-        </div>
-        <h2 class="download-card__version">v1.6.2</h2>
-        <p class="download-card__codename">Netherite</p>
-        <a href="https://github.com/ContiSupplu/Cobble/releases/latest/download/Loom-Setup-1.6.2.exe"
-           class="btn btn--primary download-card__btn">
-          Download for Windows
-          <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        <h1 class="section-title">Download Loom</h1>
+        <div class="badge" style="margin: 1rem auto;">v1.6.3 Netherite</div>
+        <p class="download-os-detect" id="os-detect">Detected: Windows</p>
+        <a href="https://github.com/ContiSupplu/Cobble/releases/latest/download/Loom-Setup-1.6.3.exe" class="btn btn-primary btn-lg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download for Windows (.exe)
         </a>
-        <p class="download-card__meta">Loom-Setup-1.6.2.exe &middot; Windows Installer</p>
+        <p class="download-link-sub">
+          <a href="https://github.com/ContiSupplu/Cobble/releases" target="_blank" rel="noopener">View all releases on GitHub</a>
+        </p>
       </div>
-
-      <!-- Requirements -->
-      <div class="requirements reveal">
-        <div class="requirements__card">
-          <h3 class="requirements__title">System Requirements</h3>
-          <div class="requirements__list">
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Windows 10 or later</span>
-            </div>
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>4 GB RAM minimum</span>
-            </div>
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>500 MB available disk space</span>
-            </div>
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Internet connection required</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="requirements__card">
-          <h3 class="requirements__title">What's Included</h3>
-          <div class="requirements__list">
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Loom Launcher application</span>
-            </div>
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Loomie AI assistant</span>
-            </div>
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Java and Bedrock support</span>
-            </div>
-            <div class="requirements__item">
-              <svg class="requirements__item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Automatic updates</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Installation Steps -->
-      <div class="install-steps reveal">
-        <h3 class="install-steps__title">Installation</h3>
-        <div class="install-step">
-          <div class="install-step__number">1</div>
-          <div class="install-step__content">
-            <h3>Download the installer</h3>
-            <p>Click the download button above to get the latest Loom setup file for Windows.</p>
-          </div>
-        </div>
-        <div class="install-step">
-          <div class="install-step__number">2</div>
-          <div class="install-step__content">
-            <h3>Run the setup</h3>
-            <p>Open the downloaded file and follow the installation wizard. Loom will install in seconds.</p>
-          </div>
-        </div>
-        <div class="install-step">
-          <div class="install-step__number">3</div>
-          <div class="install-step__content">
-            <h3>Sign in and play</h3>
-            <p>Launch Loom, sign in with your Microsoft account, and start playing Minecraft right away.</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
+  <!-- Info Columns -->
+  <section class="section">
+    <div class="container">
+      <div class="download-info-grid">
 
-  <!-- ===== Footer ===== -->
+        <div class="download-info-card reveal">
+          <h3>System Requirements</h3>
+          <ul class="download-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Windows 10 or later
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              4 GB RAM minimum
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              200 MB available disk space
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Java 17+ (bundled with installer)
+            </li>
+          </ul>
+        </div>
+
+        <div class="download-info-card reveal">
+          <h3>What's Included</h3>
+          <ul class="download-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Instance manager
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Mod browser
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Loomie AI
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Dynamic Island
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Performance mods
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Spotify integration
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Install Steps -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="section-header reveal">
+        <h2 class="section-title">Up and running in three steps</h2>
+      </div>
+      <div class="install-steps">
+
+        <div class="install-step reveal">
+          <div class="install-step-number">1</div>
+          <div class="install-step-content">
+            <h3>Download the installer</h3>
+            <p>Click the button above to get the latest version of Loom for Windows.</p>
+          </div>
+        </div>
+
+        <div class="install-step reveal">
+          <div class="install-step-number">2</div>
+          <div class="install-step-content">
+            <h3>Run Loom Setup and follow the wizard</h3>
+            <p>The installer will guide you through setup. It only takes a few seconds.</p>
+          </div>
+        </div>
+
+        <div class="install-step reveal">
+          <div class="install-step-number">3</div>
+          <div class="install-step-content">
+            <h3>Sign in with Microsoft and start playing</h3>
+            <p>Authenticate with your Microsoft account and launch Minecraft instantly.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer__grid">
-        <div>
-          <a href="/" class="nav__brand">
-            <img src="/loom-icon.png" alt="Loom" class="nav__logo" />
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo">
+            <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#logoGradF)" />
+              <path d="M10 16L14 20L22 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="logoGradF" x1="2" y1="2" x2="30" y2="30">
+                  <stop stop-color="#d97706"/>
+                  <stop offset="1" stop-color="#b91c1c"/>
+                </linearGradient>
+              </defs>
+            </svg>
             <span>Loom</span>
           </a>
-          <p class="footer__brand-description">
-            A modern Minecraft launcher built for players who expect more. Manage, mod, and play — all in one place.
-          </p>
+          <p class="footer-description">A next-generation Minecraft launcher with AI, mods, and everything you need to play — built by _jackoboy.</p>
         </div>
-        <div>
-          <p class="footer__heading">Product</p>
-          <div class="footer__links">
-            <a href="/#features" class="footer__link">Features</a>
-            <a href="/download.html" class="footer__link">Download</a>
-            <a href="/changelog.html" class="footer__link">Changelog</a>
-          </div>
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/pricing.html">Pricing</a></li>
+            <li><a href="/download.html">Download</a></li>
+            <li><a href="/changelog.html">Changelog</a></li>
+          </ul>
         </div>
-        <div>
-          <p class="footer__heading">Resources</p>
-          <div class="footer__links">
-            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://github.com/ContiSupplu/Cobble/issues" class="footer__link" target="_blank" rel="noopener">Report a Bug</a>
-            <a href="https://github.com/ContiSupplu/Cobble/releases" class="footer__link" target="_blank" rel="noopener">Releases</a>
-          </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
         </div>
-        <div>
-          <p class="footer__heading">Community</p>
-          <div class="footer__links">
-            <a href="#" class="footer__link">Discord</a>
-            <a href="#" class="footer__link">Twitter</a>
-            <a href="https://github.com/ContiSupplu/Cobble" class="footer__link" target="_blank" rel="noopener">GitHub</a>
-          </div>
+        <div class="footer-column">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="https://discord.gg/placeholder" target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://github.com/ContiSupplu/Cobble" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
         </div>
       </div>
-      <div class="footer__bottom">
-        <span>2026 Loom Launcher. All rights reserved.</span>
-        <span>Made for the Minecraft community.</span>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2026 Loom. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Refund Policy</a>
+        </div>
       </div>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
     </div>
   </footer>
 
