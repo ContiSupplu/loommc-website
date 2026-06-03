@@ -53,136 +53,87 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* Page */
 .contact-page {
-  max-width: 720px;
+  max-width: 560px;
   margin: 0 auto;
-  padding: calc(56px + 64px) 24px 80px;
+  padding: calc(56px + 80px) 24px 96px;
 }
 
 .contact-page h1 {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .contact-sub {
-  font-size: 1rem;
-  color: #A9A5B8;
-  margin-bottom: 48px;
-  max-width: 480px;
+  font-size: 0.9375rem;
+  color: #6E6A7E;
+  margin-bottom: 40px;
 }
 
 .channels {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(139, 111, 232, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .channel {
-  background: #151320;
-  border: 1px solid rgba(139, 111, 232, 0.1);
-  border-radius: 12px;
-  padding: 28px 32px;
-  transition: border-color 0.2s, transform 0.15s;
-}
-.channel:hover {
-  border-color: rgba(139, 111, 232, 0.25);
-  transform: translateY(-2px);
-}
-
-.channel-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(139, 111, 232, 0.06);
+  transition: background 0.15s;
 }
+.channel:last-child { border-bottom: none; }
+.channel:hover { background: rgba(139, 111, 232, 0.04); }
 
-.channel-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.channel-icon svg {
-  width: 20px;
-  height: 20px;
-}
-.channel-icon.support {
-  background: rgba(59, 130, 246, 0.12);
-  color: #60a5fa;
-}
-.channel-icon.general {
-  background: rgba(139, 111, 232, 0.12);
-  color: #CBBCF9;
-}
-.channel-icon.partners {
-  background: rgba(16, 185, 129, 0.12);
-  color: #34d399;
-}
-
-.channel-label {
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #6E6A7E;
-  margin-bottom: 2px;
+.channel-info {
+  min-width: 0;
 }
 
 .channel-name {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.15rem;
+  font-size: 0.9375rem;
   font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .channel-desc {
-  font-size: 0.9375rem;
-  color: #A9A5B8;
-  line-height: 1.6;
-  margin-bottom: 16px;
+  font-size: 0.8125rem;
+  color: #6E6A7E;
+  line-height: 1.5;
 }
 
 .channel-email {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: #CBBCF9;
-  padding: 8px 16px;
-  background: rgba(139, 111, 232, 0.08);
-  border: 1px solid rgba(139, 111, 232, 0.15);
-  border-radius: 8px;
-  transition: background 0.15s, border-color 0.15s;
-}
-.channel-email:hover {
-  background: rgba(139, 111, 232, 0.15);
-  border-color: rgba(139, 111, 232, 0.3);
-}
-.channel-email svg {
-  width: 14px;
-  height: 14px;
+  white-space: nowrap;
   flex-shrink: 0;
+  transition: color 0.15s;
 }
+.channel-email:hover { color: #F0EEF6; }
 
 .response-note {
-  margin-top: 48px;
-  padding: 20px 24px;
-  background: rgba(139, 111, 232, 0.05);
-  border-left: 3px solid rgba(139, 111, 232, 0.3);
-  border-radius: 0 8px 8px 0;
-  font-size: 0.875rem;
-  color: #A9A5B8;
-  line-height: 1.65;
+  margin-top: 32px;
+  font-size: 0.8125rem;
+  color: #6E6A7E;
+  line-height: 1.6;
 }
-.response-note strong {
-  color: #F0EEF6;
+
+@media (max-width: 540px) {
+  .channel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
 
 /* Footer */
@@ -204,10 +155,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .footer-cols { flex-wrap: wrap; gap: 24px 48px; }
   .footer-bottom { flex-direction: column; gap: 8px; }
   .footer-disclaimer { text-align: left; }
-}
-@media (max-width: 480px) {
-  .contact-page h1 { font-size: 1.75rem; }
-  .channel { padding: 20px; }
 }
 </style>
 </head>
@@ -257,70 +204,34 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 </aside>
 
 <main class="contact-page">
-  <h1>Get in touch</h1>
-  <p class="contact-sub">Pick the right inbox and we'll get back to you as fast as we can.</p>
+  <h1>Contact</h1>
+  <p class="contact-sub">Route your message to the right place.</p>
 
   <div class="channels">
-
-    <!-- Support -->
     <div class="channel">
-      <div class="channel-header">
-        <div class="channel-icon support">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div>
-          <p class="channel-label">Support</p>
-          <p class="channel-name">Bug reports & help</p>
-        </div>
+      <div class="channel-info">
+        <p class="channel-name">Support</p>
+        <p class="channel-desc">Bugs, crashes, and setup help</p>
       </div>
-      <p class="channel-desc">Something broken? Crash you can't fix? Need help setting up? This is the fastest way to get a fix.</p>
-      <a href="mailto:support@loommc.com" class="channel-email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        support@loommc.com
-      </a>
+      <a href="mailto:support@loommc.com" class="channel-email">support@loommc.com</a>
     </div>
-
-    <!-- General -->
     <div class="channel">
-      <div class="channel-header">
-        <div class="channel-icon general">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        <div>
-          <p class="channel-label">General</p>
-          <p class="channel-name">Questions & feedback</p>
-        </div>
+      <div class="channel-info">
+        <p class="channel-name">General</p>
+        <p class="channel-desc">Questions, feedback, and feature ideas</p>
       </div>
-      <p class="channel-desc">Feature suggestions, general questions, or just want to say hi. We read everything.</p>
-      <a href="mailto:hello@loommc.com" class="channel-email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        hello@loommc.com
-      </a>
+      <a href="mailto:hello@loommc.com" class="channel-email">hello@loommc.com</a>
     </div>
-
-    <!-- Partners -->
     <div class="channel">
-      <div class="channel-header">
-        <div class="channel-icon partners">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div>
-          <p class="channel-label">Partnerships</p>
-          <p class="channel-name">Collabs & business</p>
-        </div>
+      <div class="channel-info">
+        <p class="channel-name">Partnerships</p>
+        <p class="channel-desc">Creators, server networks, and business</p>
       </div>
-      <p class="channel-desc">Content creator? Server network? Mod developer? Let's work together.</p>
-      <a href="mailto:partners@loommc.com" class="channel-email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        partners@loommc.com
-      </a>
+      <a href="mailto:partners@loommc.com" class="channel-email">partners@loommc.com</a>
     </div>
-
   </div>
 
-  <div class="response-note">
-    <strong>Response times.</strong> We're a small team, so expect a reply within 24–48 hours. For urgent crash issues, include your crash log — Loomie can usually fix it faster than we can.
-  </div>
+  <p class="response-note">We typically reply within 24–48 hours. For crash issues, try Loomie first — it's usually faster.</p>
 </main>
 
 <footer class="footer">
