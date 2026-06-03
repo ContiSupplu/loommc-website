@@ -8,6 +8,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         docs: resolve(__dirname, 'docs.html'),
         quickservers: resolve(__dirname, 'quick-servers.html'),
+        release: resolve(__dirname, 'release.html'),
       },
     },
   },

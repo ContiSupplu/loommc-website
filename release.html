@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loom v1.6.4 — Netherite Update</title>
+<meta name="description" content="Loom v1.6.4 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
+<link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --surface-0: #0D0B14;
+  --surface-1: #151320;
+  --surface-2: #1E1B2D;
+  --text-0: #F0EEF6;
+  --text-1: #A9A5B8;
+  --text-2: #6E6A7E;
+  --brand: #8B6FE8;
+  --brand-dim: #6D50C7;
+  --brand-light: #CBBCF9;
+  --border: rgba(139, 111, 232, 0.1);
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
+  --max-w: 720px;
+  --nav-h: 56px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-0);
+  color: var(--text-0);
+  line-height: 1.6;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: rgba(139, 111, 232, 0.3); }
+
+/* Nav */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: var(--nav-h);
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 24px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.15rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo img { border-radius: 4px; }
+.nav-back {
+  margin-left: auto;
+  font-size: 0.875rem; font-weight: 500;
+  color: var(--text-1);
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--brand-light); }
+
+/* Page */
+.release {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 64px) 24px 80px;
+}
+
+.release-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--brand);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.release h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.release h1 em {
+  font-style: normal;
+  color: var(--brand);
+}
+
+.release-date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  margin-bottom: 40px;
+}
+
+.release-section {
+  margin-bottom: 40px;
+}
+.release-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  color: var(--text-0);
+}
+
+.release-list {
+  list-style: none;
+}
+.release-list li {
+  position: relative;
+  padding: 10px 0 10px 28px;
+  font-size: 0.9375rem;
+  color: var(--text-1);
+  line-height: 1.6;
+  border-bottom: 1px solid var(--border);
+}
+.release-list li:last-child { border-bottom: none; }
+.release-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 15px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+.release-list li strong {
+  color: var(--text-0);
+  font-weight: 600;
+}
+.release-list li .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.tag-new {
+  color: #34D399; background: rgba(52, 211, 153, 0.1);
+}
+.tag-improved {
+  color: var(--brand-light); background: rgba(139, 111, 232, 0.1);
+}
+.tag-fix {
+  color: #F59E0B; background: rgba(245, 158, 11, 0.1);
+}
+
+.release-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 14px 36px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: var(--r-md);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.3s;
+  margin-top: 8px;
+}
+.release-dl:hover {
+  background: var(--brand-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
+}
+.release-dl svg { width: 18px; height: 18px; }
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.footer p {
+  font-size: 0.8125rem;
+  color: var(--text-2);
+}
+
+@media (max-width: 480px) {
+  .release h1 { font-size: 1.75rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/loom-icon.png" alt="" width="24" height="24">
+    Loom
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<main class="release">
+  <span class="release-tag">LATEST RELEASE</span>
+  <h1>Loom v1.6.4 — <em>Netherite</em></h1>
+  <p class="release-date">June 2, 2026</p>
+
+  <div class="release-section">
+    <h2>What's New</h2>
+    <ul class="release-list">
+      <li>
+        <strong>Improved AI Fixes</strong> — Loomie now retries on overloaded models and automatically falls back to a secondary model so you never get stuck.
+        <span class="tag tag-improved">Improved</span>
+      </li>
+      <li>
+        <strong>Smarter Crash Diagnosis</strong> — Loomie recognizes 13+ crash patterns including Mixin conflicts, missing dependencies, duplicate mods, and out-of-memory errors.
+        <span class="tag tag-new">New</span>
+      </li>
+      <li>
+        <strong>Bedrock Edition</strong> — Play Bedrock from the same launcher. Browse worlds, install addons from MCPEDL and CurseForge, block Marketplace ads.
+        <span class="tag tag-new">New</span>
+      </li>
+      <li>
+        <strong>Dynamic Island</strong> — See downloads, Spotify playback, and crash alerts in a floating bar — even while in-game.
+        <span class="tag tag-new">New</span>
+      </li>
+      <li>
+        <strong>In-Game Loomie</strong> — Talk to Loomie while playing via the Fabric mod overlay. Ask questions, get help, without leaving the game.
+        <span class="tag tag-new">New</span>
+      </li>
+      <li>
+        <strong>Recording + Video Editor</strong> — Record gameplay, save replays from a rolling buffer, then trim, speed-ramp, add text, and merge clips.
+        <span class="tag tag-new">New</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="release-section">
+    <h2>Fixes & Improvements</h2>
+    <ul class="release-list">
+      <li>
+        <strong>Gemini API Resilience</strong> — 2 retries on 503/429 errors with automatic fallback from gemini-2.5-flash to gemini-2.0-flash.
+        <span class="tag tag-improved">Improved</span>
+      </li>
+      <li>
+        <strong>Performance Mod Conflicts</strong> — Loomie now automatically removes perf mods that conflict with modpack mods instead of the other way around.
+        <span class="tag tag-fix">Fix</span>
+      </li>
+      <li>
+        <strong>Mod Removal</strong> — The remove_mod tool now blacklists removed mods so the auto-installer doesn't re-add them.
+        <span class="tag tag-improved">Improved</span>
+      </li>
+      <li>
+        <strong>Bedrock Ad Blocker</strong> — Toggle in the browser toolbar to block Marketplace ads on MCPEDL and other addon sites.
+        <span class="tag tag-new">New</span>
+      </li>
+    </ul>
+  </div>
+
+  <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="release-dl">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download v1.6.4
+  </a>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2026 Loom · Not affiliated with Mojang or Microsoft.</p>
+</footer>
+
+</body>
+</html>
