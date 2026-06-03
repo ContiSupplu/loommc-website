@@ -86,6 +86,85 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   33% { transform: translate(30px, -20px) scale(1.05); }
   66% { transform: translate(-20px, 15px) scale(0.95); }
 }
+@keyframes particleDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+}
+
+/* ── Announcement Bar ── */
+.announce {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+.announce-slide {
+  position: absolute;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-1);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.announce-slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.announce-slide .ann-highlight {
+  color: var(--brand-light);
+  font-weight: 600;
+}
+.announce-slide .ann-new {
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--brand);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.announce-slide .ann-countdown {
+  color: var(--brand);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Floating Particles ── */
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--brand);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleDrift linear infinite;
+}
+
+@media (max-width: 640px) {
+  .announce { display: none; }
+}
 
 .stagger-1 { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
 .stagger-2 { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
@@ -636,6 +715,21 @@ a:focus-visible, button:focus-visible {
       <img src="/loom-icon.png" alt="" width="24" height="24" style="border-radius:4px">
       Loom
     </a>
+    <!-- Announcement Bar -->
+    <div class="announce" id="announceBar">
+      <div class="announce-slide active" data-ann="0">
+        <span class="ann-new">New</span>
+        Loom v1.6.4 is here! Introducing <span class="ann-highlight">Loomie AI</span> — crash diagnosis that actually works.
+      </div>
+      <div class="announce-slide" data-ann="1">
+        <span class="ann-new">Soon</span>
+        Quick Servers — host a Minecraft server in two clicks. <span class="ann-highlight">No port forwarding.</span>
+      </div>
+      <div class="announce-slide" data-ann="2">
+        Help us shape the future of Minecraft launchers. <span class="ann-highlight">Open Beta</span>
+      </div>
+    </div>
+
     <div class="nav-actions">
       <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="nav-dl">Download</a>
       <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
@@ -659,6 +753,9 @@ a:focus-visible, button:focus-visible {
     <a href="/quick-servers.html">Quick Servers</a>
   </nav>
 </aside>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles" aria-hidden="true"></div>
 
 <main>
   <!-- Hero -->
@@ -878,6 +975,36 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Announcement Bar Cycling ──
+(function() {
+  const slides = document.querySelectorAll('.announce-slide');
+  if (slides.length < 2) return;
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 4500);
+})();
+
+// ── Floating Particles ──
+(function() {
+  const container = document.getElementById('particles');
+  if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const COUNT = 25;
+  for (let i = 0; i < COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-4px';
+    p.style.animationDuration = (12 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    p.style.width = p.style.height = (1.5 + Math.random() * 2) + 'px';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+})();
 </script>
 </body>
 </html>
