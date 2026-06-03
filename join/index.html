@@ -266,9 +266,13 @@ h1 {
 (function() {
   var parts = window.location.pathname.split('/').filter(Boolean);
   if (parts.length < 3 || parts[0] !== 'join') {
-    document.getElementById('status-text').textContent = 'Invalid invite link.';
-    document.getElementById('status').className = 'status-bar error';
+    // No invite data — show friendly state (user browsed here directly)
+    document.getElementById('status-text').textContent = 'Paste an invite link to join a game';
+    document.getElementById('status').className = 'status-bar';
     document.querySelector('.status-dot').style.animation = 'none';
+    document.querySelector('.status-dot').style.opacity = '0.5';
+    document.getElementById('openBtn').style.display = 'none';
+    document.querySelector('.subtitle').textContent = 'Ask your friend to send you an invite link from Loom, then come back here.';
     return;
   }
 
