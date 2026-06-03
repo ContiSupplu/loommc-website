@@ -12,6 +12,7 @@
 <meta property="og:image" content="https://loommc.com/launcher-screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="canonical" href="https://loommc.com/">
 
 <style>
 @font-face { font-family: "Unbounded"; src: url("/fonts/Unbounded.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
@@ -212,6 +213,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-menu-btn {
   display: flex; align-items: center; justify-content: center;
   width: 36px; height: 36px;
+  min-width: 44px; min-height: 44px;
   border-radius: var(--r-sm);
   transition: background 0.15s;
 }
@@ -247,7 +249,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .panel-close {
   display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px;
+  width: 44px; height: 44px;
   border-radius: var(--r-sm);
   transition: background 0.15s;
 }
@@ -728,6 +730,44 @@ a:focus-visible, button:focus-visible {
   border-radius: 2px;
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Loom",
+      "url": "https://loommc.com",
+      "description": "Minecraft launcher with AI crash fixing, one-click mods, and multiplayer hosting.",
+      "publisher": { "@type": "Organization", "name": "Loom" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Loom Minecraft Launcher",
+      "url": "https://loommc.com",
+      "description": "Loom installs mods in one click, uses Gemini AI to fix crashes, and hosts multiplayer servers without port forwarding. Free, open source, Windows.",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Windows 10+",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "softwareVersion": "1.6.4",
+      "downloadUrl": "https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe",
+      "screenshot": "https://loommc.com/launcher-screenshot.png",
+      "author": { "@type": "Organization", "name": "Loom" }
+    },
+    {
+      "@type": "Organization",
+      "name": "Loom",
+      "url": "https://loommc.com",
+      "logo": "https://loommc.com/loom-icon.png",
+      "email": "hello@loommc.com",
+      "contactPoint": [
+        { "@type": "ContactPoint", "email": "support@loommc.com", "contactType": "customer support" },
+        { "@type": "ContactPoint", "email": "partners@loommc.com", "contactType": "business" }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

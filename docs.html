@@ -6,6 +6,15 @@
 <title>Docs — Loom Minecraft Launcher</title>
 <meta name="description" content="User guide for Loom — learn how to manage instances, install mods, use Loomie AI, set up Spotify, record gameplay, and more.">
 <link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="canonical" href="https://loommc.com/docs.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Docs — Loom Minecraft Launcher">
+<meta property="og:description" content="Installation, mod setup, crash troubleshooting, and FAQ for Loom.">
+<meta property="og:url" content="https://loommc.com/docs.html">
+<meta property="og:image" content="https://loommc.com/launcher-screenshot.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Docs — Loom Minecraft Launcher">
+<meta name="twitter:description" content="Installation, mod setup, crash troubleshooting, and FAQ for Loom.">
 
 <style>
 @font-face { font-family: "Unbounded"; src: url("/fonts/Unbounded.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
@@ -77,7 +86,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
 .nav-dl { font-size: 0.875rem; font-weight: 600; color: #F0EEF6; transition: color 0.2s; }
 .nav-dl:hover { color: #CBBCF9; }
-.nav-menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 6px; transition: background 0.15s; }
+.nav-menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; min-width: 44px; min-height: 44px; border-radius: 6px; transition: background 0.15s; }
 .nav-menu-btn:hover { background: #1E1B2D; }
 .nav-menu-btn svg { width: 20px; height: 20px; color: #A9A5B8; }
 
@@ -93,7 +102,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .panel.open { transform: translateX(0); }
 .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
 .panel-header span { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1rem; }
-.panel-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; transition: background 0.15s; }
+.panel-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 6px; transition: background 0.15s; }
 .panel-close:hover { background: #1E1B2D; }
 .panel-close svg { width: 18px; height: 18px; color: #A9A5B8; }
 .panel-links { padding: 8px 0; flex: 1; overflow-y: auto; }
@@ -318,6 +327,74 @@ a:focus-visible, button:focus-visible {
   border-radius: 2px;
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "Docs — Loom Minecraft Launcher",
+      "url": "https://loommc.com/docs.html",
+      "isPartOf": { "@type": "WebSite", "name": "Loom", "url": "https://loommc.com" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I install Loom?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Download the installer from the latest GitHub release, run Loom-Setup-1.6.4.exe, and follow the prompts. Loom opens automatically after installation." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install mods in Loom?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Select an instance, open the Mods tab, search for a mod by name (results come from Modrinth), and click Install. Loom picks the right version for your game version and loader automatically." }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if my game won't launch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Make sure you're signed in with a Microsoft account that owns Minecraft, check that the game version matches your mod loader version, try increasing RAM allocation (some modpacks need 6–8 GB), and check the game logs for specific errors." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are my mods not showing up?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Make sure you selected a mod loader (not Vanilla) when creating the instance, check that the mod is compatible with your game version and loader, and verify the files are in the mods folder using the instance file explorer." }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if Loomie AI is not responding?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Verify your Gemini API key is set in Settings > Connected Apps > Gemini, check your internet connection (Loomie needs to reach Google's API), and try starting a new chat from the Loomie sidebar." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I reset Loom to a clean state?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Go to Settings > About and use Replay Setup Wizard or Reset Customization. This does not delete your instances or mods." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where are my Loom files stored?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Instances can be found by right-clicking an instance and clicking Open Folder. Recordings are in the Gallery. Logs are available from the log viewer. Config is stored in %APPDATA%/loom." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Loomie AI do?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Loomie is Loom's built-in AI assistant powered by Gemini. It can diagnose crashes by reading logs and identifying broken mods, install mods, change settings, answer Minecraft questions, analyze your screen, and accept voice input." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Loom run Bedrock Edition?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Loom can detect, launch, and manage Minecraft Bedrock Edition alongside Java. Bedrock must be installed from the Microsoft Store. Features include world browsing, addon installation, pack browsing, ad blocking, and direct server connect." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I migrate from another launcher to Loom?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Loom supports migration from Prism Launcher, MultiMC, CurseForge, ATLauncher, Modrinth App, and the vanilla Minecraft launcher. Loom auto-detects installed launchers during setup and imports instances, worlds, mods, resource packs, and settings." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

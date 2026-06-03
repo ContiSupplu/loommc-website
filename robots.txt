@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /fonts/
+
+Sitemap: https://loommc.com/sitemap.xml
