@@ -30,10 +30,15 @@ body {
   border: 1px solid rgba(139, 111, 232, 0.15);
   border-radius: 16px;
   padding: 48px 40px;
-  max-width: 440px;
+  max-width: 460px;
   width: 100%;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+  animation: card-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px);
 }
+@keyframes card-enter { to { opacity: 1; transform: translateY(0); } }
+
 .icon {
   width: 64px;
   height: 64px;
@@ -51,8 +56,29 @@ h1 {
   color: #A9A5B8;
   font-size: 0.9375rem;
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(139, 111, 232, 0.08);
+  border: 1px solid rgba(139, 111, 232, 0.12);
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 0.8125rem;
+  color: #8B6FE8;
+}
+.status-bar.success { background: rgba(74, 222, 128, 0.08); border-color: rgba(74, 222, 128, 0.12); color: #4ADE80; }
+.status-bar.error { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.12); color: #E85D5D; }
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
 .open-btn {
   display: inline-flex;
   align-items: center;
@@ -77,13 +103,16 @@ h1 {
   box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
 }
 .open-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
 .divider {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 24px 0;
+  margin: 20px 0;
   color: #5A5670;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 .divider::before, .divider::after {
   content: '';
@@ -91,22 +120,100 @@ h1 {
   height: 1px;
   background: rgba(139, 111, 232, 0.12);
 }
-.download-link {
-  display: block;
-  color: #CBBCF9;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 0.2s;
+
+.connect-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #d97706, #b91c1c);
+  color: #fff;
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.3s;
+  text-decoration: none;
 }
-.download-link:hover { color: #F0EEF6; }
-.status {
-  margin-top: 20px;
-  font-size: 0.8125rem;
+.connect-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(217, 119, 6, 0.3);
+}
+.connect-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.btn-meta {
+  font-size: 0.75rem;
   color: #5A5670;
+  margin-top: 8px;
 }
-.status.trying { color: #8B6FE8; }
-.status.failed { color: #E85D5D; }
+
+.steps {
+  text-align: left;
+  margin-top: 24px;
+  border-top: 1px solid rgba(139, 111, 232, 0.08);
+  padding-top: 20px;
+}
+.steps-title {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5A5670;
+  margin-bottom: 12px;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: rgba(139, 111, 232, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #8B6FE8;
+  margin-top: 1px;
+}
+.step p {
+  font-size: 0.8125rem;
+  color: #A9A5B8;
+  line-height: 1.5;
+}
+.step code {
+  padding: 2px 6px;
+  background: rgba(139, 111, 232, 0.08);
+  border: 1px solid rgba(139, 111, 232, 0.12);
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Cascadia Code', monospace;
+  font-size: 0.75rem;
+  color: #CBBCF9;
+}
+.step strong { color: #F0EEF6; font-weight: 600; }
+
+.back-link {
+  display: block;
+  margin-top: 20px;
+  color: #5A5670;
+  font-size: 0.8125rem;
+  text-decoration: none;
+  transition: color 0.2s;
+  animation: card-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  opacity: 0;
+}
+.back-link:hover { color: #A9A5B8; }
+
 @media (max-width: 480px) {
+  body { padding: 20px; }
   .card { padding: 32px 24px; }
   h1 { font-size: 1.25rem; }
 }
@@ -116,56 +223,79 @@ h1 {
 <div class="card">
   <img src="/loom-icon.png" alt="Loom" class="icon">
   <h1>Join Multiplayer Game</h1>
-  <p class="subtitle">Someone invited you to play Minecraft together. Click below to open Loom and connect.</p>
-  
+  <p class="subtitle">Your friend invited you to play Minecraft together.</p>
+
+  <div class="status-bar" id="status">
+    <span class="status-dot"></span>
+    <span id="status-text">Opening Loom...</span>
+  </div>
+
   <a id="openBtn" class="open-btn" href="#">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
     Open in Loom
   </a>
 
-  <p id="status" class="status"></p>
-  
-  <div class="divider">or</div>
-  
-  <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="download-link">
-    Don't have Loom? Download it free →
+  <div class="divider">don't have Loom?</div>
+
+  <a href="https://github.com/Loom-Minecraft/Loom/releases/latest/download/LoomConnect-v1.0.0-win64.zip" class="connect-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Loom Connect
   </a>
+  <p class="btn-meta">No launcher needed · 17 MB · Windows</p>
+
+  <div class="steps">
+    <div class="steps-title">How to join without Loom</div>
+    <div class="step">
+      <span class="step-num">1</span>
+      <p>Download and unzip <strong>Loom Connect</strong></p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <p>Run <code>loom-connect.exe</code> — it reads the invite from your clipboard</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <p>Open Minecraft → <strong>Multiplayer</strong> → <strong>Add Server</strong> → <code>localhost:25566</code></p>
+    </div>
+  </div>
 </div>
+
+<a href="/" class="back-link">← loommc.com</a>
 
 <script>
 (function() {
-  // Parse room ID and token from URL path: /join/<roomId>/<token>
-  const parts = window.location.pathname.split('/').filter(Boolean);
-  // Expected: ['join', '<roomId>', '<token>']
+  var parts = window.location.pathname.split('/').filter(Boolean);
   if (parts.length < 3 || parts[0] !== 'join') {
-    document.getElementById('status').textContent = 'Invalid invite link.';
-    document.getElementById('status').className = 'status failed';
+    document.getElementById('status-text').textContent = 'Invalid invite link.';
+    document.getElementById('status').className = 'status-bar error';
+    document.querySelector('.status-dot').style.animation = 'none';
     return;
   }
 
-  const roomId = parts[1];
-  const token = parts[2];
-  const deepLink = 'loom://join/' + roomId + '/' + token;
+  var roomId = parts[1];
+  var token = parts[2];
+  var deepLink = 'loom://join/' + roomId + '/' + token;
+  var webUrl = window.location.href;
 
-  // Set button href
   document.getElementById('openBtn').href = deepLink;
 
-  // Try to auto-open the deep link
-  var status = document.getElementById('status');
-  status.textContent = 'Trying to open Loom...';
-  status.className = 'status trying';
+  // Copy invite URL to clipboard for Loom Connect
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(webUrl).catch(function() {});
+  }
 
-  // Attempt deep link via hidden iframe
+  // Try to auto-open the deep link
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
   iframe.src = deepLink;
   document.body.appendChild(iframe);
 
-  // After 2 seconds, if still here, show manual instruction
   setTimeout(function() {
-    status.textContent = 'If Loom didn\'t open, click the button above.';
-    status.className = 'status';
-    document.body.removeChild(iframe);
+    document.getElementById('status-text').textContent = 'Invite link copied to clipboard ✓';
+    document.getElementById('status').className = 'status-bar success';
+    document.querySelector('.status-dot').style.animation = 'none';
+    document.querySelector('.status-dot').style.opacity = '1';
+    try { document.body.removeChild(iframe); } catch(e) {}
   }, 2500);
 })();
 </script>
