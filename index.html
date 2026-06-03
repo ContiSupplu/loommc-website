@@ -453,77 +453,77 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* ── Coming Up ── */
 .coming-up {
-  padding-top: var(--sp-48);
-  padding-bottom: var(--sp-128);
+  position: relative;
+  padding: 96px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(139, 111, 232, 0.08) 0%, transparent 70%);
+  overflow: hidden;
+}
+.coming-up::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 500px; height: 500px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(139, 111, 232, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.coming-up .contain {
+  position: relative;
+  z-index: 1;
+  text-align: center;
 }
 .coming-up-label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--sp-32);
-  text-align: center;
-}
-.coming-up-card {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: var(--sp-32) var(--sp-40);
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s, transform 0.2s;
-}
-.coming-up-card:hover {
-  border-color: rgba(139, 111, 232, 0.3);
-  transform: translateY(-2px);
-}
-.coming-up-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--brand), var(--brand-light));
-}
-.coming-up-card .tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--brand);
-  background: rgba(139, 111, 232, 0.1);
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-bottom: var(--sp-12);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
 }
-.coming-up-card h3 {
+.coming-up h3 {
   font-family: var(--font-display);
-  font-size: var(--text-h2);
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--sp-8);
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  line-height: 1.1;
 }
-.coming-up-card p {
-  font-size: var(--text-body);
+.coming-up h3 span {
+  background: linear-gradient(135deg, #F0EEF6, #CBBCF9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.coming-up-desc {
+  font-size: 1.0625rem;
   color: var(--text-1);
   line-height: 1.7;
-  margin-bottom: var(--sp-24);
+  max-width: 480px;
+  margin: 0 auto 32px;
 }
-.coming-up-card .learn-link {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  font-weight: 600;
-  color: var(--brand-light);
+.coming-up-cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: gap 0.2s;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--brand);
+  padding: 12px 28px;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 24px rgba(139, 111, 232, 0.2);
 }
-.coming-up-card .learn-link:hover { gap: 10px; }
-.coming-up-card .learn-link svg { width: 14px; height: 14px; }
+.coming-up-cta:hover {
+  background: #7B5FD8;
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(139, 111, 232, 0.35);
+}
+.coming-up-cta svg { width: 16px; height: 16px; }
 
 /* ── More Features Grid ── */
 .more {
@@ -845,15 +845,12 @@ a:focus-visible, button:focus-visible {
   <!-- Coming Up -->
   <section class="coming-up">
     <div class="contain">
-      <p class="coming-up-label reveal">Coming up</p>
-      <a href="/quick-servers.html" class="coming-up-card reveal" style="display:block">
-        <span class="tag">Coming soon</span>
-        <h3>Quick Servers</h3>
-        <p>Host a Minecraft server in two clicks. No port forwarding, no queues. Pick your game mode, choose a plan, and share the link — friends join instantly.</p>
-        <span class="learn-link">
-          Learn more
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </span>
+      <p class="coming-up-label reveal">Coming Soon</p>
+      <h3 class="reveal"><span>Quick Servers</span></h3>
+      <p class="coming-up-desc reveal">Host a Minecraft server in two clicks. No port forwarding, no queues. Pick your game mode, share the link — friends join instantly.</p>
+      <a href="/quick-servers.html" class="coming-up-cta reveal">
+        Learn more
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </div>
   </section>
