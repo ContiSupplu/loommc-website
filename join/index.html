@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Game — Loom</title>
+<meta name="description" content="Join a Minecraft multiplayer session via Loom's P2P system.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/loom-icon.png">
+<style>
+@font-face { font-family: "Unbounded"; src: url("/fonts/Unbounded.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("/fonts/Geist.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0D0B14;
+  color: #F0EEF6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px;
+}
+.card {
+  background: #141220;
+  border: 1px solid rgba(139, 111, 232, 0.15);
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+}
+.icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  border-radius: 12px;
+}
+h1 {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  color: #A9A5B8;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.open-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  background: #8B6FE8;
+  color: #fff;
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.3s;
+  text-decoration: none;
+}
+.open-btn:hover {
+  background: #7B5FD8;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
+}
+.open-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  color: #5A5670;
+  font-size: 0.8125rem;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(139, 111, 232, 0.12);
+}
+.download-link {
+  display: block;
+  color: #CBBCF9;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.download-link:hover { color: #F0EEF6; }
+.status {
+  margin-top: 20px;
+  font-size: 0.8125rem;
+  color: #5A5670;
+}
+.status.trying { color: #8B6FE8; }
+.status.failed { color: #E85D5D; }
+@media (max-width: 480px) {
+  .card { padding: 32px 24px; }
+  h1 { font-size: 1.25rem; }
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="/loom-icon.png" alt="Loom" class="icon">
+  <h1>Join Multiplayer Game</h1>
+  <p class="subtitle">Someone invited you to play Minecraft together. Click below to open Loom and connect.</p>
+  
+  <a id="openBtn" class="open-btn" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+    Open in Loom
+  </a>
+
+  <p id="status" class="status"></p>
+  
+  <div class="divider">or</div>
+  
+  <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="download-link">
+    Don't have Loom? Download it free →
+  </a>
+</div>
+
+<script>
+(function() {
+  // Parse room ID and token from URL path: /join/<roomId>/<token>
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  // Expected: ['join', '<roomId>', '<token>']
+  if (parts.length < 3 || parts[0] !== 'join') {
+    document.getElementById('status').textContent = 'Invalid invite link.';
+    document.getElementById('status').className = 'status failed';
+    return;
+  }
+
+  const roomId = parts[1];
+  const token = parts[2];
+  const deepLink = 'loom://join/' + roomId + '/' + token;
+
+  // Set button href
+  document.getElementById('openBtn').href = deepLink;
+
+  // Try to auto-open the deep link
+  var status = document.getElementById('status');
+  status.textContent = 'Trying to open Loom...';
+  status.className = 'status trying';
+
+  // Attempt deep link via hidden iframe
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.src = deepLink;
+  document.body.appendChild(iframe);
+
+  // After 2 seconds, if still here, show manual instruction
+  setTimeout(function() {
+    status.textContent = 'If Loom didn\'t open, click the button above.';
+    status.className = 'status';
+    document.body.removeChild(iframe);
+  }, 2500);
+})();
+</script>
+</body>
+</html>
