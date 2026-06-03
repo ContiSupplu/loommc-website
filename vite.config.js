@@ -7,9 +7,11 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         docs: resolve(__dirname, 'docs.html'),
+        features: resolve(__dirname, 'features.html'),
         quickservers: resolve(__dirname, 'quick-servers.html'),
         release: resolve(__dirname, 'release.html'),
-        changelog: resolve(__dirname, 'changelog.html'),
+        privacy: resolve(__dirname, 'privacy.html'),
+        terms: resolve(__dirname, 'terms.html'),
       },
     },
   },

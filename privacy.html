@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Loom Minecraft Launcher</title>
+<meta name="description" content="Learn how Loom handles your data. We store everything locally, send only what you choose to third-party services, and give you full control.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy Policy — Loom">
+<meta property="og:url" content="https://loommc.com/privacy.html">
+<link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  --surface-0: #0D0B14;
+  --surface-1: #151320;
+  --surface-2: #1E1B2D;
+  --text-0: #F0EEF6;
+  --text-1: #A9A5B8;
+  --text-2: #6E6A7E;
+  --brand: #8B6FE8;
+  --brand-dim: #6D50C7;
+  --brand-light: #CBBCF9;
+  --border: rgba(139, 111, 232, 0.1);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-display: clamp(2rem, 4vw, 3rem);
+  --text-h2: clamp(1.25rem, 2vw, 1.5rem);
+  --text-h3: 1.125rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.8125rem;
+
+  --sp-4: 4px; --sp-8: 8px; --sp-12: 12px; --sp-16: 16px;
+  --sp-24: 24px; --sp-32: 32px; --sp-40: 40px; --sp-48: 48px;
+  --sp-64: 64px; --sp-80: 80px; --sp-96: 96px; --sp-128: 128px;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
+  --max-w: 800px;
+  --nav-h: 56px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-0);
+  color: var(--text-0);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+::selection { background: rgba(139, 111, 232, 0.3); }
+
+.contain {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--sp-24);
+  padding-right: var(--sp-24);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes particleDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+}
+
+.stagger-1 { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+.stagger-2 { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
+
+/* ── Floating Particles ── */
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--brand);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleDrift linear infinite;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: var(--nav-h);
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--border);
+}
+.nav .contain {
+  max-width: 1040px;
+  display: flex; align-items: center; height: 100%;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.15rem;
+  display: flex; align-items: center; gap: var(--sp-8);
+}
+.nav-logo img { flex-shrink: 0; }
+.nav-back {
+  margin-left: auto;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--text-1);
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--brand-light); }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Legal Page Layout ── */
+.legal-hero {
+  padding-top: calc(var(--nav-h) + var(--sp-80));
+  padding-bottom: var(--sp-48);
+  position: relative;
+}
+.legal-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(139, 111, 232, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.legal-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand-light);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--sp-16);
+  background: rgba(139, 111, 232, 0.08);
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 111, 232, 0.15);
+}
+.legal-hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: var(--sp-12);
+}
+.legal-hero h1 em {
+  font-style: normal;
+  color: var(--brand);
+}
+.legal-updated {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+
+/* ── Table of Contents ── */
+.toc {
+  margin-bottom: var(--sp-48);
+  padding: var(--sp-24) var(--sp-32);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.toc-title {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-12);
+}
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+}
+.toc ol li {
+  counter-increment: toc;
+}
+.toc ol li a {
+  display: block;
+  padding: 6px 0;
+  font-size: var(--text-small);
+  color: var(--text-1);
+  transition: color 0.2s, padding-left 0.2s;
+}
+.toc ol li a::before {
+  content: counter(toc, decimal-leading-zero) ".";
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--brand);
+  margin-right: 10px;
+}
+.toc ol li a:hover {
+  color: var(--text-0);
+  padding-left: 4px;
+}
+
+/* ── Content Sections ── */
+.legal-content {
+  padding-bottom: var(--sp-96);
+}
+.legal-section {
+  margin-bottom: var(--sp-48);
+  scroll-margin-top: calc(var(--nav-h) + var(--sp-24));
+}
+.legal-section h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-0);
+  margin-bottom: var(--sp-16);
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+}
+.legal-section h2 .section-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand);
+  background: rgba(139, 111, 232, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.legal-section h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--text-0);
+  margin-top: var(--sp-24);
+  margin-bottom: var(--sp-8);
+}
+.legal-section p {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.8;
+  margin-bottom: var(--sp-16);
+}
+.legal-section ul {
+  list-style: none;
+  margin-bottom: var(--sp-16);
+  padding-left: var(--sp-4);
+}
+.legal-section ul li {
+  position: relative;
+  padding-left: 20px;
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  margin-bottom: var(--sp-8);
+}
+.legal-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 11px;
+  width: 6px; height: 6px;
+  background: var(--brand);
+  border-radius: 50%;
+}
+.legal-section strong {
+  color: var(--text-0);
+  font-weight: 600;
+}
+.legal-section a {
+  color: var(--brand-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(203, 188, 249, 0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s;
+}
+.legal-section a:hover {
+  text-decoration-color: var(--brand-light);
+}
+
+/* ── Callout Boxes ── */
+.callout {
+  padding: var(--sp-16) var(--sp-24);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-16);
+  border-left: 3px solid var(--brand);
+}
+.callout p {
+  margin-bottom: 0;
+  font-size: var(--text-small);
+}
+.callout-green {
+  border-left-color: #34D399;
+}
+.callout-green p { color: #A7F3D0; }
+.callout-amber {
+  border-left-color: #FBBF24;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-48);
+  padding-bottom: var(--sp-32);
+}
+.footer .contain {
+  max-width: 1040px;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--sp-16);
+}
+.footer-copy {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+.footer-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+  max-width: 480px;
+  text-align: right;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  gap: var(--sp-24);
+  margin-bottom: var(--sp-24);
+}
+.footer-links a {
+  font-size: var(--text-small);
+  color: var(--text-1);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--brand-light); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  :root { --sp-80: 56px; --sp-96: 64px; --sp-128: 80px; }
+  .toc { padding: var(--sp-16) var(--sp-24); }
+  .footer-bottom {
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+  .footer-disclaimer { text-align: left; }
+}
+
+/* ── Focus ── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.png" alt="" width="24" height="24" style="border-radius:4px">
+      Loom
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<main>
+  <!-- Hero -->
+  <section class="legal-hero">
+    <div class="contain">
+      <p class="legal-badge stagger-1">Legal</p>
+      <h1 class="stagger-2">Privacy <em>Policy</em></h1>
+      <p class="legal-updated">Last updated: June 2, 2026</p>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="contain">
+    <div class="toc">
+      <p class="toc-title">Contents</p>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#data-we-collect">Data We Collect</a></li>
+        <li><a href="#third-party-services">Third-Party Services</a></li>
+        <li><a href="#whats-local">What Stays on Your Machine</a></li>
+        <li><a href="#cookies">Cookies &amp; Local Storage</a></li>
+        <li><a href="#privacy-mode">Privacy Mode</a></li>
+        <li><a href="#children">Children's Privacy</a></li>
+        <li><a href="#data-retention">Data Retention</a></li>
+        <li><a href="#regional">Regional Privacy Compliance</a></li>
+        <li><a href="#open-source">Open Source Transparency</a></li>
+        <li><a href="#changes">Changes to This Policy</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="legal-content">
+    <div class="contain">
+
+      <!-- 1. Overview -->
+      <div class="legal-section" id="overview">
+        <h2><span class="section-num">01</span> Overview</h2>
+        <p>Loom is a free, open-source Minecraft launcher for Windows built by a solo developer (_jackoboy / ContiSupplu). We believe your data is yours. Loom is designed to keep as much information as possible on your local machine and to only send data to external services when you explicitly choose to use a feature that requires it.</p>
+        <div class="callout callout-green">
+          <p><strong>The short version:</strong> Loom doesn't have its own backend or database. Your game data, settings, instances, mods, and worlds all live on your computer. The only time data leaves your machine is when you use features that connect to third-party services — and we'll tell you exactly what those are below.</p>
+        </div>
+      </div>
+
+      <!-- 2. Data We Collect -->
+      <div class="legal-section" id="data-we-collect">
+        <h2><span class="section-num">02</span> Data We Collect</h2>
+
+        <h3>Authentication Data</h3>
+        <p>When you sign in, Loom uses <strong>Microsoft Authentication</strong> to verify your Minecraft account. This involves exchanging OAuth tokens with Microsoft's servers. Loom stores your authentication tokens locally on your device so you don't have to sign in every time. These tokens are never sent to us or any server we control.</p>
+
+        <h3>Chat Messages (Loomie AI)</h3>
+        <p>If you use <strong>Loomie</strong>, our built-in AI assistant, your chat messages and any crash logs you share are sent to the <strong>Google Gemini API</strong> for processing. This happens only when you actively interact with Loomie — we don't send anything in the background.</p>
+        <ul>
+          <li>Messages you type or speak to Loomie</li>
+          <li>Crash logs, but only when you ask Loomie to diagnose a problem</li>
+          <li>Screenshots, only if you choose to share one with Loomie</li>
+        </ul>
+        <div class="callout callout-amber">
+          <p><strong>Note:</strong> Google's Gemini API has its own privacy policy that governs how it processes the data Loom sends. We encourage you to review <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.</p>
+        </div>
+
+        <h3>Spotify Data</h3>
+        <p>If you connect Spotify, Loom communicates with the <strong>Spotify API</strong> to display now-playing information and control playback. Loom accesses your currently playing track, playback state, and basic profile info. This data is used solely for the in-launcher music experience and is not stored beyond the active session.</p>
+
+        <h3>Discord Rich Presence</h3>
+        <p>If enabled, Loom sends basic game activity info (like "Playing Minecraft 1.21") to <strong>Discord's local IPC</strong> on your machine. This data never leaves your computer — it communicates only with the Discord client running locally.</p>
+      </div>
+
+      <!-- 3. Third-Party Services -->
+      <div class="legal-section" id="third-party-services">
+        <h2><span class="section-num">03</span> Third-Party Services</h2>
+        <p>Loom connects to the following external services. Data is only sent when you use the corresponding feature:</p>
+        <ul>
+          <li><strong>Microsoft Authentication</strong> — OAuth token exchange for verifying your Minecraft account ownership</li>
+          <li><strong>Google Gemini API</strong> — Processes Loomie AI conversations, crash diagnostics, and screenshots</li>
+          <li><strong>Spotify API</strong> — Retrieves playback status, track info, and controls music when you connect your account</li>
+          <li><strong>Modrinth API</strong> — Searches for and downloads mods, modpacks, and resource packs</li>
+          <li><strong>MCPEDL</strong> — Browses and downloads Bedrock addons</li>
+          <li><strong>Mojang/Microsoft APIs</strong> — Fetches skin data, Xbox profiles, and game version manifests</li>
+        </ul>
+        <p>Loom does not sell, rent, or share your data with any party for advertising or marketing purposes.</p>
+      </div>
+
+      <!-- 4. What Stays Local -->
+      <div class="legal-section" id="whats-local">
+        <h2><span class="section-num">04</span> What Stays on Your Machine</h2>
+        <p>The following data is stored entirely on your local device and is never transmitted to any server:</p>
+        <ul>
+          <li>Game instances, worlds, saves, and screenshots</li>
+          <li>Installed mods, resource packs, and shader packs</li>
+          <li>Launcher settings and preferences</li>
+          <li>Crash logs (unless you choose to share them with Loomie)</li>
+          <li>File Sync data (syncs between local instances only, not over the internet)</li>
+          <li>Recording and video editor files</li>
+          <li>Authentication tokens (stored locally, encrypted at the OS level)</li>
+        </ul>
+        <div class="callout callout-green">
+          <p><strong>No backend, no database.</strong> Loom does not operate any servers that store your personal data. Everything lives in your Loom data folder on your computer.</p>
+        </div>
+      </div>
+
+      <!-- 5. Cookies & Local Storage -->
+      <div class="legal-section" id="cookies">
+        <h2><span class="section-num">05</span> Cookies &amp; Local Storage</h2>
+        <p>Loom is a desktop application (built with Electron), not a traditional website. It uses local storage and the system credential store rather than browser cookies. Specifically:</p>
+        <ul>
+          <li><strong>Electron Local Storage</strong> — Stores user preferences, UI state, and session data</li>
+          <li><strong>System Credential Store</strong> — Securely stores authentication tokens using your OS's built-in credential manager</li>
+        </ul>
+        <p>The Loom website (loommc.com) does not use tracking cookies or analytics services.</p>
+      </div>
+
+      <!-- 6. Privacy Mode -->
+      <div class="legal-section" id="privacy-mode">
+        <h2><span class="section-num">06</span> Privacy Mode</h2>
+        <p>Loom includes a built-in <strong>Privacy Mode</strong> that gives you additional control over your data. When enabled, Privacy Mode:</p>
+        <ul>
+          <li>Disables Discord Rich Presence</li>
+          <li>Limits or disables data sent to external APIs</li>
+          <li>Adjusts features based on your region's privacy regulations</li>
+          <li>Provides a clear summary of what data sharing is active</li>
+        </ul>
+        <p>Privacy Mode settings are applied automatically based on region-based compliance rules, but you can also toggle them manually at any time from the launcher's settings.</p>
+      </div>
+
+      <!-- 7. Children's Privacy -->
+      <div class="legal-section" id="children">
+        <h2><span class="section-num">07</span> Children's Privacy</h2>
+        <p>We recognize that Minecraft has a large audience of younger players. Loom does not knowingly collect personal information from children under 13 (or the applicable age in your jurisdiction).</p>
+        <ul>
+          <li>Loom does not require an account with us — authentication is handled entirely through Microsoft</li>
+          <li>Loomie AI conversations are processed by Google's Gemini API and are not stored by Loom</li>
+          <li>We do not collect names, email addresses, or other personal identifiers</li>
+          <li>Privacy Mode can be enabled to further restrict data sharing</li>
+        </ul>
+        <p>If you are a parent or guardian and believe your child has provided personal information through Loom, please <a href="#contact">contact us</a> so we can address your concern.</p>
+        <div class="callout">
+          <p><strong>COPPA Note:</strong> Because Loom doesn't operate its own data collection backend, the primary third-party data interaction for minors would be through Microsoft Authentication (governed by Microsoft's Family Safety settings) and Loomie AI (governed by Google's terms). We encourage parents to review those services' policies.</p>
+        </div>
+      </div>
+
+      <!-- 8. Data Retention -->
+      <div class="legal-section" id="data-retention">
+        <h2><span class="section-num">08</span> Data Retention</h2>
+        <p>Since Loom stores data locally on your device:</p>
+        <ul>
+          <li><strong>Local data</strong> persists until you delete it or uninstall Loom</li>
+          <li><strong>Authentication tokens</strong> are refreshed automatically and can be removed by signing out</li>
+          <li><strong>Loomie conversations</strong> are stored locally for your session history. Data sent to Google's Gemini API is subject to Google's retention policies</li>
+          <li><strong>Spotify session data</strong> is cleared when you disconnect your Spotify account</li>
+        </ul>
+        <p>You can clear all local data at any time by using the "Reset Loom" option in settings or by manually deleting your Loom data folder.</p>
+      </div>
+
+      <!-- 9. Regional Compliance -->
+      <div class="legal-section" id="regional">
+        <h2><span class="section-num">09</span> Regional Privacy Compliance</h2>
+        <p>Loom's Privacy Mode includes <strong>region-based compliance</strong> that automatically adjusts data sharing behavior based on your location:</p>
+        <ul>
+          <li><strong>European Union (GDPR)</strong> — Loom respects data minimization principles. Features that send data to third-party APIs require explicit user action. You may exercise your right to erasure by clearing local data and revoking third-party permissions</li>
+          <li><strong>California (CCPA)</strong> — Loom does not sell personal information. You can request deletion of any data by clearing your local Loom data</li>
+          <li><strong>Other Regions</strong> — Privacy Mode adapts to local regulations. If your region has specific data protection requirements, Privacy Mode will default to the most privacy-protective configuration</li>
+        </ul>
+        <p>Because Loom does not maintain a central database of user data, most privacy rights (access, deletion, portability) can be exercised directly on your device.</p>
+      </div>
+
+      <!-- 10. Open Source -->
+      <div class="legal-section" id="open-source">
+        <h2><span class="section-num">10</span> Open Source Transparency</h2>
+        <p>Loom is open-source software. You can inspect exactly what data the launcher collects, how it's processed, and where it's sent by reviewing the source code. We believe transparency is the best privacy policy.</p>
+        <ul>
+          <li>GitHub: <strong>ContiSupplu/Cobble</strong></li>
+          <li>You're welcome to audit the codebase, report issues, or suggest improvements</li>
+        </ul>
+      </div>
+
+      <!-- 11. Changes -->
+      <div class="legal-section" id="changes">
+        <h2><span class="section-num">11</span> Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time to reflect changes in Loom's features or applicable laws. When we make significant changes, we'll update the "Last updated" date at the top of this page and may notify users through the launcher's announcement bar.</p>
+        <p>We encourage you to review this policy periodically.</p>
+      </div>
+
+      <!-- 12. Contact -->
+      <div class="legal-section" id="contact">
+        <h2><span class="section-num">12</span> Contact</h2>
+        <p>If you have questions about this Privacy Policy or how Loom handles your data, you can reach us at:</p>
+        <ul>
+          <li><strong>Email:</strong> support@loommc.com</li>
+          <li><strong>GitHub:</strong> Open an issue on the Loom repository</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/docs.html">Docs</a>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Floating Particles ──
+(function() {
+  const container = document.getElementById('particles');
+  if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const COUNT = 18;
+  for (let i = 0; i < COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-4px';
+    p.style.animationDuration = (12 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    p.style.width = p.style.height = (1.5 + Math.random() * 2) + 'px';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>

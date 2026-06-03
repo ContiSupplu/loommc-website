@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Loom Minecraft Launcher</title>
+<meta name="description" content="Terms of Service for Loom, a free open-source Minecraft launcher. Learn about your rights, responsibilities, and the rules for using our software.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Terms of Service — Loom">
+<meta property="og:url" content="https://loommc.com/terms.html">
+<link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  --surface-0: #0D0B14;
+  --surface-1: #151320;
+  --surface-2: #1E1B2D;
+  --text-0: #F0EEF6;
+  --text-1: #A9A5B8;
+  --text-2: #6E6A7E;
+  --brand: #8B6FE8;
+  --brand-dim: #6D50C7;
+  --brand-light: #CBBCF9;
+  --border: rgba(139, 111, 232, 0.1);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-display: clamp(2rem, 4vw, 3rem);
+  --text-h2: clamp(1.25rem, 2vw, 1.5rem);
+  --text-h3: 1.125rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.8125rem;
+
+  --sp-4: 4px; --sp-8: 8px; --sp-12: 12px; --sp-16: 16px;
+  --sp-24: 24px; --sp-32: 32px; --sp-40: 40px; --sp-48: 48px;
+  --sp-64: 64px; --sp-80: 80px; --sp-96: 96px; --sp-128: 128px;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
+  --max-w: 800px;
+  --nav-h: 56px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-0);
+  color: var(--text-0);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+::selection { background: rgba(139, 111, 232, 0.3); }
+
+.contain {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--sp-24);
+  padding-right: var(--sp-24);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes particleDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+}
+
+.stagger-1 { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+.stagger-2 { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
+
+/* ── Floating Particles ── */
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--brand);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleDrift linear infinite;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: var(--nav-h);
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--border);
+}
+.nav .contain {
+  max-width: 1040px;
+  display: flex; align-items: center; height: 100%;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.15rem;
+  display: flex; align-items: center; gap: var(--sp-8);
+}
+.nav-logo img { flex-shrink: 0; }
+.nav-back {
+  margin-left: auto;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--text-1);
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--brand-light); }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Legal Page Layout ── */
+.legal-hero {
+  padding-top: calc(var(--nav-h) + var(--sp-80));
+  padding-bottom: var(--sp-48);
+  position: relative;
+}
+.legal-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(139, 111, 232, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.legal-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand-light);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--sp-16);
+  background: rgba(139, 111, 232, 0.08);
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 111, 232, 0.15);
+}
+.legal-hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: var(--sp-12);
+}
+.legal-hero h1 em {
+  font-style: normal;
+  color: var(--brand);
+}
+.legal-updated {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+
+/* ── Table of Contents ── */
+.toc {
+  margin-bottom: var(--sp-48);
+  padding: var(--sp-24) var(--sp-32);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.toc-title {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-12);
+}
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+}
+.toc ol li {
+  counter-increment: toc;
+}
+.toc ol li a {
+  display: block;
+  padding: 6px 0;
+  font-size: var(--text-small);
+  color: var(--text-1);
+  transition: color 0.2s, padding-left 0.2s;
+}
+.toc ol li a::before {
+  content: counter(toc, decimal-leading-zero) ".";
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--brand);
+  margin-right: 10px;
+}
+.toc ol li a:hover {
+  color: var(--text-0);
+  padding-left: 4px;
+}
+
+/* ── Content Sections ── */
+.legal-content {
+  padding-bottom: var(--sp-96);
+}
+.legal-section {
+  margin-bottom: var(--sp-48);
+  scroll-margin-top: calc(var(--nav-h) + var(--sp-24));
+}
+.legal-section h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-0);
+  margin-bottom: var(--sp-16);
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+}
+.legal-section h2 .section-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand);
+  background: rgba(139, 111, 232, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.legal-section h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--text-0);
+  margin-top: var(--sp-24);
+  margin-bottom: var(--sp-8);
+}
+.legal-section p {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.8;
+  margin-bottom: var(--sp-16);
+}
+.legal-section ul {
+  list-style: none;
+  margin-bottom: var(--sp-16);
+  padding-left: var(--sp-4);
+}
+.legal-section ul li {
+  position: relative;
+  padding-left: 20px;
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  margin-bottom: var(--sp-8);
+}
+.legal-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 11px;
+  width: 6px; height: 6px;
+  background: var(--brand);
+  border-radius: 50%;
+}
+.legal-section strong {
+  color: var(--text-0);
+  font-weight: 600;
+}
+.legal-section a {
+  color: var(--brand-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(203, 188, 249, 0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s;
+}
+.legal-section a:hover {
+  text-decoration-color: var(--brand-light);
+}
+
+/* ── Callout Boxes ── */
+.callout {
+  padding: var(--sp-16) var(--sp-24);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-16);
+  border-left: 3px solid var(--brand);
+}
+.callout p {
+  margin-bottom: 0;
+  font-size: var(--text-small);
+}
+.callout-red {
+  border-left-color: #F87171;
+}
+.callout-amber {
+  border-left-color: #FBBF24;
+}
+.callout-blue {
+  border-left-color: #60A5FA;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-48);
+  padding-bottom: var(--sp-32);
+}
+.footer .contain {
+  max-width: 1040px;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--sp-16);
+}
+.footer-copy {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+.footer-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+  max-width: 480px;
+  text-align: right;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  gap: var(--sp-24);
+  margin-bottom: var(--sp-24);
+}
+.footer-links a {
+  font-size: var(--text-small);
+  color: var(--text-1);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--brand-light); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  :root { --sp-80: 56px; --sp-96: 64px; --sp-128: 80px; }
+  .toc { padding: var(--sp-16) var(--sp-24); }
+  .footer-bottom {
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+  .footer-disclaimer { text-align: left; }
+}
+
+/* ── Focus ── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.png" alt="" width="24" height="24" style="border-radius:4px">
+      Loom
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<main>
+  <!-- Hero -->
+  <section class="legal-hero">
+    <div class="contain">
+      <p class="legal-badge stagger-1">Legal</p>
+      <h1 class="stagger-2">Terms of <em>Service</em></h1>
+      <p class="legal-updated">Last updated: June 2, 2026</p>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="contain">
+    <div class="toc">
+      <p class="toc-title">Contents</p>
+      <ol>
+        <li><a href="#acceptance">Acceptance of Terms</a></li>
+        <li><a href="#about">About Loom</a></li>
+        <li><a href="#eligibility">Eligibility &amp; Age Requirements</a></li>
+        <li><a href="#account">Account &amp; Authentication</a></li>
+        <li><a href="#license">License to Use</a></li>
+        <li><a href="#prohibited">Prohibited Use</a></li>
+        <li><a href="#ai-features">AI Features (Loomie)</a></li>
+        <li><a href="#quick-servers">Quick Servers</a></li>
+        <li><a href="#third-party">Third-Party Services</a></li>
+        <li><a href="#disclaimer">Disclaimer of Warranties</a></li>
+        <li><a href="#liability">Limitation of Liability</a></li>
+        <li><a href="#modifications">Modifications &amp; Termination</a></li>
+        <li><a href="#governing-law">Governing Law</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="legal-content">
+    <div class="contain">
+
+      <!-- 1. Acceptance -->
+      <div class="legal-section" id="acceptance">
+        <h2><span class="section-num">01</span> Acceptance of Terms</h2>
+        <p>By downloading, installing, or using Loom ("the Software"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use the Software.</p>
+        <p>We may update these Terms from time to time. Continued use of Loom after changes are posted constitutes acceptance of the updated Terms. We'll update the "Last updated" date at the top of this page when changes are made.</p>
+      </div>
+
+      <!-- 2. About Loom -->
+      <div class="legal-section" id="about">
+        <h2><span class="section-num">02</span> About Loom</h2>
+        <p>Loom is a free, open-source Minecraft launcher for Windows, created and maintained by a solo developer (_jackoboy / ContiSupplu). Loom is designed to enhance your Minecraft experience with features like AI crash diagnosis, one-click mod installation, Spotify integration, and more.</p>
+        <div class="callout callout-red">
+          <p><strong>Important:</strong> Loom is not an official Minecraft product. It is not approved by or associated with Mojang Studios or Microsoft Corporation. "Minecraft" is a trademark of Mojang Studios.</p>
+        </div>
+      </div>
+
+      <!-- 3. Eligibility -->
+      <div class="legal-section" id="eligibility">
+        <h2><span class="section-num">03</span> Eligibility &amp; Age Requirements</h2>
+        <p>To use Loom, you must:</p>
+        <ul>
+          <li>Be at least 13 years old (or the minimum age required in your jurisdiction)</li>
+          <li>If you are under 18 (or the age of majority in your jurisdiction), you must have permission from a parent or legal guardian</li>
+          <li>Own a legitimate, paid copy of Minecraft (Java Edition and/or Bedrock Edition) purchased through official channels</li>
+          <li>Have a valid Microsoft account for authentication</li>
+        </ul>
+        <p>Parents and guardians who allow minors to use Loom are responsible for supervising their use and ensuring compliance with these Terms.</p>
+      </div>
+
+      <!-- 4. Account -->
+      <div class="legal-section" id="account">
+        <h2><span class="section-num">04</span> Account &amp; Authentication</h2>
+        <p>Loom uses <strong>Microsoft Authentication</strong> to verify that you own a legitimate Minecraft license. By signing in:</p>
+        <ul>
+          <li>You authorize Loom to request an OAuth token from Microsoft to verify your account</li>
+          <li>You are responsible for maintaining the security of your Microsoft account</li>
+          <li>You agree not to share your account credentials or let others access Loom through your account</li>
+          <li>Loom is not responsible for unauthorized access resulting from your failure to protect your account</li>
+        </ul>
+        <p>Loom does not create its own user accounts. Your identity within Loom is entirely based on your Microsoft/Xbox profile.</p>
+      </div>
+
+      <!-- 5. License -->
+      <div class="legal-section" id="license">
+        <h2><span class="section-num">05</span> License to Use</h2>
+        <p>Loom is released as open-source software. Subject to these Terms, you are granted a non-exclusive, worldwide, royalty-free license to:</p>
+        <ul>
+          <li>Download and use Loom for personal, non-commercial purposes</li>
+          <li>View and contribute to the source code as permitted by the project's license</li>
+          <li>Share Loom with others, provided you direct them to the official download source</li>
+        </ul>
+        <p>This license does not grant you rights to use the Loom name, logo, or branding for your own products without written permission.</p>
+      </div>
+
+      <!-- 6. Prohibited Use -->
+      <div class="legal-section" id="prohibited">
+        <h2><span class="section-num">06</span> Prohibited Use</h2>
+        <p>You agree not to use Loom to:</p>
+        <ul>
+          <li><strong>Pirate Minecraft</strong> — Loom requires a legitimate Microsoft account with a valid Minecraft license. Using Loom to bypass purchase requirements or play without a license is strictly prohibited</li>
+          <li><strong>Distribute modified copies</strong> — Do not redistribute altered versions of Loom that misrepresent the original software or remove attribution</li>
+          <li><strong>Abuse third-party services</strong> — Do not use Loom to spam, attack, or excessively burden the APIs of Microsoft, Google, Spotify, Modrinth, or any other connected service</li>
+          <li><strong>Harass or harm others</strong> — Do not use Loom's features (including Quick Servers, when available) to harass, threaten, or harm other users</li>
+          <li><strong>Violate laws</strong> — Do not use Loom for any purpose that violates applicable local, national, or international law</li>
+        </ul>
+        <p>Violation of these rules may result in termination of your access to Loom services, including Quick Servers.</p>
+      </div>
+
+      <!-- 7. AI Features -->
+      <div class="legal-section" id="ai-features">
+        <h2><span class="section-num">07</span> AI Features (Loomie)</h2>
+        <p>Loomie is an AI assistant built into Loom, powered by <strong>Google Gemini</strong>. When you use Loomie:</p>
+        <ul>
+          <li>Your messages and shared data (crash logs, screenshots) are sent to Google's Gemini API for processing</li>
+          <li>Loomie's responses are generated by AI and are <strong>not guaranteed to be accurate, complete, or safe to follow blindly</strong></li>
+          <li>Loomie may suggest removing or replacing mods — always review these suggestions before accepting</li>
+          <li>AI-generated advice does not constitute professional technical support</li>
+        </ul>
+        <div class="callout callout-amber">
+          <p><strong>Use at your own judgment.</strong> While Loomie is designed to be helpful, AI can make mistakes. Always back up your worlds and important data before making changes based on AI recommendations.</p>
+        </div>
+        <p>By using Loomie, you also agree to <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Google's Terms of Service</a> as they apply to the Gemini API.</p>
+      </div>
+
+      <!-- 8. Quick Servers -->
+      <div class="legal-section" id="quick-servers">
+        <h2><span class="section-num">08</span> Quick Servers</h2>
+        <div class="callout callout-blue">
+          <p><strong>Coming Soon.</strong> Quick Servers is an upcoming feature. These terms will apply when the service becomes available.</p>
+        </div>
+        <p>Quick Servers will allow you to host Minecraft servers through Loom. When this feature launches:</p>
+
+        <h3>Service Tiers</h3>
+        <p>Quick Servers will offer both free and paid tiers. Paid tiers will include additional features such as increased player capacity, more RAM, longer uptime, and priority support. Pricing and tier details will be published before launch.</p>
+
+        <h3>Payment</h3>
+        <ul>
+          <li>Paid plans will be billed on a recurring basis (monthly or as otherwise specified)</li>
+          <li>You may cancel at any time; your server will remain active until the end of your billing period</li>
+          <li>Refunds will be handled on a case-by-case basis at our discretion</li>
+        </ul>
+
+        <h3>Server Uptime</h3>
+        <ul>
+          <li>We will make reasonable efforts to keep servers running, but <strong>we do not guarantee 100% uptime</strong></li>
+          <li>Servers may experience downtime for maintenance, updates, or unforeseen technical issues</li>
+          <li>We are not responsible for data loss on Quick Servers — please maintain your own backups</li>
+        </ul>
+
+        <h3>Acceptable Use</h3>
+        <p>Quick Servers must not be used for illegal activity, distribution of malware, denial-of-service attacks, or any activity that violates Minecraft's EULA. We reserve the right to suspend or terminate servers that violate these rules, without refund.</p>
+      </div>
+
+      <!-- 9. Third-Party Services -->
+      <div class="legal-section" id="third-party">
+        <h2><span class="section-num">09</span> Third-Party Services</h2>
+        <p>Loom integrates with several third-party services. Your use of these services through Loom is also governed by their respective terms:</p>
+        <ul>
+          <li><strong>Microsoft</strong> — <a href="https://www.microsoft.com/en-us/servicesagreement" target="_blank" rel="noopener">Microsoft Services Agreement</a></li>
+          <li><strong>Google (Gemini)</strong> — <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Google Terms of Service</a></li>
+          <li><strong>Spotify</strong> — <a href="https://www.spotify.com/legal/end-user-agreement/" target="_blank" rel="noopener">Spotify Terms of Use</a></li>
+          <li><strong>Modrinth</strong> — <a href="https://modrinth.com/legal/terms" target="_blank" rel="noopener">Modrinth Terms</a></li>
+          <li><strong>Discord</strong> — <a href="https://discord.com/terms" target="_blank" rel="noopener">Discord Terms of Service</a></li>
+        </ul>
+        <p>Loom is not responsible for the availability, accuracy, or conduct of any third-party service. If a third-party service changes or discontinues their API, the corresponding Loom feature may be affected.</p>
+      </div>
+
+      <!-- 10. Disclaimer of Warranties -->
+      <div class="legal-section" id="disclaimer">
+        <h2><span class="section-num">10</span> Disclaimer of Warranties</h2>
+        <p>Loom is provided <strong>"as is" and "as available"</strong>, without warranties of any kind, whether express or implied, including but not limited to:</p>
+        <ul>
+          <li>Implied warranties of merchantability or fitness for a particular purpose</li>
+          <li>Warranties that the Software will be uninterrupted, error-free, or secure</li>
+          <li>Warranties regarding the accuracy of AI-generated content (Loomie)</li>
+          <li>Warranties that the Software will be compatible with all systems or configurations</li>
+        </ul>
+        <p>You use Loom at your own risk. Loom is developed by a solo developer as a passion project and open-source contribution to the Minecraft community.</p>
+      </div>
+
+      <!-- 11. Limitation of Liability -->
+      <div class="legal-section" id="liability">
+        <h2><span class="section-num">11</span> Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, the developer of Loom (_jackoboy / ContiSupplu) shall not be liable for any:</p>
+        <ul>
+          <li>Indirect, incidental, special, consequential, or punitive damages</li>
+          <li>Loss of data, profits, goodwill, or other intangible losses</li>
+          <li>Damages resulting from unauthorized access to or alteration of your data</li>
+          <li>Damages resulting from any third-party service used through Loom</li>
+          <li>Damages resulting from following AI-generated advice from Loomie</li>
+        </ul>
+        <p>This limitation applies whether the claim is based on warranty, contract, tort, or any other legal theory, even if the developer has been advised of the possibility of such damages.</p>
+      </div>
+
+      <!-- 12. Modifications & Termination -->
+      <div class="legal-section" id="modifications">
+        <h2><span class="section-num">12</span> Modifications &amp; Termination</h2>
+        <h3>Software Changes</h3>
+        <p>We reserve the right to modify, suspend, or discontinue any feature of Loom at any time, with or without notice. This includes changes to the AI capabilities, third-party integrations, and any free or paid services.</p>
+
+        <h3>Termination</h3>
+        <p>We may restrict or terminate your access to Loom services (particularly Quick Servers) if you violate these Terms. Upon termination:</p>
+        <ul>
+          <li>Your right to use paid services will cease at the end of your current billing period</li>
+          <li>Local data on your machine remains yours — we can't and won't delete it</li>
+          <li>Provisions of these Terms that should survive termination will remain in effect (including disclaimers, limitations of liability, and governing law)</li>
+        </ul>
+      </div>
+
+      <!-- 13. Governing Law -->
+      <div class="legal-section" id="governing-law">
+        <h2><span class="section-num">13</span> Governing Law</h2>
+        <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which the developer resides, without regard to conflict of law principles.</p>
+        <p>Any disputes arising from these Terms or your use of Loom shall be resolved through good-faith negotiation first. If negotiation fails, disputes shall be submitted to the competent courts of the developer's jurisdiction.</p>
+        <p>If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.</p>
+      </div>
+
+      <!-- 14. Contact -->
+      <div class="legal-section" id="contact">
+        <h2><span class="section-num">14</span> Contact</h2>
+        <p>If you have questions about these Terms or need to report a violation, you can reach us at:</p>
+        <ul>
+          <li><strong>Email:</strong> support@loommc.com</li>
+          <li><strong>GitHub:</strong> Open an issue on the Loom repository</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/docs.html">Docs</a>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Floating Particles ──
+(function() {
+  const container = document.getElementById('particles');
+  if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const COUNT = 18;
+  for (let i = 0; i < COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-4px';
+    p.style.animationDuration = (12 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    p.style.width = p.style.height = (1.5 + Math.random() * 2) + 'px';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>

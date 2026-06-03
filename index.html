@@ -646,6 +646,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   line-height: 1.65;
   max-width: 320px;
 }
+.footer-cols {
+  display: flex;
+  gap: var(--sp-48);
+}
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--text-0);
+  margin-bottom: var(--sp-12);
+}
+.footer-col a {
+  display: block;
+  font-size: var(--text-small);
+  color: var(--text-2);
+  padding: 3px 0;
+  transition: color 0.15s;
+}
+.footer-col a:hover {
+  color: var(--brand-light);
+}
 .footer-bottom {
   padding-top: var(--sp-24);
   border-top: 1px solid var(--border);
@@ -686,6 +707,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .footer-inner { flex-direction: column; }
+  .footer-cols { flex-wrap: wrap; gap: var(--sp-24) var(--sp-48); }
   .footer-bottom {
     flex-direction: column;
     gap: var(--sp-8);
@@ -749,9 +771,10 @@ a:focus-visible, button:focus-visible {
     </button>
   </div>
   <nav class="panel-links">
+    <a href="/features.html">Features</a>
     <a href="/docs.html">Docs</a>
     <a href="/quick-servers.html">Quick Servers</a>
-    <a href="/changelog.html">Changelog</a>
+
   </nav>
 </aside>
 
@@ -943,6 +966,25 @@ a:focus-visible, button:focus-visible {
           Loom
         </p>
         <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/features.html">Features</a>
+          <a href="/quick-servers.html">Quick Servers</a>
+          <a href="/release.html">Latest Release</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe">Download</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/docs.html">Docs</a>
+          <a href="https://github.com/ContiSupplu/Cobble" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">

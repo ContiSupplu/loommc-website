@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Features — Loom Minecraft Launcher</title>
+<meta name="description" content="Explore every feature Loom offers: AI crash diagnosis, Dynamic Island HUD, Java + Bedrock support, one-click mods, recording, Spotify integration, and more.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Features — Loom Minecraft Launcher">
+<meta property="og:description" content="Explore every feature Loom offers: AI crash diagnosis, Dynamic Island HUD, Java + Bedrock, one-click mods, recording, Spotify, and more.">
+<meta property="og:url" content="https://loommc.com/features">
+<link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  --surface-0: #0D0B14;
+  --surface-1: #151320;
+  --surface-2: #1E1B2D;
+  --surface-3: #262339;
+  --text-0: #F0EEF6;
+  --text-1: #A9A5B8;
+  --text-2: #6E6A7E;
+  --brand: #8B6FE8;
+  --brand-dim: #6D50C7;
+  --brand-light: #CBBCF9;
+  --border: rgba(139, 111, 232, 0.1);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-display: clamp(2.25rem, 4.5vw, 3.25rem);
+  --text-h2: clamp(1.5rem, 2.5vw, 2rem);
+  --text-h3: 1.125rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.8125rem;
+
+  --sp-4: 4px; --sp-8: 8px; --sp-12: 12px; --sp-16: 16px;
+  --sp-24: 24px; --sp-32: 32px; --sp-40: 40px; --sp-48: 48px;
+  --sp-64: 64px; --sp-80: 80px; --sp-96: 96px; --sp-128: 128px;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
+  --max-w: 1040px;
+  --nav-h: 56px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-0);
+  color: var(--text-0);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+::selection { background: rgba(139, 111, 232, 0.3); }
+
+.contain {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--sp-24);
+  padding-right: var(--sp-24);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+@keyframes particleDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.stagger-1 { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+.stagger-2 { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
+.stagger-3 { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Floating Particles ── */
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--brand);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleDrift linear infinite;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: var(--nav-h);
+  background: rgba(13, 11, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav .contain {
+  display: flex; align-items: center; height: 100%;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.15rem;
+  display: flex; align-items: center; gap: var(--sp-8);
+}
+.nav-logo img { flex-shrink: 0; }
+.nav-back {
+  margin-left: auto;
+  font-size: var(--text-small); font-weight: 600;
+  color: var(--text-1);
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--brand-light); }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Hero ── */
+.features-hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + var(--sp-96));
+  padding-bottom: var(--sp-80);
+  text-align: center;
+  overflow: hidden;
+}
+.features-hero .hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  animation: blobFloat 14s ease-in-out infinite;
+}
+.features-hero .blob-1 {
+  width: 600px; height: 600px;
+  background: rgba(139, 111, 232, 0.1);
+  top: -200px; left: -200px;
+}
+.features-hero .blob-2 {
+  width: 450px; height: 450px;
+  background: rgba(109, 80, 199, 0.07);
+  bottom: -100px; right: -150px;
+  animation-delay: -5s;
+}
+.features-hero .contain { position: relative; z-index: 1; }
+
+.features-hero .hero-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand-light);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-24);
+  background: rgba(139, 111, 232, 0.08);
+  padding: 4px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 111, 232, 0.15);
+}
+
+.features-hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--text-0);
+  max-width: 780px;
+  margin: 0 auto var(--sp-24);
+}
+.features-hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--brand), var(--brand-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.features-hero .hero-desc {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Feature Sections ── */
+.feature-section {
+  padding-top: var(--sp-96);
+  padding-bottom: var(--sp-96);
+  position: relative;
+}
+.feature-section:nth-child(even) {
+  background: var(--surface-1);
+}
+
+/* Decorative top line on sections */
+.feature-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: min(80%, 600px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), rgba(139, 111, 232, 0.2), var(--border), transparent);
+}
+
+.feature-header {
+  margin-bottom: var(--sp-48);
+}
+.feature-number {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-16);
+}
+.feature-number .dot {
+  width: 6px; height: 6px;
+  background: var(--brand);
+  border-radius: 50%;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.feature-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--sp-16);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+}
+.feature-header h2 .icon {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(139, 111, 232, 0.1);
+  border: 1px solid rgba(139, 111, 232, 0.15);
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+}
+.feature-header h2 .icon svg {
+  width: 18px; height: 18px;
+  color: var(--brand);
+}
+
+.feature-header .desc {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  max-width: 680px;
+}
+
+/* Badge for Coming Soon */
+.badge-soon {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand), var(--brand-dim));
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-left: var(--sp-8);
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+/* Detail cards grid */
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-24);
+}
+
+.detail-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-24) var(--sp-24) var(--sp-24);
+  transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.detail-card:hover {
+  border-color: rgba(139, 111, 232, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle gradient top bar on cards */
+.detail-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-light));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.detail-card:hover::before { opacity: 1; }
+
+.detail-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--text-0);
+  margin-bottom: var(--sp-8);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+}
+.detail-card h3 svg {
+  width: 16px; height: 16px;
+  color: var(--brand);
+  flex-shrink: 0;
+}
+.detail-card p {
+  font-size: var(--text-small);
+  color: var(--text-1);
+  line-height: 1.7;
+}
+
+/* Inline bullet list inside cards */
+.detail-card ul {
+  margin-top: var(--sp-12);
+  padding-left: var(--sp-16);
+}
+.detail-card ul li {
+  font-size: var(--text-small);
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: var(--sp-4);
+  position: relative;
+  padding-left: var(--sp-12);
+}
+.detail-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--brand);
+  opacity: 0.6;
+}
+
+/* Mono-highlighted text */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--brand-light);
+  background: rgba(139, 111, 232, 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* ── Feature Highlight Row (alternating visual) ── */
+.feature-highlight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-48);
+  align-items: center;
+  margin-bottom: var(--sp-48);
+}
+.feature-highlight.reverse .fh-text { order: 2; }
+.feature-highlight.reverse .fh-visual { order: 1; }
+
+.fh-text .desc {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  margin-bottom: var(--sp-16);
+}
+
+.fh-visual {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+}
+
+/* Mini stat cards inside visual boxes */
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-1);
+}
+.stat-pill .val {
+  color: var(--brand-light);
+  font-weight: 600;
+}
+
+/* ── Everything Else Grid ── */
+.everything-else {
+  padding-top: var(--sp-80);
+  padding-bottom: var(--sp-96);
+  border-top: 1px solid var(--border);
+}
+.everything-else .section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--sp-40);
+  text-align: center;
+}
+.extras-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-24);
+}
+.extra-item {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-24);
+  text-align: center;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.extra-item:hover {
+  border-color: rgba(139, 111, 232, 0.25);
+  transform: translateY(-2px);
+}
+.extra-icon {
+  width: 40px; height: 40px;
+  margin: 0 auto var(--sp-12);
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(139, 111, 232, 0.08);
+  border-radius: var(--r-sm);
+}
+.extra-icon svg {
+  width: 20px; height: 20px;
+  color: var(--brand);
+}
+.extra-item h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 700;
+  margin-bottom: var(--sp-4);
+}
+.extra-item p {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ── CTA ── */
+.cta-bar {
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-64);
+  padding-bottom: var(--sp-64);
+  text-align: center;
+}
+.cta-text {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-24);
+}
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 600;
+  padding: var(--sp-16) var(--sp-40);
+  background: var(--brand);
+  color: #fff;
+  border-radius: var(--r-md);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.3s;
+}
+.cta-link:hover {
+  background: var(--brand-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
+}
+.cta-link:focus-visible {
+  outline: 2px solid var(--brand-light);
+  outline-offset: 2px;
+}
+.cta-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: var(--sp-32) 0;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--sp-16);
+}
+.footer-copy {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+.footer-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+  max-width: 480px;
+  text-align: right;
+  line-height: 1.5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  :root { --sp-80: 56px; --sp-96: 64px; --sp-128: 80px; }
+
+  .feature-highlight {
+    grid-template-columns: 1fr;
+    gap: var(--sp-32);
+  }
+  .feature-highlight.reverse .fh-text,
+  .feature-highlight.reverse .fh-visual { order: unset; }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .extras-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+  .footer-disclaimer { text-align: left; }
+}
+
+@media (max-width: 480px) {
+  .features-hero h1 { font-size: 2rem; }
+  .features-hero .hero-desc { font-size: var(--text-small); }
+  .extras-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Focus ── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Quick Servers pricing table */
+.pricing-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-16);
+  margin-top: var(--sp-24);
+}
+.price-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-16) var(--sp-24);
+  text-align: center;
+  transition: border-color 0.3s;
+}
+.price-card:hover { border-color: rgba(139, 111, 232, 0.25); }
+.price-card .tier {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-small);
+  margin-bottom: var(--sp-4);
+}
+.price-card .price {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--brand-light);
+  margin-bottom: var(--sp-4);
+}
+.price-card .note {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+
+@media (max-width: 640px) {
+  .pricing-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.png" alt="" width="24" height="24" style="border-radius:4px">
+      Loom
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero -->
+  <section class="features-hero" id="features-hero">
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="contain">
+      <p class="hero-label stagger-1">Everything Loom can do</p>
+      <h1 class="stagger-2">Built for players who <em>actually mod their game.</em></h1>
+      <p class="hero-desc stagger-3">Loom isn't just a launcher — it's a full toolkit. AI crash diagnosis, in-game overlays, Bedrock support, recording, Spotify, and mod management that doesn't get in your way. Here's every feature, explained.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 1. Loomie AI -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="loomie-ai">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 01</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 3.4 2.1 6.3 5 7.4V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.6c2.9-1.1 5-4 5-7.4a8 8 0 0 0-8-8z"/><line x1="9" y1="22" x2="15" y2="22"/></svg>
+          </span>
+          Loomie AI
+        </h2>
+        <p class="desc">Your built-in AI assistant, powered by Google Gemini. Loomie doesn't just answer questions — it reads your crash logs, pinpoints the broken mod, removes it, and verifies the fix. You can also use it to install mods, tweak settings, or ask anything about Minecraft, all through a chat interface.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Crash Diagnosis
+          </h3>
+          <p>When Minecraft crashes, Loomie reads the full crash log and matches it against 13+ known patterns — Mixin injection failures, missing dependencies, duplicate mods, out-of-memory errors, class loading conflicts, and more. It identifies the specific mod at fault, removes or replaces it, then re-launches to verify the fix actually worked.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Launcher Actions via Chat
+          </h3>
+          <p>Loomie has 16 function-calling tools wired into the launcher. Ask it to <span class="mono">install Sodium</span>, create a new 1.21 Fabric instance, remove a broken mod, or adjust your RAM — it calls the right function and does it for you, no menus required.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            In-Game Overlay
+          </h3>
+          <p>Loomie works inside Minecraft too. A Fabric mod renders an overlay so you can ask questions, get help with a build, or diagnose a crash — all without alt-tabbing. Supported on 1.21 and 1.21.1.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Smart Retry &amp; Fallback
+          </h3>
+          <p>If Google's API returns a 503 or 429, Loomie automatically retries up to twice. If the primary model (<span class="mono">gemini-2.5-flash</span>) keeps failing, it falls back to <span class="mono">gemini-2.0-flash</span> so your request still goes through.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 2. Dynamic Island -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="dynamic-island">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 02</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="5" ry="5"/></svg>
+          </span>
+          Dynamic Island
+        </h2>
+        <p class="desc">A floating HUD bar that lives at the top of your screen — in the launcher and as a transparent in-game overlay. It surfaces the right info at the right time: download progress, the song playing on Spotify, your server's status, or a crash alert with a one-click fix. When nothing is happening, it collapses out of sight.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            Contextual States
+          </h3>
+          <p>The island morphs depending on context: launch progress with a real percentage bar, Spotify album art and track name with playback controls, a green indicator when the game is running, or an expanded crash alert with details and a "Fix with Loomie" button.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            In-Game Overlay
+          </h3>
+          <p>A Fabric mod renders the island on top of your Minecraft window as a transparent, click-through overlay. You see your music, downloads, and alerts without leaving the game. Supported on Minecraft 1.21 and 1.21.1.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            Crash Alerts
+          </h3>
+          <p>When Minecraft crashes, the island expands immediately with the error and a one-click "Fix with Loomie" button. Loomie reads the crash log, identifies the problem, and offers an automatic fix — all without you opening a single file.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 3. Java + Bedrock -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="java-bedrock">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 03</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>
+          </span>
+          Java + Bedrock
+        </h2>
+        <p class="desc">Play both editions from one launcher. Loom manages your Java instances with full mod support, and detects your Bedrock installation for world browsing, addon management, and direct launching. No other third-party launcher supports both editions.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Bedrock World Browser
+          </h3>
+          <p>Browse your Bedrock worlds inside Loom — see world names, sizes, and last-played dates. Launch directly into any world or manage your addon packs from the same interface.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Add-On Browser &amp; Smart Downloads
+          </h3>
+          <p>Search for Bedrock add-ons across MCPEDL, CurseForge, ModBay, and Planet Minecraft. Loom auto-detects <span class="mono">.mcaddon</span> and <span class="mono">.mcpack</span> files and installs them directly — no manual file juggling.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+            Marketplace Ad Blocker
+          </h3>
+          <p>Toggle the built-in Marketplace ad blocker to remove promotional content from your Bedrock experience. One switch in the Bedrock page — no external tools needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 4. Mods & Modpacks -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="mods-modpacks">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 04</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </span>
+          Mods &amp; Modpacks
+        </h2>
+        <p class="desc">Full Modrinth integration with one-click installs and automatic dependency resolution. Loom supports all four mod loaders — Fabric, Forge, NeoForge, and Quilt — and ships with smart features like Mod Vault deduplication and auto-installed performance mods.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            One-Click Install
+          </h3>
+          <p>Search Modrinth from inside Loom, hit install, and Loom picks the right version for your game version and loader. Dependencies are resolved automatically — if a mod requires Fabric API or Architectury, Loom installs those too.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            Modpack Import
+          </h3>
+          <p>Install Modrinth modpacks with one click, or drag-and-drop a local <span class="mono">.mrpack</span> file. Loom creates a new instance, downloads every mod and config, and you're ready to play.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M3 15h6"/><path d="M6 12v6"/></svg>
+            Mod Vault
+          </h3>
+          <p>Loom uses hard-link deduplication to share identical mod files across instances. If 5 instances use Sodium, it's stored once on disk. This can save gigabytes of storage on heavily modded setups — check your savings in Settings.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Auto Performance Mods
+          </h3>
+          <p>When you create a new Fabric instance, Loom can auto-install Sodium, Lithium, and Iris — the essential performance trio. Loomie keeps them updated and resolves any conflicts with your other mods automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 5. Instance Management -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="instance-management">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 05</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </span>
+          Instance Management
+        </h2>
+        <p class="desc">Create, customize, duplicate, trash, recover, and migrate instances — all from one place. Each instance is a self-contained Minecraft installation with its own version, mods, worlds, and JVM settings. Loom gives you full control without making you touch a file explorer.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Create &amp; Customize
+          </h3>
+          <p>Pick a version from a smart picker grouped by major release, with search and recommended versions highlighted. Customize your instance name, card color (12 presets + any hex), background image, custom icon, memory allocation (1–16 GB), and JVM arguments.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+            Duplicate &amp; Copy
+          </h3>
+          <p>Clone an instance to create an exact copy — mods, configs, worlds and all. You can also copy instances across different profiles, making it easy to share setups between accounts.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Trash &amp; Recovery
+          </h3>
+          <p>Deleted instances go to a soft-delete trash with an expiration timer. Changed your mind? Restore any trashed instance with one click. No more accidental data loss.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            File Explorer &amp; Migration
+          </h3>
+          <p>Every instance has a built-in file explorer — browse, rename, delete, and copy files without leaving Loom. Switching launchers? Import your full setup from Prism, MultiMC, CurseForge, ATLauncher, or the vanilla launcher.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 6. Media & Entertainment -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="media-entertainment">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 06</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg>
+          </span>
+          Media &amp; Entertainment
+        </h2>
+        <p class="desc">Loom puts Spotify, screen recording, a video editor, and Twitch right inside the launcher — and into the game via the overlay. No more alt-tabbing to skip a song or check if your favorite streamer went live.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg>
+            Spotify Integration
+          </h3>
+          <p>Control playback, see album art, read lyrics — all from the launcher and the in-game Dynamic Island overlay. Connect via OAuth2 in Settings; your credentials are encrypted locally.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            Recording &amp; Clip Editor
+          </h3>
+          <p>Record gameplay via FFmpeg with a hotkey. Loom also captures screenshots on demand. Then open the built-in editor to trim clips, apply speed ramps (0.25×–4×), add text overlays, or merge multiple clips into one video.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Gallery
+          </h3>
+          <p>All your screenshots and recordings live in one gallery page. Browse, preview, edit, and share directly to Discord via webhook — without hunting through folders on your desktop.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            Twitch Integration
+          </h3>
+          <p>Follow your favorite Minecraft streamers and get live notifications when they go online. Watch Twitch directly inside Loom or through the in-game overlay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 7. Performance -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="performance">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 07</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </span>
+          Performance
+        </h2>
+        <p class="desc">Loom squeezes every frame out of your hardware. Optimized JVM flags, smart caching, and auto-installed performance mods work together to get Minecraft running faster than vanilla — especially on repeat launches.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            JVM Flag Presets
+          </h3>
+          <p>Loom ships with optimized JVM flag presets (including Aikar's G1GC flags) tuned specifically for Minecraft. Pick a preset or write your own custom args — per instance or globally.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/></svg>
+            Cache &amp; Skip
+          </h3>
+          <p>After the first launch, Loom caches baked models and textures to disk. On subsequent launches, it loads from cache instead of rebuilding — shaving 2–5 seconds off your load time every single time you play.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg>
+            Memory &amp; System Tuning
+          </h3>
+          <p>Choose from memory presets (1–16 GB) or set a custom value. Loom can also switch to a High Performance power plan during gameplay, set process priority, and optionally exclude the game folder from Windows Defender scanning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 8. Privacy & Security -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="privacy-security">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 08</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          Privacy &amp; Security
+        </h2>
+        <p class="desc">Your data stays on your machine. Loom encrypts sensitive credentials, offers region-based privacy controls, and keeps your configs in sync across instances without cloud uploads.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Privacy Mode
+          </h3>
+          <p>Enable Privacy Mode for region-based compliance controls. Loom adjusts data handling based on your region, giving you fine-grained control over what's stored and what's sent.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Encrypted Credentials
+          </h3>
+          <p>API keys, OAuth tokens, and proxy credentials are encrypted locally using your system's credential store. They never leave your machine in plain text.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            File Sync
+          </h3>
+          <p>Keep configs, mods, and resource packs synchronized across instances with bi-directional sync groups. Loom uses file-level hashing so only changed files are copied — no cloud, no uploads, just local consistency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 9. Quick Servers (Coming Soon) -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="feature-section" id="quick-servers">
+    <div class="contain">
+      <div class="feature-header reveal">
+        <div class="feature-number"><span class="dot"></span> 09</div>
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </span>
+          Quick Servers
+          <span class="badge-soon">Coming Soon</span>
+        </h2>
+        <p class="desc">Host a Minecraft server in two clicks. No port forwarding, no terminal commands, no queues. Pick your game mode, choose a plan, share the link — and your friends join instantly. Bedrock crossplay included.</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            One-Click Hosting
+          </h3>
+          <p>Click "Create Server," pick a version and game mode, and your server spins up. No port forwarding, no router configuration — Loom handles networking with tunneling so anyone can join with a link.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Plugin Browser &amp; File Manager
+          </h3>
+          <p>Browse and install server plugins via Modrinth integration. Manage server files, configs, and world data with a built-in file manager — no FTP clients or SSH needed.</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>
+            Bedrock Crossplay
+          </h3>
+          <p>Toggle Bedrock crossplay with a single switch. Java and Bedrock players can join the same server — Loom configures GeyserMC automatically behind the scenes.</p>
+        </div>
+      </div>
+
+      <!-- Pricing Row -->
+      <div class="pricing-row reveal" style="margin-top: var(--sp-32);">
+        <div class="price-card">
+          <p class="tier">Free</p>
+          <p class="price">$0</p>
+          <p class="note">Basic hosting</p>
+        </div>
+        <div class="price-card">
+          <p class="tier">Pro</p>
+          <p class="price">$3<span style="font-size: 0.75em; color: var(--text-2);">/mo</span></p>
+          <p class="note">More RAM &amp; players</p>
+        </div>
+        <div class="price-card">
+          <p class="tier">Pro+</p>
+          <p class="price">$7<span style="font-size: 0.75em; color: var(--text-2);">/mo</span></p>
+          <p class="note">Priority &amp; plugins</p>
+        </div>
+        <div class="price-card">
+          <p class="tier">Pro Max</p>
+          <p class="price">$14<span style="font-size: 0.75em; color: var(--text-2);">/mo</span></p>
+          <p class="note">Maximum performance</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- And everything else -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="everything-else" id="everything-else">
+    <div class="contain">
+      <p class="section-label reveal">And everything else</p>
+
+      <div class="extras-grid">
+        <div class="extra-item reveal">
+          <div class="extra-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>Skin Management</h3>
+          <p>Upload, preview, and switch between Classic and Slim models.</p>
+        </div>
+
+        <div class="extra-item reveal">
+          <div class="extra-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3>Player Lookup</h3>
+          <p>Search any Minecraft player by username to view their profile.</p>
+        </div>
+
+        <div class="extra-item reveal">
+          <div class="extra-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Discord Rich Presence</h3>
+          <p>Show what you're playing on your Discord profile automatically.</p>
+        </div>
+
+        <div class="extra-item reveal">
+          <div class="extra-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Profile Switching</h3>
+          <p>Multiple Microsoft accounts, one launcher. Switch instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-bar reveal">
+    <div class="contain">
+      <p class="cta-text">Ready to try it?</p>
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="cta-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download for Windows
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not affiliated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Scroll Reveal ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Floating Particles ──
+(function() {
+  const container = document.getElementById('particles');
+  if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const COUNT = 20;
+  for (let i = 0; i < COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-4px';
+    p.style.animationDuration = (14 + Math.random() * 20) + 's';
+    p.style.animationDelay = (Math.random() * 22) + 's';
+    p.style.width = p.style.height = (1.5 + Math.random() * 2) + 'px';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
