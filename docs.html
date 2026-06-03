@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docs — Loom Minecraft Launcher</title>
+<meta name="description" content="User guide for Loom — learn how to manage instances, install mods, use Loomie AI, set up Spotify, record gameplay, and more.">
+<link rel="icon" type="image/png" href="/loom-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  --surface-0: #0D0B14;
+  --surface-1: #151320;
+  --surface-2: #1E1B2D;
+  --text-0: #F0EEF6;
+  --text-1: #A9A5B8;
+  --text-2: #6E6A7E;
+  --brand: #8B6FE8;
+  --brand-dim: #6D50C7;
+  --brand-light: #CBBCF9;
+  --border: rgba(139, 111, 232, 0.1);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-display: clamp(1.75rem, 3vw, 2.25rem);
+  --text-h2: clamp(1.25rem, 2vw, 1.5rem);
+  --text-h3: 1.125rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.8125rem;
+
+  --sp-4: 4px;
+  --sp-8: 8px;
+  --sp-12: 12px;
+  --sp-16: 16px;
+  --sp-24: 24px;
+  --sp-32: 32px;
+  --sp-40: 40px;
+  --sp-48: 48px;
+  --sp-64: 64px;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+
+  --nav-h: 56px;
+  --sidebar-w: 220px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; scroll-padding-top: calc(var(--nav-h) + 32px); }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-0);
+  color: var(--text-0);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+::selection { background: rgba(139, 111, 232, 0.3); }
+
+/* ── Nav ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: var(--nav-h);
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--sp-24);
+  display: flex; align-items: center; height: 100%;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.15rem;
+  display: flex; align-items: center; gap: var(--sp-8);
+}
+.nav-logo img { flex-shrink: 0; }
+.nav-actions {
+  display: flex; align-items: center; gap: var(--sp-16);
+  margin-left: auto;
+}
+.nav-dl {
+  font-size: var(--text-small); font-weight: 600;
+  color: var(--text-0); transition: color 0.2s;
+}
+.nav-dl:hover { color: var(--brand-light); }
+
+/* ── Layout ── */
+.docs-layout {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: var(--nav-h);
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+  padding: var(--sp-32) var(--sp-24) var(--sp-64) 0;
+  border-right: 1px solid var(--border);
+}
+.sidebar-section {
+  margin-bottom: var(--sp-24);
+}
+.sidebar-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 var(--sp-16);
+  margin-bottom: var(--sp-8);
+}
+.sidebar a {
+  display: block;
+  padding: 6px var(--sp-16);
+  font-size: var(--text-small);
+  color: var(--text-2);
+  border-radius: var(--r-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.sidebar a:hover {
+  color: var(--text-1);
+  background: var(--surface-2);
+}
+.sidebar a.active {
+  color: var(--brand-light);
+  background: rgba(139, 111, 232, 0.08);
+}
+
+/* ── Content ── */
+.docs-content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--sp-48) var(--sp-24) var(--sp-64) var(--sp-48);
+}
+
+.docs-content h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--sp-8);
+}
+.docs-subtitle {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  margin-bottom: var(--sp-48);
+  line-height: 1.6;
+}
+
+.doc-section {
+  margin-bottom: var(--sp-64);
+}
+.doc-section h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--sp-24);
+}
+.doc-section h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  margin-top: var(--sp-32);
+  margin-bottom: var(--sp-12);
+}
+.doc-section p {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  margin-bottom: var(--sp-16);
+  max-width: 640px;
+}
+.doc-section ol,
+.doc-section ul.doc-list {
+  color: var(--text-1);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  margin-bottom: var(--sp-16);
+  padding-left: var(--sp-24);
+  max-width: 640px;
+}
+.doc-section ol { list-style: decimal; }
+.doc-section ul.doc-list { list-style: disc; }
+.doc-section li {
+  margin-bottom: var(--sp-8);
+}
+.doc-section code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--brand-light);
+}
+.doc-section strong {
+  color: var(--text-0);
+  font-weight: 600;
+}
+.doc-tip {
+  background: var(--surface-1);
+  border-left: 3px solid var(--brand);
+  padding: var(--sp-12) var(--sp-16);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin-bottom: var(--sp-16);
+  max-width: 640px;
+}
+.doc-tip p {
+  margin-bottom: 0;
+  font-size: var(--text-small);
+}
+.doc-tip-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-4);
+}
+
+/* ── Footer ── */
+.docs-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--sp-32) var(--sp-24);
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-16);
+}
+.docs-footer p {
+  font-size: var(--text-xs);
+  color: var(--text-2);
+}
+.docs-footer .disclaimer {
+  max-width: 480px;
+  text-align: right;
+  line-height: 1.5;
+}
+
+/* ── Mobile sidebar toggle ── */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  bottom: var(--sp-24);
+  right: var(--sp-24);
+  z-index: 40;
+  width: 48px; height: 48px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 50%;
+  align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.sidebar-toggle svg { width: 20px; height: 20px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: var(--nav-h); left: 0; bottom: 0;
+    width: 260px;
+    background: var(--surface-1);
+    border-right: 1px solid var(--border);
+    z-index: 40;
+    padding: var(--sp-24) 0;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay {
+    position: fixed; inset: 0; z-index: 35;
+    background: rgba(0,0,0,0.5);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .sidebar-overlay.open { opacity: 1; pointer-events: auto; }
+  .sidebar-toggle { display: flex; }
+  .docs-content {
+    padding: var(--sp-32) var(--sp-24) var(--sp-64);
+  }
+  .docs-footer { flex-direction: column; }
+  .docs-footer .disclaimer { text-align: left; }
+}
+
+/* ── Focus ── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.png" alt="" width="24" height="24" style="border-radius:4px">
+      Loom
+    </a>
+    <div class="nav-actions">
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="nav-dl">Download</a>
+    </div>
+  </div>
+</nav>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="docs-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <p class="sidebar-title">Guide</p>
+      <a href="#getting-started">Getting Started</a>
+      <a href="#instances">Instances</a>
+      <a href="#mods">Mods & Modpacks</a>
+      <a href="#loomie">Loomie AI</a>
+      <a href="#dynamic-island">Dynamic Island</a>
+      <a href="#bedrock">Bedrock Edition</a>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-title">Integrations</p>
+      <a href="#spotify">Spotify</a>
+      <a href="#twitch">Twitch & Media</a>
+      <a href="#recording">Recording</a>
+      <a href="#discord-rpc">Discord</a>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-title">Reference</p>
+      <a href="#settings">Settings</a>
+      <a href="#file-sync">File Sync</a>
+      <a href="#migration">Migration</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="docs-content">
+    <h1>Documentation</h1>
+    <p class="docs-subtitle">Everything you need to know about using Loom.</p>
+
+    <!-- Getting Started -->
+    <section class="doc-section" id="getting-started">
+      <h2>Getting Started</h2>
+
+      <h3>Installation</h3>
+      <ol>
+        <li>Download the installer from the <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest" style="color:var(--brand)">latest release</a>.</li>
+        <li>Run <code>Loom-Setup-1.6.4.exe</code> and follow the prompts.</li>
+        <li>Loom will open automatically after installation.</li>
+      </ol>
+
+      <h3>Signing In</h3>
+      <p>On first launch, Loom walks you through a setup wizard. You'll sign in with your Microsoft account — the same one linked to your Minecraft purchase. Loom supports multiple accounts, so you can add more later from the account page.</p>
+
+      <h3>Creating Your First Instance</h3>
+      <ol>
+        <li>Open the <strong>Library</strong> from the sidebar.</li>
+        <li>Click the <strong>+</strong> button to create a new instance.</li>
+        <li>Choose a Minecraft version and a mod loader (Fabric, Forge, NeoForge, or Quilt). You can also leave it on Vanilla.</li>
+        <li>Set your RAM allocation. 4 GB is a safe default for vanilla, 6–8 GB for modded.</li>
+        <li>Click <strong>Create</strong>. Loom downloads everything it needs and your instance is ready to launch.</li>
+      </ol>
+
+      <div class="doc-tip">
+        <p class="doc-tip-label">Tip</p>
+        <p>If you enable <strong>Performance Mods</strong> in Settings, Loom will automatically install Sodium, Lithium, and Iris on new Fabric instances.</p>
+      </div>
+    </section>
+
+    <!-- Instances -->
+    <section class="doc-section" id="instances">
+      <h2>Instances</h2>
+      <p>An instance is a self-contained Minecraft installation — its own version, mods, worlds, and settings. You can have as many as you want.</p>
+
+      <h3>Managing Instances</h3>
+      <ul class="doc-list">
+        <li><strong>Edit</strong> — Change the name, version, loader, RAM allocation, or icon.</li>
+        <li><strong>Clone</strong> — Duplicate an instance with all its mods and settings.</li>
+        <li><strong>Delete</strong> — Moves the instance to trash. You can recover it later or delete it permanently.</li>
+        <li><strong>Open Folder</strong> — Opens the instance directory in Windows Explorer.</li>
+      </ul>
+
+      <h3>File Explorer</h3>
+      <p>Each instance has a built-in file explorer. You can browse, rename, delete, and copy files without leaving the launcher. This is useful for dropping in config files, maps, or resource packs manually.</p>
+
+      <h3>Custom Icons</h3>
+      <p>Right-click an instance and select <strong>Change Icon</strong> to set a custom image. Accepts PNG, JPG, or WEBP.</p>
+    </section>
+
+    <!-- Mods -->
+    <section class="doc-section" id="mods">
+      <h2>Mods & Modpacks</h2>
+
+      <h3>Installing Mods</h3>
+      <ol>
+        <li>Select an instance and open the <strong>Mods</strong> tab.</li>
+        <li>Search for a mod by name. Results come from Modrinth.</li>
+        <li>Click <strong>Install</strong>. Loom picks the right version for your game version and loader automatically.</li>
+      </ol>
+      <p>To remove a mod, go to your installed mods list and click <strong>Uninstall</strong>.</p>
+
+      <h3>Resource Packs</h3>
+      <p>You can search and install resource packs the same way — from the Mods tab, switch to the <strong>Resource Packs</strong> section.</p>
+
+      <h3>Modpacks</h3>
+      <p>Loom supports Modrinth modpacks. You can either:</p>
+      <ul class="doc-list">
+        <li>Search for modpacks in the launcher and install directly.</li>
+        <li>Drop a local <code>.mrpack</code> file into the launcher.</li>
+      </ul>
+      <p>Loom creates a new instance for the modpack and downloads all the mods automatically.</p>
+
+      <h3>Mod Vault</h3>
+      <p>When the same mod is installed on multiple instances, Loom stores it once and uses hard links to share it. This saves disk space — you can see your total savings in <strong>Settings &gt; Mod Vault</strong>.</p>
+    </section>
+
+    <!-- Loomie AI -->
+    <section class="doc-section" id="loomie">
+      <h2>Loomie AI</h2>
+      <p>Loomie is Loom's built-in AI assistant, powered by Gemini. You can find it in the sidebar.</p>
+
+      <h3>Setup</h3>
+      <p>Loomie requires a Gemini API key to work. Go to <strong>Settings &gt; Connected Apps &gt; Gemini</strong> and paste your key. Your key is encrypted and stored locally — it's never sent anywhere except Google's API.</p>
+
+      <h3>What Loomie Can Do</h3>
+      <ul class="doc-list">
+        <li><strong>Diagnose crashes</strong> — When your game crashes, Loomie reads the log, identifies the broken mod, and can remove or replace it for you.</li>
+        <li><strong>Install mods</strong> — Ask "install Sodium" and Loomie will find it on Modrinth and install it to your active instance.</li>
+        <li><strong>Change settings</strong> — Ask it to adjust RAM, switch loaders, or change preferences.</li>
+        <li><strong>Answer questions</strong> — Crafting recipes, enchantment guides, redstone help — anything Minecraft.</li>
+        <li><strong>Screen analysis</strong> — Loomie can see your screen. Ask "what's on my screen?" and it captures a screenshot for analysis.</li>
+        <li><strong>Voice input</strong> — Talk to Loomie instead of typing.</li>
+      </ul>
+
+      <h3>Crash Diagnosis</h3>
+      <p>When Minecraft crashes, the Dynamic Island shows a crash notification. Click <strong>Fix with Loomie</strong> and it sends the crash log to the AI. Loomie identifies the problem — usually a mod conflict or missing dependency — and offers to fix it automatically.</p>
+
+      <h3>Chat History</h3>
+      <p>Your conversations with Loomie are saved. You can create new chats, rename them, and go back to old ones from the sidebar in the Loomie page.</p>
+    </section>
+
+    <!-- Dynamic Island -->
+    <section class="doc-section" id="dynamic-island">
+      <h2>Dynamic Island</h2>
+      <p>The Dynamic Island is a small floating bar at the top of the launcher that shows contextual information. It also works as a transparent overlay on top of the game.</p>
+
+      <h3>States</h3>
+      <ul class="doc-list">
+        <li><strong>Idle</strong> — Hidden or minimized.</li>
+        <li><strong>Launching</strong> — Shows download and install progress with a percentage.</li>
+        <li><strong>Running</strong> — Green indicator. Click to view game logs.</li>
+        <li><strong>Music</strong> — Album art, track name, and playback controls when Spotify is connected.</li>
+        <li><strong>Crash</strong> — Expands with crash details and a "Fix with Loomie" button.</li>
+        <li><strong>Loomie</strong> — Embedded chat when Loomie is in "On the Go" mode.</li>
+      </ul>
+
+      <h3>In-Game Overlay</h3>
+      <p>While Minecraft is running, the Dynamic Island appears as a transparent overlay on top of the game window. It's click-through — it won't interfere with gameplay. You can minimize it to a small dot or expand it to see full details.</p>
+    </section>
+
+    <!-- Bedrock -->
+    <section class="doc-section" id="bedrock">
+      <h2>Bedrock Edition</h2>
+      <p>Loom can detect, launch, and manage Minecraft Bedrock Edition alongside Java. You'll find it in the <strong>Bedrock</strong> page in the sidebar.</p>
+
+      <h3>Requirements</h3>
+      <p>Bedrock Edition must already be installed from the Microsoft Store. Loom detects it automatically.</p>
+
+      <h3>Features</h3>
+      <ul class="doc-list">
+        <li><strong>World Browser</strong> — View your Bedrock worlds.</li>
+        <li><strong>Addon Installation</strong> — Install <code>.mcpack</code> and <code>.mcaddon</code> files. You can also queue multiple addons for batch install.</li>
+        <li><strong>Pack Browser</strong> — View installed resource and behavior packs.</li>
+        <li><strong>Ad Blocking</strong> — Block Marketplace ads in Bedrock. Toggle this on from the Bedrock page.</li>
+        <li><strong>Direct Server Connect</strong> — Launch Bedrock and connect directly to a server by URL and port.</li>
+      </ul>
+    </section>
+
+    <!-- Spotify -->
+    <section class="doc-section" id="spotify">
+      <h2>Spotify</h2>
+      <p>Loom connects to Spotify so you can control music from inside the launcher and the in-game overlay.</p>
+
+      <h3>Setup</h3>
+      <ol>
+        <li>Go to <strong>Settings &gt; Connected Apps &gt; Spotify</strong>.</li>
+        <li>Follow the setup wizard — you'll need to create a Spotify Developer app and enter your Client ID.</li>
+        <li>Authorize the connection. Loom uses OAuth2 — your credentials are encrypted locally.</li>
+      </ol>
+
+      <h3>Controls</h3>
+      <p>Once connected, the Dynamic Island shows your current track with album art. You can play, pause, skip, go back, and adjust volume. Lyrics are available for supported tracks.</p>
+    </section>
+
+    <!-- Twitch -->
+    <section class="doc-section" id="twitch">
+      <h2>Twitch & Media</h2>
+
+      <h3>Twitch Setup</h3>
+      <p>Connect your Twitch account from Settings. Once connected, Loom shows your followed streams and notifies you when someone goes live.</p>
+
+      <h3>In-Game Media</h3>
+      <p>Loom can play Twitch streams and YouTube videos in an overlay while you're playing Minecraft. Search for content from the media viewer and it opens in a floating window.</p>
+
+      <h3>Chat</h3>
+      <p>You can connect to Twitch IRC chat and send messages directly from the launcher.</p>
+    </section>
+
+    <!-- Recording -->
+    <section class="doc-section" id="recording">
+      <h2>Recording</h2>
+      <p>Loom has built-in screen recording powered by FFmpeg.</p>
+
+      <h3>First-Time Setup</h3>
+      <p>Loom downloads FFmpeg automatically when you first use recording. No manual setup required.</p>
+
+      <h3>Recording</h3>
+      <p>Start and stop recording from the launcher. Your recordings are saved locally and appear in the <strong>Gallery</strong>.</p>
+
+      <h3>Replay Buffer</h3>
+      <p>Enable the replay buffer to keep a rolling recording in the background. When something noteworthy happens, hit the save button and Loom saves the last N seconds as a clip. You never miss a moment.</p>
+
+      <h3>Video Editor</h3>
+      <p>The Gallery includes a built-in editor with:</p>
+      <ul class="doc-list">
+        <li><strong>Trim</strong> — Cut the start and end of a clip.</li>
+        <li><strong>Speed</strong> — Speed up or slow down (0.25x to 4x).</li>
+        <li><strong>Text Overlay</strong> — Add text at the top, center, or bottom.</li>
+        <li><strong>Merge</strong> — Combine multiple clips into one video.</li>
+      </ul>
+
+      <h3>Sharing</h3>
+      <p>Share recordings and screenshots to Discord via webhook. Set up your webhook URL in <strong>Settings &gt; Connected Apps</strong>.</p>
+    </section>
+
+    <!-- Discord -->
+    <section class="doc-section" id="discord-rpc">
+      <h2>Discord</h2>
+      <p>Loom can show a "Playing Minecraft" status on your Discord profile with the instance name and elapsed time.</p>
+
+      <h3>Setup</h3>
+      <ol>
+        <li>Go to <strong>Settings &gt; Connected Apps &gt; Discord</strong>.</li>
+        <li>Enter your Discord Application ID (you can create one at the <a href="https://discord.com/developers/applications" style="color:var(--brand)">Discord Developer Portal</a>).</li>
+        <li>Click <strong>Connect</strong>. Your status updates automatically when you launch a game.</li>
+      </ol>
+    </section>
+
+    <!-- Settings -->
+    <section class="doc-section" id="settings">
+      <h2>Settings</h2>
+
+      <h3>Appearance</h3>
+      <ul class="doc-list">
+        <li><strong>Accent Color</strong> — Choose from 6 preset colors for the launcher UI.</li>
+        <li><strong>Home Background</strong> — Set a custom background image on the home screen.</li>
+        <li><strong>Font Scale</strong> — Adjust UI text size.</li>
+        <li><strong>Quick Launch</strong> — Show a button on the splash screen to jump to your last-played instance.</li>
+      </ul>
+
+      <h3>Performance</h3>
+      <ul class="doc-list">
+        <li><strong>Performance Mods</strong> — Auto-install Sodium, Lithium, and Iris on new Fabric instances.</li>
+        <li><strong>Optimized JVM Flags</strong> — Apply Aikar's G1GC flags for better garbage collection.</li>
+        <li><strong>High Process Priority</strong> — Give Minecraft more CPU priority.</li>
+        <li><strong>Optimized Game Settings</strong> — Apply performance-friendly video settings on new instances.</li>
+        <li><strong>Windows Defender Exclusion</strong> — Exclude the game folder from real-time scanning. Requires admin.</li>
+        <li><strong>Power Plan</strong> — Switch to High Performance power plan during gameplay.</li>
+        <li><strong>Network Optimization</strong> — Tune TCP settings for lower ping. Requires admin.</li>
+        <li><strong>Iris Shaders</strong> — Auto-install Iris for shader support.</li>
+        <li><strong>Cache & Skip</strong> — Cache baked models and textures to shave 2–5 seconds off repeat launches.</li>
+      </ul>
+    </section>
+
+    <!-- File Sync -->
+    <section class="doc-section" id="file-sync">
+      <h2>File Sync</h2>
+      <p>File Sync keeps configs, mods, and resource packs consistent across multiple instances.</p>
+
+      <h3>How It Works</h3>
+      <ol>
+        <li>Open <strong>Settings &gt; File Sync</strong>.</li>
+        <li>Create a sync group and choose what to sync (configs, mods, resource packs).</li>
+        <li>Add instances to the group.</li>
+        <li>Sync is bi-directional — push changes from one instance, pull them into others.</li>
+      </ol>
+      <p>Loom uses file-level hashing to detect changes, so only modified files are copied.</p>
+    </section>
+
+    <!-- Migration -->
+    <section class="doc-section" id="migration">
+      <h2>Migration</h2>
+      <p>Switching from another launcher? Loom can import your existing setup.</p>
+
+      <h3>Supported Launchers</h3>
+      <ul class="doc-list">
+        <li>Prism Launcher</li>
+        <li>MultiMC</li>
+        <li>CurseForge</li>
+        <li>ATLauncher</li>
+        <li>Modrinth App</li>
+        <li>Vanilla (official Minecraft launcher)</li>
+      </ul>
+
+      <h3>How to Migrate</h3>
+      <p>Loom auto-detects installed launchers during the setup wizard. You can also trigger migration manually from <strong>Settings &gt; About &gt; Replay Setup Wizard</strong>. Loom imports instances, worlds, mods, resource packs, and settings.</p>
+    </section>
+
+    <!-- Troubleshooting -->
+    <section class="doc-section" id="troubleshooting">
+      <h2>Troubleshooting</h2>
+
+      <h3>Game Won't Launch</h3>
+      <ul class="doc-list">
+        <li>Make sure you're signed in with a Microsoft account that owns Minecraft.</li>
+        <li>Check that the game version matches your mod loader version.</li>
+        <li>Try increasing RAM allocation — some modpacks need 6–8 GB.</li>
+        <li>Check the game logs (click the logs icon in the sidebar) for specific errors.</li>
+      </ul>
+
+      <h3>Mods Not Showing Up</h3>
+      <ul class="doc-list">
+        <li>Make sure you selected a mod loader (not Vanilla) when creating the instance.</li>
+        <li>Check that the mod is compatible with your game version and loader.</li>
+        <li>Open the instance file explorer and verify files are in the <code>mods</code> folder.</li>
+      </ul>
+
+      <h3>Loomie Not Responding</h3>
+      <ul class="doc-list">
+        <li>Verify your Gemini API key is set in <strong>Settings &gt; Connected Apps &gt; Gemini</strong>.</li>
+        <li>Check your internet connection — Loomie needs to reach Google's API.</li>
+        <li>Try starting a new chat from the Loomie sidebar.</li>
+      </ul>
+
+      <h3>Resetting Loom</h3>
+      <p>To reset the launcher to a clean state, go to <strong>Settings &gt; About</strong> and use <strong>Replay Setup Wizard</strong> or <strong>Reset Customization</strong>. This does not delete your instances or mods.</p>
+
+      <h3>Where Are My Files?</h3>
+      <ul class="doc-list">
+        <li><strong>Instances</strong> — Right-click an instance and click <strong>Open Folder</strong>.</li>
+        <li><strong>Recordings</strong> — Open the Gallery and right-click any recording.</li>
+        <li><strong>Logs</strong> — Available from the log viewer during or after a game session.</li>
+        <li><strong>Config</strong> — Stored in <code>%APPDATA%/loom</code>.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<!-- Footer -->
+<footer class="docs-footer">
+  <p>&copy; 2026 Loom</p>
+  <p class="disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+</footer>
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+</button>
+
+<script>
+// Active section tracking
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+const sections = document.querySelectorAll('.doc-section');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      sidebarLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+
+// Mobile sidebar
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+function openSidebar() { sidebar.classList.add('open'); sidebarOverlay.classList.add('open'); }
+function closeSidebar() { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('open'); }
+
+if (sidebarToggle) sidebarToggle.addEventListener('click', openSidebar);
+if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+sidebarLinks.forEach(a => a.addEventListener('click', closeSidebar));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+</script>
+</body>
+</html>
