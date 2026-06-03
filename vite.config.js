@@ -6,9 +6,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        changelog: resolve(__dirname, 'changelog.html'),
-        download: resolve(__dirname, 'download.html'),
-        pricing: resolve(__dirname, 'pricing.html'),
+        docs: resolve(__dirname, 'docs.html'),
+        quickservers: resolve(__dirname, 'quick-servers.html'),
       },
     },
   },
