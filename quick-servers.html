@@ -56,121 +56,40 @@
       transform: translateY(0);
     }
 
-    /* ── NAV ── */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(13, 11, 20, 0.8);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      height: 60px;
-    }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--text-0);
-      transition: opacity 0.2s;
-    }
-    .nav-logo:hover { opacity: 0.8; }
-    .nav-logo img { border-radius: 4px; }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: var(--brand);
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.875rem;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .nav-download:hover { background: var(--brand-dim); transform: translateY(-1px); }
-    .nav-download:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 2px; }
-    .nav-download svg { width: 16px; height: 16px; }
+    /* ── CANONICAL NAV / PANEL / ANNOUNCE / FOOTER ── */
+    .contain { max-width: 1040px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
 
-    /* hamburger */
-    .hamburger {
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-      transition: background 0.2s;
-    }
-    .hamburger:hover { background: var(--surface-2); }
-    .hamburger:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 2px; }
-    .hamburger span {
-      display: block; width: 18px; height: 2px;
-      background: var(--text-1);
-      position: relative;
-      transition: background 0.2s;
-    }
-    .hamburger span::before,
-    .hamburger span::after {
-      content: ''; position: absolute; left: 0;
-      width: 18px; height: 2px;
-      background: var(--text-1);
-      transition: transform 0.25s;
-    }
-    .hamburger span::before { top: -6px; }
-    .hamburger span::after { top: 6px; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 56px; background: #0D0B14; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
+    .nav .contain { display: flex; align-items: center; height: 100%; }
+    .nav-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
+    .nav-logo img { flex-shrink: 0; }
+    .nav-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+    .nav-dl { font-size: 0.875rem; font-weight: 600; color: #F0EEF6; transition: color 0.2s; }
+    .nav-dl:hover { color: #CBBCF9; }
+    .nav-menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 6px; transition: background 0.15s; }
+    .nav-menu-btn:hover { background: #1E1B2D; }
+    .nav-menu-btn svg { width: 20px; height: 20px; color: #A9A5B8; }
 
-    /* side panel */
-    .overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,0.5);
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s;
-    }
-    .overlay.open { opacity: 1; pointer-events: auto; }
-    .side-panel {
-      position: fixed; top: 0; right: 0; bottom: 0;
-      z-index: 201;
-      width: 280px;
-      background: var(--surface-1);
-      border-left: 1px solid var(--border);
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      display: flex; flex-direction: column;
-      padding: 24px;
-    }
-    .side-panel.open { transform: translateX(0); }
-    .side-panel-close {
-      align-self: flex-end;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-      font-size: 1.25rem;
-      color: var(--text-1);
-      transition: background 0.2s, color 0.2s;
-    }
-    .side-panel-close:hover { background: var(--surface-2); color: var(--text-0); }
-    .side-panel-close:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 2px; }
-    .side-panel-links { margin-top: 32px; display: flex; flex-direction: column; gap: 8px; }
-    .side-panel-links a {
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      font-weight: 500;
-      color: var(--text-1);
-      transition: background 0.2s, color 0.2s;
-    }
-    .side-panel-links a:hover { background: var(--surface-2); color: var(--text-0); }
-    .side-panel-links a:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 2px; }
-    .side-panel-links a.active { color: var(--brand-light); background: rgba(139,111,232,0.08); }
+    .announce { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; height: 100%; overflow: hidden; }
+    .announce-slide { position: absolute; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em; color: #A9A5B8; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+    .announce-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .announce-slide .ann-highlight { color: #CBBCF9; font-weight: 600; }
+    .announce-slide .ann-new { display: inline-block; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; background: #8B6FE8; padding: 1px 6px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+
+    .panel-overlay { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .panel-overlay.open { opacity: 1; pointer-events: auto; }
+    .panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 280px; max-width: 80vw; background: #151320; border-left: 1px solid rgba(139, 111, 232, 0.1); transform: translateX(100%); transition: transform 0.25s ease; display: flex; flex-direction: column; }
+    .panel.open { transform: translateX(0); }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
+    .panel-header span { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; }
+    .panel-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; transition: background 0.15s; }
+    .panel-close:hover { background: #1E1B2D; }
+    .panel-close svg { width: 18px; height: 18px; color: #A9A5B8; }
+    .panel-links { padding: 8px 0; flex: 1; overflow-y: auto; }
+    .panel-links a { display: block; padding: 12px 24px; font-size: 1rem; font-weight: 500; color: #A9A5B8; transition: background 0.15s, color 0.15s; }
+    .panel-links a:hover { background: #1E1B2D; color: #F0EEF6; }
+
+    @media (max-width: 640px) { .announce { display: none; } }
 
     /* ── SECTIONS ── */
     section { padding: 100px 24px; }
@@ -396,31 +315,18 @@
       text-align: center;
     }
 
-    /* ── FOOTER ── */
-    .footer {
-      padding: 32px 24px;
-      border-top: 1px solid var(--border);
-    }
-    .footer-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .footer-copy {
-      font-size: 0.825rem;
-      color: var(--text-2);
-    }
-    .footer-disclaimer {
-      font-size: 0.75rem;
-      color: var(--text-2);
-      max-width: 440px;
-      text-align: right;
-      line-height: 1.5;
-    }
+    .footer { border-top: 1px solid rgba(139, 111, 232, 0.1); padding-top: 48px; padding-bottom: 32px; }
+    .footer .contain { max-width: 1040px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; }
+    .footer-brand-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .footer-brand-desc { font-size: 0.875rem; color: #A9A5B8; line-height: 1.65; max-width: 320px; }
+    .footer-cols { display: flex; gap: 48px; }
+    .footer-col h4 { font-family: 'Outfit', sans-serif; font-size: 0.875rem; font-weight: 700; color: #F0EEF6; margin-bottom: 12px; }
+    .footer-col a { display: block; font-size: 0.875rem; color: #6E6A7E; padding: 3px 0; transition: color 0.15s; }
+    .footer-col a:hover { color: #CBBCF9; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(139, 111, 232, 0.1); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 0.8125rem; color: #6E6A7E; }
+    .footer-disclaimer { font-size: 0.8125rem; color: #6E6A7E; max-width: 480px; text-align: right; line-height: 1.5; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -431,8 +337,10 @@
       .steps-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
       .plans-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
       .software-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-disclaimer { text-align: center; }
+      .footer-inner { flex-direction: column; }
+      .footer-cols { flex-wrap: wrap; gap: 24px 48px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+      .footer-disclaimer { text-align: left; }
       section { padding: 72px 20px; }
       .hero { padding-top: 130px; padding-bottom: 60px; }
     }
@@ -441,33 +349,47 @@
 <body>
 
   <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <img src="/loom-icon.png" width="24" height="24" alt="Loom icon" style="border-radius:4px"> Loom
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="contain">
+      <a href="/" class="nav-logo" aria-label="Loom home">
+        <img src="/loom-icon.png" alt="" width="24" height="24" style="border-radius:4px">
+        Loom
       </a>
-      <div class="nav-right">
-        <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="nav-download" id="nav-download">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5"/><path d="M2 13h12"/></svg>
-          Download
+      <div class="announce" id="announceBar">
+        <a href="/release.html" class="announce-slide active" data-ann="0">
+          <span class="ann-new">New</span>
+          Loom v1.6.4 is here! Introducing <span class="ann-highlight">improved AI fixes.</span>
         </a>
-        <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
-          <span></span>
+        <div class="announce-slide" data-ann="1">
+          <span class="ann-new">Soon</span>
+          Quick Servers — host a Minecraft server in two clicks. <span class="ann-highlight">No port forwarding.</span>
+        </div>
+        <div class="announce-slide" data-ann="2">
+          Help us shape the future of Minecraft launchers. <span class="ann-highlight">Open Beta</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="nav-dl">Download</a>
+        <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- OVERLAY -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- SIDE PANEL -->
-  <aside class="side-panel" id="side-panel">
-    <button class="side-panel-close" id="side-panel-close" aria-label="Close menu">✕</button>
-    <div class="side-panel-links">
-      <a href="#">Docs</a>
-      <a href="/quick-servers.html" class="active">Quick Servers</a>
+  <div class="panel-overlay" id="panelOverlay"></div>
+  <aside class="panel" id="panel" aria-label="Navigation menu">
+    <div class="panel-header">
+      <span>Menu</span>
+      <button class="panel-close" aria-label="Close menu" id="panelClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
+    <nav class="panel-links">
+      <a href="/features.html">Features</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/quick-servers.html">Quick Servers</a>
+    </nav>
   </aside>
 
   <!-- HERO -->
@@ -612,26 +534,67 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-inner">
-      <p class="footer-copy">&copy; 2026 Loom</p>
-      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    <div class="contain">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-brand-name">
+            <img src="/loom-icon.png" alt="" width="20" height="20" style="border-radius:3px">
+            Loom
+          </p>
+          <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="/features.html">Features</a>
+            <a href="/quick-servers.html">Quick Servers</a>
+            <a href="/release.html">Latest Release</a>
+            <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe">Download</a>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <a href="/docs.html">Docs</a>
+            <a href="https://github.com/ContiSupplu/Cobble" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Loom</p>
+        <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+      </div>
     </div>
   </footer>
 
   <script>
-    /* ── Side Panel ── */
-    const hamburger = document.getElementById('hamburger-btn');
-    const overlay   = document.getElementById('overlay');
-    const panel     = document.getElementById('side-panel');
-    const panelClose = document.getElementById('side-panel-close');
-
-    function openPanel()  { panel.classList.add('open'); overlay.classList.add('open'); }
-    function closePanel() { panel.classList.remove('open'); overlay.classList.remove('open'); }
-
-    hamburger.addEventListener('click', openPanel);
-    overlay.addEventListener('click', closePanel);
-    panelClose.addEventListener('click', closePanel);
+    // Panel toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const panel = document.getElementById('panel');
+    const panelOverlay = document.getElementById('panelOverlay');
+    const panelClose = document.getElementById('panelClose');
+    function openPanel() { panel.classList.add('open'); panelOverlay.classList.add('open'); }
+    function closePanel() { panel.classList.remove('open'); panelOverlay.classList.remove('open'); }
+    if (menuBtn) menuBtn.addEventListener('click', openPanel);
+    if (panelClose) panelClose.addEventListener('click', closePanel);
+    if (panelOverlay) panelOverlay.addEventListener('click', closePanel);
+    document.querySelectorAll('.panel-links a').forEach(a => a.addEventListener('click', closePanel));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+    // Announcement Bar Cycling
+    (function() {
+      const slides = document.querySelectorAll('.announce-slide');
+      if (slides.length < 2) return;
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 4500);
+    })();
 
     /* ── Scroll Reveal ── */
     const reveals = document.querySelectorAll('.reveal');
