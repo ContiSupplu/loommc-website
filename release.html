@@ -211,7 +211,7 @@ a { color: inherit; text-decoration: none; }
   <p class="release-date">June 2, 2026</p>
 
   <div class="release-section">
-    <h2>What's New</h2>
+    <h2>What's New in v1.6.4</h2>
     <ul class="release-list">
       <li>
         <strong>Improved AI Fixes</strong> — Loomie now retries on overloaded models and automatically falls back to a secondary model so you never get stuck.
@@ -219,45 +219,19 @@ a { color: inherit; text-decoration: none; }
       </li>
       <li>
         <strong>Smarter Crash Diagnosis</strong> — Loomie recognizes 13+ crash patterns including Mixin conflicts, missing dependencies, duplicate mods, and out-of-memory errors.
-        <span class="tag tag-new">New</span>
-      </li>
-      <li>
-        <strong>Bedrock Edition</strong> — Play Bedrock from the same launcher. Browse worlds, install addons from MCPEDL and CurseForge, block Marketplace ads.
-        <span class="tag tag-new">New</span>
-      </li>
-      <li>
-        <strong>Dynamic Island</strong> — See downloads, Spotify playback, and crash alerts in a floating bar — even while in-game.
-        <span class="tag tag-new">New</span>
-      </li>
-      <li>
-        <strong>In-Game Loomie</strong> — Talk to Loomie while playing via the Fabric mod overlay. Ask questions, get help, without leaving the game.
-        <span class="tag tag-new">New</span>
-      </li>
-      <li>
-        <strong>Recording + Video Editor</strong> — Record gameplay, save replays from a rolling buffer, then trim, speed-ramp, add text, and merge clips.
-        <span class="tag tag-new">New</span>
-      </li>
-    </ul>
-  </div>
-
-  <div class="release-section">
-    <h2>Fixes & Improvements</h2>
-    <ul class="release-list">
-      <li>
-        <strong>Gemini API Resilience</strong> — 2 retries on 503/429 errors with automatic fallback from gemini-2.5-flash to gemini-2.0-flash.
         <span class="tag tag-improved">Improved</span>
+      </li>
+      <li>
+        <strong>Gemini API Resilience</strong> — 2 automatic retries on 503/429 errors with fallback from gemini-2.5-flash to gemini-2.0-flash.
+        <span class="tag tag-new">New</span>
       </li>
       <li>
         <strong>Performance Mod Conflicts</strong> — Loomie now automatically removes perf mods that conflict with modpack mods instead of the other way around.
         <span class="tag tag-fix">Fix</span>
       </li>
       <li>
-        <strong>Mod Removal</strong> — The remove_mod tool now blacklists removed mods so the auto-installer doesn't re-add them.
+        <strong>Mod Removal Blacklisting</strong> — Removed mods are now blacklisted so the auto-installer doesn't re-add them.
         <span class="tag tag-improved">Improved</span>
-      </li>
-      <li>
-        <strong>Bedrock Ad Blocker</strong> — Toggle in the browser toolbar to block Marketplace ads on MCPEDL and other addon sites.
-        <span class="tag tag-new">New</span>
       </li>
     </ul>
   </div>
