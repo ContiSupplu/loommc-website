@@ -12,6 +12,7 @@ export default defineConfig({
         release: resolve(__dirname, 'release.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
+        contact: resolve(__dirname, 'contact.html'),
       },
     },
   },

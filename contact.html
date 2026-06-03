@@ -3,40 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loom v1.6.4 — Netherite Update</title>
-<meta name="description" content="Loom v1.6.4 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
+<title>Contact — Loom Minecraft Launcher</title>
+<meta name="description" content="Get in touch with the Loom team — support, general inquiries, and partnership opportunities.">
 <link rel="icon" type="image/png" href="/loom-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --surface-0: #0D0B14;
-  --surface-1: #151320;
-  --surface-2: #1E1B2D;
-  --text-0: #F0EEF6;
-  --text-1: #A9A5B8;
-  --text-2: #6E6A7E;
-  --brand: #8B6FE8;
-  --brand-dim: #6D50C7;
-  --brand-light: #CBBCF9;
-  --border: rgba(139, 111, 232, 0.1);
-  --font-display: 'Outfit', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
-  --max-w: 720px;
-  --nav-h: 56px;
-}
-
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: var(--font-body);
-  background: var(--surface-0);
-  color: var(--text-0);
-  line-height: 1.6;
-}
+body { font-family: 'DM Sans', sans-serif; background: #0D0B14; color: #F0EEF6; line-height: 1.6; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
@@ -75,6 +51,140 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .panel-links a { display: block; padding: 12px 24px; font-size: 1rem; font-weight: 500; color: #A9A5B8; transition: background 0.15s, color 0.15s; }
 .panel-links a:hover { background: #1E1B2D; color: #F0EEF6; }
 
+/* Page */
+.contact-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(56px + 64px) 24px 80px;
+}
+
+.contact-page h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.contact-sub {
+  font-size: 1rem;
+  color: #A9A5B8;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.channels {
+  display: grid;
+  gap: 20px;
+}
+
+.channel {
+  background: #151320;
+  border: 1px solid rgba(139, 111, 232, 0.1);
+  border-radius: 12px;
+  padding: 28px 32px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.channel:hover {
+  border-color: rgba(139, 111, 232, 0.25);
+  transform: translateY(-2px);
+}
+
+.channel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.channel-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.channel-icon.support {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+}
+.channel-icon.general {
+  background: rgba(139, 111, 232, 0.12);
+  color: #CBBCF9;
+}
+.channel-icon.partners {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+}
+
+.channel-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6E6A7E;
+  margin-bottom: 2px;
+}
+
+.channel-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.channel-desc {
+  font-size: 0.9375rem;
+  color: #A9A5B8;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.channel-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #CBBCF9;
+  padding: 8px 16px;
+  background: rgba(139, 111, 232, 0.08);
+  border: 1px solid rgba(139, 111, 232, 0.15);
+  border-radius: 8px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.channel-email:hover {
+  background: rgba(139, 111, 232, 0.15);
+  border-color: rgba(139, 111, 232, 0.3);
+}
+.channel-email svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.response-note {
+  margin-top: 48px;
+  padding: 20px 24px;
+  background: rgba(139, 111, 232, 0.05);
+  border-left: 3px solid rgba(139, 111, 232, 0.3);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.875rem;
+  color: #A9A5B8;
+  line-height: 1.65;
+}
+.response-note strong {
+  color: #F0EEF6;
+}
+
 /* Footer */
 .footer { border-top: 1px solid rgba(139, 111, 232, 0.1); padding-top: 48px; padding-bottom: 32px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; }
@@ -95,125 +205,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .footer-bottom { flex-direction: column; gap: 8px; }
   .footer-disclaimer { text-align: left; }
 }
-
-/* Page */
-.release {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: calc(var(--nav-h) + 64px) 24px 80px;
-}
-
-.release-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #fff;
-  background: var(--brand);
-  padding: 3px 10px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.release h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 8px;
-}
-.release h1 em {
-  font-style: normal;
-  color: var(--brand);
-}
-
-.release-date {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--text-2);
-  margin-bottom: 40px;
-}
-
-.release-section {
-  margin-bottom: 40px;
-}
-.release-section h2 {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  color: var(--text-0);
-}
-
-.release-list {
-  list-style: none;
-}
-.release-list li {
-  position: relative;
-  padding: 10px 0 10px 28px;
-  font-size: 0.9375rem;
-  color: var(--text-1);
-  line-height: 1.6;
-  border-bottom: 1px solid var(--border);
-}
-.release-list li:last-child { border-bottom: none; }
-.release-list li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 15px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--brand);
-}
-.release-list li strong {
-  color: var(--text-0);
-  font-weight: 600;
-}
-.release-list li .tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  padding: 1px 6px;
-  border-radius: 3px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-.tag-new {
-  color: #34D399; background: rgba(52, 211, 153, 0.1);
-}
-.tag-improved {
-  color: var(--brand-light); background: rgba(139, 111, 232, 0.1);
-}
-.tag-fix {
-  color: #F59E0B; background: rgba(245, 158, 11, 0.1);
-}
-
-.release-dl {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 14px 36px;
-  background: var(--brand);
-  color: #fff;
-  border-radius: var(--r-md);
-  transition: background 0.2s, transform 0.15s, box-shadow 0.3s;
-  margin-top: 8px;
-}
-.release-dl:hover {
-  background: var(--brand-dim);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
-}
-.release-dl svg { width: 18px; height: 18px; }
-
 @media (max-width: 480px) {
-  .release h1 { font-size: 1.75rem; }
+  .contact-page h1 { font-size: 1.75rem; }
+  .channel { padding: 20px; }
 }
 </style>
 </head>
@@ -262,41 +256,71 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   </nav>
 </aside>
 
-<main class="release">
-  <span class="release-tag">LATEST RELEASE</span>
-  <h1>Loom v1.6.4 — <em>Netherite</em></h1>
-  <p class="release-date">June 2, 2026</p>
+<main class="contact-page">
+  <h1>Get in touch</h1>
+  <p class="contact-sub">Pick the right inbox and we'll get back to you as fast as we can.</p>
 
-  <div class="release-section">
-    <h2>What's New in v1.6.4</h2>
-    <ul class="release-list">
-      <li>
-        <strong>Improved AI Fixes</strong> — Loomie now retries on overloaded models and automatically falls back to a secondary model so you never get stuck.
-        <span class="tag tag-improved">Improved</span>
-      </li>
-      <li>
-        <strong>Smarter Crash Diagnosis</strong> — Loomie recognizes 13+ crash patterns including Mixin conflicts, missing dependencies, duplicate mods, and out-of-memory errors.
-        <span class="tag tag-improved">Improved</span>
-      </li>
-      <li>
-        <strong>Gemini API Resilience</strong> — 2 automatic retries on 503/429 errors with fallback from gemini-2.5-flash to gemini-2.0-flash.
-        <span class="tag tag-new">New</span>
-      </li>
-      <li>
-        <strong>Performance Mod Conflicts</strong> — Loomie now automatically removes perf mods that conflict with modpack mods instead of the other way around.
-        <span class="tag tag-fix">Fix</span>
-      </li>
-      <li>
-        <strong>Mod Removal Blacklisting</strong> — Removed mods are now blacklisted so the auto-installer doesn't re-add them.
-        <span class="tag tag-improved">Improved</span>
-      </li>
-    </ul>
+  <div class="channels">
+
+    <!-- Support -->
+    <div class="channel">
+      <div class="channel-header">
+        <div class="channel-icon support">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <p class="channel-label">Support</p>
+          <p class="channel-name">Bug reports & help</p>
+        </div>
+      </div>
+      <p class="channel-desc">Something broken? Crash you can't fix? Need help setting up? This is the fastest way to get a fix.</p>
+      <a href="mailto:support@loommc.com" class="channel-email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        support@loommc.com
+      </a>
+    </div>
+
+    <!-- General -->
+    <div class="channel">
+      <div class="channel-header">
+        <div class="channel-icon general">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <p class="channel-label">General</p>
+          <p class="channel-name">Questions & feedback</p>
+        </div>
+      </div>
+      <p class="channel-desc">Feature suggestions, general questions, or just want to say hi. We read everything.</p>
+      <a href="mailto:hello@loommc.com" class="channel-email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        hello@loommc.com
+      </a>
+    </div>
+
+    <!-- Partners -->
+    <div class="channel">
+      <div class="channel-header">
+        <div class="channel-icon partners">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <p class="channel-label">Partnerships</p>
+          <p class="channel-name">Collabs & business</p>
+        </div>
+      </div>
+      <p class="channel-desc">Content creator? Server network? Mod developer? Let's work together.</p>
+      <a href="mailto:partners@loommc.com" class="channel-email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        partners@loommc.com
+      </a>
+    </div>
+
   </div>
 
-  <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="release-dl">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Download v1.6.4
-  </a>
+  <div class="response-note">
+    <strong>Response times.</strong> We're a small team, so expect a reply within 24–48 hours. For urgent crash issues, include your crash log — Loomie can usually fix it faster than we can.
+  </div>
 </main>
 
 <footer class="footer">
