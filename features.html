@@ -10,10 +10,11 @@
 <meta property="og:description" content="Explore every feature Loom offers: AI crash diagnosis, Dynamic Island HUD, Java + Bedrock, one-click mods, recording, Spotify, and more.">
 <meta property="og:url" content="https://loommc.com/features">
 <link rel="icon" type="image/png" href="/loom-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
+@font-face { font-family: "Unbounded"; src: url("/fonts/Unbounded.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("/fonts/Geist.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("/fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }
 /* ── Design Tokens ── */
 :root {
   --surface-0: #0D0B14;
@@ -28,8 +29,8 @@
   --brand-light: #CBBCF9;
   --border: rgba(139, 111, 232, 0.1);
 
-  --font-display: 'Outfit', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --text-display: clamp(2.25rem, 4.5vw, 3.25rem);
@@ -132,7 +133,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ── Nav ── */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 56px; background: #0D0B14; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
 .nav .contain { display: flex; align-items: center; height: 100%; }
-.nav-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
+.nav-logo { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
 .nav-logo img { flex-shrink: 0; }
 .nav-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
 .nav-dl { font-size: 0.875rem; font-weight: 600; color: #F0EEF6; transition: color 0.2s; }
@@ -152,7 +153,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 280px; max-width: 80vw; background: #151320; border-left: 1px solid rgba(139, 111, 232, 0.1); transform: translateX(100%); transition: transform 0.25s ease; display: flex; flex-direction: column; }
 .panel.open { transform: translateX(0); }
 .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
-.panel-header span { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; }
+.panel-header span { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1rem; }
 .panel-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; transition: background 0.15s; }
 .panel-close:hover { background: #1E1B2D; }
 .panel-close svg { width: 18px; height: 18px; color: #A9A5B8; }
@@ -548,10 +549,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ── Footer ── */
 .footer { border-top: 1px solid rgba(139, 111, 232, 0.1); padding-top: 48px; padding-bottom: 32px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; }
-.footer-brand-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.footer-brand-name { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .footer-brand-desc { font-size: 0.875rem; color: #A9A5B8; line-height: 1.65; max-width: 320px; }
 .footer-cols { display: flex; gap: 48px; }
-.footer-col h4 { font-family: 'Outfit', sans-serif; font-size: 0.875rem; font-weight: 700; color: #F0EEF6; margin-bottom: 12px; }
+.footer-col h4 { font-family: 'Unbounded', system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; color: #F0EEF6; margin-bottom: 12px; }
 .footer-col a { display: block; font-size: 0.875rem; color: #6E6A7E; padding: 3px 0; transition: color 0.15s; }
 .footer-col a:hover { color: #CBBCF9; }
 .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(139, 111, 232, 0.1); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; }
