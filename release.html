@@ -3,236 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loom v1.6.4 — Netherite Update</title>
-<meta name="description" content="Loom v1.6.4 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
+<title>Loom v1.6.6 — Netherite Update</title>
+<meta name="description" content="Loom v1.6.6 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
 <link rel="canonical" href="https://loommc.com/release.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Loom v1.6.4 — Netherite Update">
-<meta property="og:description" content="Loom v1.6.4 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
+<meta property="og:title" content="Loom v1.6.6 — Netherite Update">
+<meta property="og:description" content="Loom v1.6.6 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
 <meta property="og:url" content="https://loommc.com/release.html">
 <meta property="og:image" content="https://loommc.com/launcher-screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Loom v1.6.4 — Netherite Update">
+<meta name="twitter:title" content="Loom v1.6.6 — Netherite Update">
 <meta name="twitter:description" content="Improved AI crash fixing, retry logic, Bedrock Edition support, and more.">
-<style>
-@font-face { font-family: "Unbounded"; src: url("/fonts/Unbounded.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "Geist"; src: url("/fonts/Geist.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("/fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }
-:root {
-  --surface-0: #0D0B14;
-  --surface-1: #151320;
-  --surface-2: #1E1B2D;
-  --text-0: #F0EEF6;
-  --text-1: #A9A5B8;
-  --text-2: #6E6A7E;
-  --brand: #8B6FE8;
-  --brand-dim: #6D50C7;
-  --brand-light: #CBBCF9;
-  --border: rgba(139, 111, 232, 0.1);
-  --font-display: 'Unbounded', system-ui, sans-serif;
-  --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
-  --max-w: 720px;
-  --nav-h: 56px;
-}
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: var(--font-body);
-  background: var(--surface-0);
-  color: var(--text-0);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-::selection { background: rgba(139, 111, 232, 0.3); }
+<script type="module" src="/src/release.js"></script>
 
-.contain { max-width: 1040px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-
-/* Nav */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 56px; background: #0D0B14; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
-.nav .contain { display: flex; align-items: center; height: 100%; }
-.nav-logo { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
-.nav-logo img { flex-shrink: 0; }
-.nav-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
-.nav-dl { font-size: 0.875rem; font-weight: 600; color: #F0EEF6; transition: color 0.2s; }
-.nav-dl:hover { color: #CBBCF9; }
-.nav-menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; min-width: 44px; min-height: 44px; border-radius: 6px; transition: background 0.15s; }
-.nav-menu-btn:hover { background: #1E1B2D; }
-.nav-menu-btn svg { width: 20px; height: 20px; color: #A9A5B8; }
-
-.announce { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; height: 100%; overflow: hidden; }
-.announce-slide { position: absolute; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em; color: #A9A5B8; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
-.announce-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.announce-slide .ann-highlight { color: #CBBCF9; font-weight: 600; }
-.announce-slide .ann-new { display: inline-block; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; background: #8B6FE8; padding: 1px 6px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
-
-.panel-overlay { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-.panel-overlay.open { opacity: 1; pointer-events: auto; }
-.panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 280px; max-width: 80vw; background: #151320; border-left: 1px solid rgba(139, 111, 232, 0.1); transform: translateX(100%); transition: transform 0.25s ease; display: flex; flex-direction: column; }
-.panel.open { transform: translateX(0); }
-.panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
-.panel-header span { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1rem; }
-.panel-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 6px; transition: background 0.15s; }
-.panel-close:hover { background: #1E1B2D; }
-.panel-close svg { width: 18px; height: 18px; color: #A9A5B8; }
-.panel-links { padding: 8px 0; flex: 1; overflow-y: auto; }
-.panel-links a { display: block; padding: 12px 24px; font-size: 1rem; font-weight: 500; color: #A9A5B8; transition: background 0.15s, color 0.15s; }
-.panel-links a:hover { background: #1E1B2D; color: #F0EEF6; }
-
-/* Footer */
-.footer { border-top: 1px solid rgba(139, 111, 232, 0.1); padding-top: 48px; padding-bottom: 32px; }
-.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; }
-.footer-brand-name { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-.footer-brand-desc { font-size: 0.875rem; color: #A9A5B8; line-height: 1.65; max-width: 320px; }
-.footer-cols { display: flex; gap: 48px; }
-.footer-col h4 { font-family: 'Unbounded', system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; color: #F0EEF6; margin-bottom: 12px; }
-.footer-col a { display: block; font-size: 0.875rem; color: #6E6A7E; padding: 3px 0; transition: color 0.15s; }
-.footer-col a:hover { color: #CBBCF9; }
-.footer-bottom { padding-top: 24px; border-top: 1px solid rgba(139, 111, 232, 0.1); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; }
-.footer-copy { font-size: 0.8125rem; color: #6E6A7E; }
-.footer-disclaimer { font-size: 0.8125rem; color: #6E6A7E; max-width: 480px; text-align: right; line-height: 1.5; }
-
-@media (max-width: 640px) { .announce { display: none; } }
-@media (max-width: 768px) {
-  .footer-inner { flex-direction: column; }
-  .footer-cols { flex-wrap: wrap; gap: 24px 48px; }
-  .footer-bottom { flex-direction: column; gap: 8px; }
-  .footer-disclaimer { text-align: left; }
-}
-
-/* Page */
-.release {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: calc(var(--nav-h) + 64px) 24px 80px;
-}
-
-.release-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #fff;
-  background: var(--brand);
-  padding: 3px 10px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.release h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 8px;
-}
-.release h1 em {
-  font-style: normal;
-  color: var(--brand);
-}
-
-.release-date {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--text-2);
-  margin-bottom: 40px;
-}
-
-.release-section {
-  margin-bottom: 40px;
-}
-.release-section h2 {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  color: var(--text-0);
-}
-
-.release-list {
-  list-style: none;
-}
-.release-list li {
-  position: relative;
-  padding: 10px 0 10px 28px;
-  font-size: 0.9375rem;
-  color: var(--text-1);
-  line-height: 1.6;
-  border-bottom: 1px solid var(--border);
-}
-.release-list li:last-child { border-bottom: none; }
-.release-list li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 15px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--brand);
-}
-.release-list li strong {
-  color: var(--text-0);
-  font-weight: 600;
-}
-.release-list li .tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  padding: 1px 6px;
-  border-radius: 3px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-.tag-new {
-  color: #34D399; background: rgba(52, 211, 153, 0.1);
-}
-.tag-improved {
-  color: var(--brand-light); background: rgba(139, 111, 232, 0.1);
-}
-.tag-fix {
-  color: #F59E0B; background: rgba(245, 158, 11, 0.1);
-}
-
-.release-dl {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 14px 36px;
-  background: var(--brand);
-  color: #fff;
-  border-radius: var(--r-md);
-  transition: background 0.2s, transform 0.15s, box-shadow 0.3s;
-  margin-top: 8px;
-}
-.release-dl:hover {
-  background: var(--brand-dim);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
-}
-.release-dl svg { width: 18px; height: 18px; }
-
-@media (max-width: 480px) {
-  .release h1 { font-size: 1.75rem; }
-}
-</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Loom v1.6.4 — Netherite Update",
+  "headline": "Loom v1.6.6 — Netherite Update",
   "url": "https://loommc.com/release.html",
-  "description": "Loom v1.6.4 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.",
+  "description": "Loom v1.6.6 brings improved AI crash fixing, retry logic, Bedrock Edition support, and more.",
   "author": { "@type": "Organization", "name": "Loom" },
   "publisher": { "@type": "Organization", "name": "Loom", "logo": { "@type": "ImageObject", "url": "https://loommc.com/loom-icon.svg" } },
   "isPartOf": { "@type": "WebSite", "name": "Loom", "url": "https://loommc.com" }
@@ -241,15 +34,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 </head>
 <body>
 
+<!-- Nav -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="contain">
     <a href="/" class="nav-logo" aria-label="Loom home">
-      <img src="/loom-icon.svg" alt="" width="36" height="36" style="border-radius:8px"> Loom
+      <img src="/loom-icon.svg" alt="" width="36" height="36"> Loom
     </a>
+    <!-- Announcement Bar -->
     <div class="announce" id="announceBar">
       <a href="/release.html" class="announce-slide active" data-ann="0">
         <span class="ann-new">New</span>
-        Loom v1.6.4 is here! Introducing <span class="ann-highlight">improved AI fixes.</span>
+        Loom v1.6.6 is here! Introducing <span class="ann-highlight">new branding.</span>
       </a>
       <div class="announce-slide" data-ann="1">
         <span class="ann-new">Soon</span>
@@ -259,8 +54,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         Help us shape the future of Minecraft launchers. <span class="ann-highlight">Open Beta</span>
       </div>
     </div>
+
     <div class="nav-actions">
-      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="nav-dl">Download</a>
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="nav-dl">Download</a>
       <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
       </button>
@@ -268,6 +64,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   </div>
 </nav>
 
+<!-- Side Panel -->
 <div class="panel-overlay" id="panelOverlay"></div>
 <aside class="panel" id="panel" aria-label="Navigation menu">
   <div class="panel-header">
@@ -285,11 +82,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 <main class="release">
   <span class="release-tag">LATEST RELEASE</span>
-  <h1>Loom v1.6.4 — <em>Netherite</em></h1>
+  <h1>Loom v1.6.6 — <em>Netherite</em></h1>
   <p class="release-date">June 2, 2026</p>
 
   <div class="release-section">
-    <h2>What's New in v1.6.4</h2>
+    <h2>What's New in v1.6.6</h2>
     <ul class="release-list">
       <li>
         <strong>Improved AI Fixes</strong> — Loomie now retries on overloaded models and automatically falls back to a secondary model so you never get stuck.
@@ -314,18 +111,19 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     </ul>
   </div>
 
-  <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="release-dl">
+  <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="release-dl">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Download v1.6.4
+    Download v1.6.6
   </a>
 </main>
 
+<!-- Footer -->
 <footer class="footer">
   <div class="contain">
     <div class="footer-inner">
       <div>
         <p class="footer-brand-name">
-          <img src="/loom-icon.svg" alt="" width="28" height="28" style="border-radius:6px"> Loom
+          <img src="/loom-icon.svg" alt="" width="28" height="28"> Loom
         </p>
         <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
       </div>
@@ -335,7 +133,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <a href="/features.html">Features</a>
           <a href="/quick-servers.html">Quick Servers</a>
           <a href="/release.html">Latest Release</a>
-          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe">Download</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe">Download</a>
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
@@ -356,33 +154,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     </div>
   </div>
 </footer>
-
-<script>
-// Panel toggle
-const menuBtn = document.getElementById('menuBtn');
-const panel = document.getElementById('panel');
-const panelOverlay = document.getElementById('panelOverlay');
-const panelClose = document.getElementById('panelClose');
-function openPanel() { panel.classList.add('open'); panelOverlay.classList.add('open'); }
-function closePanel() { panel.classList.remove('open'); panelOverlay.classList.remove('open'); }
-if (menuBtn) menuBtn.addEventListener('click', openPanel);
-if (panelClose) panelClose.addEventListener('click', closePanel);
-if (panelOverlay) panelOverlay.addEventListener('click', closePanel);
-document.querySelectorAll('.panel-links a').forEach(a => a.addEventListener('click', closePanel));
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-// Announcement Bar Cycling
-(function() {
-  const slides = document.querySelectorAll('.announce-slide');
-  if (slides.length < 2) return;
-  let current = 0;
-  setInterval(() => {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }, 4500);
-})();
-</script>
 
 </body>
 </html>

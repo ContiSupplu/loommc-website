@@ -9,6 +9,7 @@
 <meta property="og:title" content="Features — Loom Minecraft Launcher">
 <meta property="og:description" content="Explore every feature Loom offers: AI crash diagnosis, Dynamic Island HUD, Java + Bedrock, one-click mods, recording, Spotify, and more.">
 <meta property="og:url" content="https://loommc.com/features">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
 <link rel="canonical" href="https://loommc.com/features.html">
 <meta property="og:image" content="https://loommc.com/launcher-screenshot.png">
@@ -16,630 +17,8 @@
 <meta name="twitter:title" content="Features — Loom Minecraft Launcher">
 <meta name="twitter:description" content="Every feature in Loom: AI crash fixing, one-click mods, Java + Bedrock, Quick Servers, and more.">
 
-<style>
-@font-face { font-family: "Unbounded"; src: url("/fonts/Unbounded.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "Geist"; src: url("/fonts/Geist.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("/fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }
-/* ── Design Tokens ── */
-:root {
-  --surface-0: #0D0B14;
-  --surface-1: #151320;
-  --surface-2: #1E1B2D;
-  --surface-3: #262339;
-  --text-0: #F0EEF6;
-  --text-1: #A9A5B8;
-  --text-2: #6E6A7E;
-  --brand: #8B6FE8;
-  --brand-dim: #6D50C7;
-  --brand-light: #CBBCF9;
-  --border: rgba(139, 111, 232, 0.1);
+<script type="module" src="/src/features.js"></script>
 
-  --font-display: 'Unbounded', system-ui, sans-serif;
-  --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  --text-display: clamp(2.25rem, 4.5vw, 3.25rem);
-  --text-h2: clamp(1.5rem, 2.5vw, 2rem);
-  --text-h3: 1.125rem;
-  --text-body: 1rem;
-  --text-small: 0.875rem;
-  --text-xs: 0.8125rem;
-
-  --sp-4: 4px; --sp-8: 8px; --sp-12: 12px; --sp-16: 16px;
-  --sp-24: 24px; --sp-32: 32px; --sp-40: 40px; --sp-48: 48px;
-  --sp-64: 64px; --sp-80: 80px; --sp-96: 96px; --sp-128: 128px;
-
-  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
-  --max-w: 1040px;
-  --nav-h: 56px;
-}
-
-/* ── Reset ── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: var(--font-body);
-  background: var(--surface-0);
-  color: var(--text-0);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-ul { list-style: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-::selection { background: rgba(139, 111, 232, 0.3); }
-
-.contain {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding-left: var(--sp-24);
-  padding-right: var(--sp-24);
-}
-
-/* ── Animations ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes blobFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -20px) scale(1.05); }
-  66% { transform: translate(-20px, 15px) scale(0.95); }
-}
-@keyframes particleDrift {
-  0% { transform: translateY(0) translateX(0); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
-}
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-.stagger-1 { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
-.stagger-2 { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
-.stagger-3 { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
-
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── Floating Particles ── */
-.particles {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-.particle {
-  position: absolute;
-  width: 2px; height: 2px;
-  background: var(--brand);
-  border-radius: 50%;
-  opacity: 0;
-  animation: particleDrift linear infinite;
-}
-
-/* ── Nav ── */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 56px; background: #0D0B14; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
-.nav .contain { display: flex; align-items: center; height: 100%; }
-.nav-logo { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
-.nav-logo img { flex-shrink: 0; }
-.nav-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
-.nav-dl { font-size: 0.875rem; font-weight: 600; color: #F0EEF6; transition: color 0.2s; }
-.nav-dl:hover { color: #CBBCF9; }
-.nav-menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; min-width: 44px; min-height: 44px; border-radius: 6px; transition: background 0.15s; }
-.nav-menu-btn:hover { background: #1E1B2D; }
-.nav-menu-btn svg { width: 20px; height: 20px; color: #A9A5B8; }
-
-.announce { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; height: 100%; overflow: hidden; }
-.announce-slide { position: absolute; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em; color: #A9A5B8; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
-.announce-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.announce-slide .ann-highlight { color: #CBBCF9; font-weight: 600; }
-.announce-slide .ann-new { display: inline-block; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; background: #8B6FE8; padding: 1px 6px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
-
-.panel-overlay { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-.panel-overlay.open { opacity: 1; pointer-events: auto; }
-.panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 280px; max-width: 80vw; background: #151320; border-left: 1px solid rgba(139, 111, 232, 0.1); transform: translateX(100%); transition: transform 0.25s ease; display: flex; flex-direction: column; }
-.panel.open { transform: translateX(0); }
-.panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(139, 111, 232, 0.1); }
-.panel-header span { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1rem; }
-.panel-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 6px; transition: background 0.15s; }
-.panel-close:hover { background: #1E1B2D; }
-.panel-close svg { width: 18px; height: 18px; color: #A9A5B8; }
-.panel-links { padding: 8px 0; flex: 1; overflow-y: auto; }
-.panel-links a { display: block; padding: 12px 24px; font-size: 1rem; font-weight: 500; color: #A9A5B8; transition: background 0.15s, color 0.15s; }
-.panel-links a:hover { background: #1E1B2D; color: #F0EEF6; }
-
-@media (max-width: 640px) { .announce { display: none; } }
-
-/* ── Hero ── */
-.features-hero {
-  position: relative;
-  padding-top: calc(var(--nav-h) + var(--sp-96));
-  padding-bottom: var(--sp-80);
-  text-align: center;
-  overflow: hidden;
-}
-.features-hero .hero-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-  z-index: 0;
-  animation: blobFloat 14s ease-in-out infinite;
-}
-.features-hero .blob-1 {
-  width: 600px; height: 600px;
-  background: rgba(139, 111, 232, 0.1);
-  top: -200px; left: -200px;
-}
-.features-hero .blob-2 {
-  width: 450px; height: 450px;
-  background: rgba(109, 80, 199, 0.07);
-  bottom: -100px; right: -150px;
-  animation-delay: -5s;
-}
-.features-hero .contain { position: relative; z-index: 1; }
-
-.features-hero .hero-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--brand-light);
-  letter-spacing: 0.04em;
-  margin-bottom: var(--sp-24);
-  background: rgba(139, 111, 232, 0.08);
-  padding: 4px 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(139, 111, 232, 0.15);
-}
-
-.features-hero h1 {
-  font-family: var(--font-display);
-  font-size: var(--text-display);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  color: var(--text-0);
-  max-width: 780px;
-  margin: 0 auto var(--sp-24);
-}
-.features-hero h1 em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--brand), var(--brand-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.features-hero .hero-desc {
-  font-size: var(--text-body);
-  color: var(--text-1);
-  line-height: 1.75;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* ── Feature Sections ── */
-.feature-section {
-  padding-top: var(--sp-96);
-  padding-bottom: var(--sp-96);
-  position: relative;
-}
-.feature-section:nth-child(even) {
-  background: var(--surface-1);
-}
-
-/* Decorative top line on sections */
-.feature-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: min(80%, 600px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), rgba(139, 111, 232, 0.2), var(--border), transparent);
-}
-
-.feature-header {
-  margin-bottom: var(--sp-48);
-}
-.feature-number {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-8);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--brand);
-  letter-spacing: 0.04em;
-  margin-bottom: var(--sp-16);
-}
-.feature-number .dot {
-  width: 6px; height: 6px;
-  background: var(--brand);
-  border-radius: 50%;
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-.feature-header h2 {
-  font-family: var(--font-display);
-  font-size: var(--text-h2);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin-bottom: var(--sp-16);
-  display: flex;
-  align-items: center;
-  gap: var(--sp-12);
-}
-.feature-header h2 .icon {
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(139, 111, 232, 0.1);
-  border: 1px solid rgba(139, 111, 232, 0.15);
-  border-radius: var(--r-sm);
-  flex-shrink: 0;
-}
-.feature-header h2 .icon svg {
-  width: 18px; height: 18px;
-  color: var(--brand);
-}
-
-.feature-header .desc {
-  font-size: var(--text-body);
-  color: var(--text-1);
-  line-height: 1.75;
-  max-width: 680px;
-}
-
-/* Badge for Coming Soon */
-.badge-soon {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, var(--brand), var(--brand-dim));
-  padding: 3px 10px;
-  border-radius: 4px;
-  margin-left: var(--sp-8);
-  vertical-align: middle;
-  letter-spacing: 0.02em;
-}
-
-/* Detail cards grid */
-.detail-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--sp-24);
-}
-
-.detail-card {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: var(--sp-24) var(--sp-24) var(--sp-24);
-  transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.detail-card:hover {
-  border-color: rgba(139, 111, 232, 0.25);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Subtle gradient top bar on cards */
-.detail-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--brand), var(--brand-light));
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.detail-card:hover::before { opacity: 1; }
-
-.detail-card h3 {
-  font-family: var(--font-display);
-  font-size: var(--text-h3);
-  font-weight: 700;
-  color: var(--text-0);
-  margin-bottom: var(--sp-8);
-  display: flex;
-  align-items: center;
-  gap: var(--sp-8);
-}
-.detail-card h3 svg {
-  width: 16px; height: 16px;
-  color: var(--brand);
-  flex-shrink: 0;
-}
-.detail-card p {
-  font-size: var(--text-small);
-  color: var(--text-1);
-  line-height: 1.7;
-}
-
-/* Inline bullet list inside cards */
-.detail-card ul {
-  margin-top: var(--sp-12);
-  padding-left: var(--sp-16);
-}
-.detail-card ul li {
-  font-size: var(--text-small);
-  color: var(--text-2);
-  line-height: 1.65;
-  margin-bottom: var(--sp-4);
-  position: relative;
-  padding-left: var(--sp-12);
-}
-.detail-card ul li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 8px;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--brand);
-  opacity: 0.6;
-}
-
-/* Mono-highlighted text */
-.mono {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  color: var(--brand-light);
-  background: rgba(139, 111, 232, 0.08);
-  padding: 1px 6px;
-  border-radius: 4px;
-}
-
-/* ── Feature Highlight Row (alternating visual) ── */
-.feature-highlight {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-48);
-  align-items: center;
-  margin-bottom: var(--sp-48);
-}
-.feature-highlight.reverse .fh-text { order: 2; }
-.feature-highlight.reverse .fh-visual { order: 1; }
-
-.fh-text .desc {
-  font-size: var(--text-body);
-  color: var(--text-1);
-  line-height: 1.75;
-  margin-bottom: var(--sp-16);
-}
-
-.fh-visual {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: var(--sp-32);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-12);
-}
-
-/* Mini stat cards inside visual boxes */
-.stat-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-8);
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  padding: 8px 14px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--text-1);
-}
-.stat-pill .val {
-  color: var(--brand-light);
-  font-weight: 600;
-}
-
-/* ── Everything Else Grid ── */
-.everything-else {
-  padding-top: var(--sp-80);
-  padding-bottom: var(--sp-96);
-  border-top: 1px solid var(--border);
-}
-.everything-else .section-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--sp-40);
-  text-align: center;
-}
-.extras-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-24);
-}
-.extra-item {
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  padding: var(--sp-24);
-  text-align: center;
-  transition: border-color 0.3s, transform 0.2s;
-}
-.extra-item:hover {
-  border-color: rgba(139, 111, 232, 0.25);
-  transform: translateY(-2px);
-}
-.extra-icon {
-  width: 40px; height: 40px;
-  margin: 0 auto var(--sp-12);
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(139, 111, 232, 0.08);
-  border-radius: var(--r-sm);
-}
-.extra-icon svg {
-  width: 20px; height: 20px;
-  color: var(--brand);
-}
-.extra-item h3 {
-  font-family: var(--font-display);
-  font-size: var(--text-small);
-  font-weight: 700;
-  margin-bottom: var(--sp-4);
-}
-.extra-item p {
-  font-size: var(--text-xs);
-  color: var(--text-2);
-  line-height: 1.5;
-}
-
-/* ── CTA ── */
-.cta-bar {
-  border-top: 1px solid var(--border);
-  padding-top: var(--sp-64);
-  padding-bottom: var(--sp-64);
-  text-align: center;
-}
-.cta-text {
-  font-family: var(--font-display);
-  font-size: var(--text-h2);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--sp-24);
-}
-.cta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-8);
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
-  padding: var(--sp-16) var(--sp-40);
-  background: var(--brand);
-  color: #fff;
-  border-radius: var(--r-md);
-  transition: background 0.2s, transform 0.15s, box-shadow 0.3s;
-}
-.cta-link:hover {
-  background: var(--brand-dim);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(139, 111, 232, 0.3);
-}
-.cta-link:focus-visible {
-  outline: 2px solid var(--brand-light);
-  outline-offset: 2px;
-}
-.cta-link svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-/* ── Footer ── */
-.footer { border-top: 1px solid rgba(139, 111, 232, 0.1); padding-top: 48px; padding-bottom: 32px; }
-.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; }
-.footer-brand-name { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-.footer-brand-desc { font-size: 0.875rem; color: #A9A5B8; line-height: 1.65; max-width: 320px; }
-.footer-cols { display: flex; gap: 48px; }
-.footer-col h4 { font-family: 'Unbounded', system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; color: #F0EEF6; margin-bottom: 12px; }
-.footer-col a { display: block; font-size: 0.875rem; color: #6E6A7E; padding: 3px 0; transition: color 0.15s; }
-.footer-col a:hover { color: #CBBCF9; }
-.footer-bottom { padding-top: 24px; border-top: 1px solid rgba(139, 111, 232, 0.1); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; }
-.footer-copy { font-size: 0.8125rem; color: #6E6A7E; }
-.footer-disclaimer { font-size: 0.8125rem; color: #6E6A7E; max-width: 480px; text-align: right; line-height: 1.5; }
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  :root { --sp-80: 56px; --sp-96: 64px; --sp-128: 80px; }
-
-  .feature-highlight {
-    grid-template-columns: 1fr;
-    gap: var(--sp-32);
-  }
-  .feature-highlight.reverse .fh-text,
-  .feature-highlight.reverse .fh-visual { order: unset; }
-
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .extras-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .footer-inner { flex-direction: column; }
-  .footer-cols { flex-wrap: wrap; gap: 24px 48px; }
-  .footer-bottom { flex-direction: column; gap: 8px; }
-  .footer-disclaimer { text-align: left; }
-}
-
-@media (max-width: 480px) {
-  .features-hero h1 { font-size: 2rem; }
-  .features-hero .hero-desc { font-size: var(--text-small); }
-  .extras-grid { grid-template-columns: 1fr; }
-}
-
-/* ── Focus ── */
-a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Quick Servers pricing table */
-.pricing-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-16);
-  margin-top: var(--sp-24);
-}
-.price-card {
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  padding: var(--sp-16) var(--sp-24);
-  text-align: center;
-  transition: border-color 0.3s;
-}
-.price-card:hover { border-color: rgba(139, 111, 232, 0.25); }
-.price-card .tier {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--text-small);
-  margin-bottom: var(--sp-4);
-}
-.price-card .price {
-  font-family: var(--font-mono);
-  font-size: var(--text-h3);
-  font-weight: 600;
-  color: var(--brand-light);
-  margin-bottom: var(--sp-4);
-}
-.price-card .note {
-  font-size: var(--text-xs);
-  color: var(--text-2);
-}
-
-@media (max-width: 640px) {
-  .pricing-row { grid-template-columns: 1fr 1fr; }
-}
-</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -660,12 +39,13 @@ a:focus-visible, button:focus-visible {
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="contain">
     <a href="/" class="nav-logo" aria-label="Loom home">
-      <img src="/loom-icon.svg" alt="" width="36" height="36" style="border-radius:8px"> Loom
+      <img src="/loom-icon.svg" alt="" width="36" height="36"> Loom
     </a>
+    <!-- Announcement Bar -->
     <div class="announce" id="announceBar">
       <a href="/release.html" class="announce-slide active" data-ann="0">
         <span class="ann-new">New</span>
-        Loom v1.6.4 is here! Introducing <span class="ann-highlight">improved AI fixes.</span>
+        Loom v1.6.6 is here! Introducing <span class="ann-highlight">new branding.</span>
       </a>
       <div class="announce-slide" data-ann="1">
         <span class="ann-new">Soon</span>
@@ -675,8 +55,9 @@ a:focus-visible, button:focus-visible {
         Help us shape the future of Minecraft launchers. <span class="ann-highlight">Open Beta</span>
       </div>
     </div>
+
     <div class="nav-actions">
-      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="nav-dl">Download</a>
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="nav-dl">Download</a>
       <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
       </button>
@@ -684,6 +65,7 @@ a:focus-visible, button:focus-visible {
   </div>
 </nav>
 
+<!-- Side Panel -->
 <div class="panel-overlay" id="panelOverlay"></div>
 <aside class="panel" id="panel" aria-label="Navigation menu">
   <div class="panel-header">
@@ -1150,7 +532,7 @@ a:focus-visible, button:focus-visible {
           <p class="price">$3<span style="font-size: 0.75em; color: var(--text-2);">/mo</span></p>
           <p class="note">More RAM &amp; players</p>
         </div>
-        <div class="price-card">
+        <div class="price-card recommended">
           <p class="tier">Pro+</p>
           <p class="price">$7<span style="font-size: 0.75em; color: var(--text-2);">/mo</span></p>
           <p class="note">Priority &amp; plugins</p>
@@ -1210,9 +592,9 @@ a:focus-visible, button:focus-visible {
   <!-- CTA -->
   <section class="cta-bar reveal">
     <div class="contain">
-      <p class="cta-text">Ready to try it?</p>
-      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe" class="cta-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <p class="cta-text">Ready to <em>try it?</em></p>
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="width:18px;height:18px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download for Windows
       </a>
     </div>
@@ -1225,7 +607,7 @@ a:focus-visible, button:focus-visible {
     <div class="footer-inner">
       <div>
         <p class="footer-brand-name">
-          <img src="/loom-icon.svg" alt="" width="28" height="28" style="border-radius:6px"> Loom
+          <img src="/loom-icon.svg" alt="" width="28" height="28"> Loom
         </p>
         <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
       </div>
@@ -1235,7 +617,7 @@ a:focus-visible, button:focus-visible {
           <a href="/features.html">Features</a>
           <a href="/quick-servers.html">Quick Servers</a>
           <a href="/release.html">Latest Release</a>
-          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.4.exe">Download</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe">Download</a>
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
@@ -1257,60 +639,5 @@ a:focus-visible, button:focus-visible {
   </div>
 </footer>
 
-<script>
-// ── Scroll Reveal ──
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// ── Floating Particles ──
-(function() {
-  const container = document.getElementById('particles');
-  if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const COUNT = 20;
-  for (let i = 0; i < COUNT; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.bottom = '-4px';
-    p.style.animationDuration = (14 + Math.random() * 20) + 's';
-    p.style.animationDelay = (Math.random() * 22) + 's';
-    p.style.width = p.style.height = (1.5 + Math.random() * 2) + 'px';
-    p.style.opacity = 0;
-    container.appendChild(p);
-  }
-})();
-
-// Panel toggle
-const menuBtn = document.getElementById('menuBtn');
-const panel = document.getElementById('panel');
-const panelOverlay = document.getElementById('panelOverlay');
-const panelClose = document.getElementById('panelClose');
-function openPanel() { panel.classList.add('open'); panelOverlay.classList.add('open'); }
-function closePanel() { panel.classList.remove('open'); panelOverlay.classList.remove('open'); }
-if (menuBtn) menuBtn.addEventListener('click', openPanel);
-if (panelClose) panelClose.addEventListener('click', closePanel);
-if (panelOverlay) panelOverlay.addEventListener('click', closePanel);
-document.querySelectorAll('.panel-links a').forEach(a => a.addEventListener('click', closePanel));
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-// Announcement Bar Cycling
-(function() {
-  const slides = document.querySelectorAll('.announce-slide');
-  if (slides.length < 2) return;
-  let current = 0;
-  setInterval(() => {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }, 4500);
-})();
-</script>
 </body>
 </html>

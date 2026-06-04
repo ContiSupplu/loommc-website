@@ -1,0 +1,5 @@
+/* ── Terms Page ──
+   Terms shares identical legal styling with Privacy.
+   This file imports the privacy/legal styles and can hold
+   any terms-specific overrides if needed in the future. */
+@import './privacy.css';
