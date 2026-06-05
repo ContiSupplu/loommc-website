@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Loom</title>
+<meta name="description" content="The page you're looking for doesn't exist.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
+<link rel="canonical" href="https://loommc.com/404">
+
+<!-- SPA Routing: Redirect /card/{id} to the card viewer -->
+<script>
+(function() {
+  var match = window.location.pathname.match(/^\/card\/([^\/]+)\/?$/);
+  if (match) {
+    window.location.replace('/card/?id=' + encodeURIComponent(match[1]));
+  }
+})();
+</script>
+
+<script type="module" src="/src/404.js"></script>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.svg" alt="" width="36" height="36"> Loom
+    </a>
+    <div class="nav-actions">
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="nav-dl">Download</a>
+      <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Side Panel -->
+<div class="panel-overlay" id="panelOverlay"></div>
+<aside class="panel" id="panel" aria-label="Navigation menu">
+  <div class="panel-header">
+    <span>Menu</span>
+    <button class="panel-close" aria-label="Close menu" id="panelClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="panel-links">
+    <a href="/features.html">Features</a>
+    <a href="/docs.html">Docs</a>
+    <a href="/quick-servers.html">Quick Servers</a>
+  </nav>
+</aside>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<main>
+  <section class="not-found">
+    <div class="not-found-code stagger-1">404</div>
+    <h1 class="not-found-title stagger-2">Page not found</h1>
+    <p class="not-found-desc stagger-3">The page you're looking for doesn't exist or may have been moved. Let's get you back on track.</p>
+    <div class="not-found-actions stagger-4">
+      <a href="/" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Back to Home
+      </a>
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="btn-secondary">
+        Download Loom
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">
+          <img src="/loom-icon.svg" alt="" width="28" height="28"> Loom
+        </p>
+        <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/features.html">Features</a>
+          <a href="/quick-servers.html">Quick Servers</a>
+          <a href="/release.html">Latest Release</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/docs.html">Docs</a>
+          <a href="/contact.html">Contact</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -13,6 +13,8 @@ export default defineConfig({
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
         contact: resolve(__dirname, 'contact.html'),
+        notfound: resolve(__dirname, '404.html'),
+        card: resolve(__dirname, 'card/index.html'),
       },
     },
   },
