@@ -705,9 +705,10 @@ async function handleCallback() {
       })
     });
     const result = await resp.json();
+    console.log('Auth worker response:', resp.status, JSON.stringify(result, null, 2));
 
     if (!resp.ok || !result.username || !result.uuid) {
-      throw new Error(result.error || 'Auth failed');
+      throw new Error(result.error + (result.details ? ` | Details: ${JSON.stringify(result.details)}` : ''));
     }
 
     currentUser = { username: result.username, uuid: result.uuid };
