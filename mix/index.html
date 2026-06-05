@@ -39,8 +39,7 @@
   <nav class="panel-links">
     <a href="/features.html">Features</a>
     <a href="/docs.html">Docs</a>
-    <a href="/explore.html">Explore Mixes</a>
-    <a href="/create.html">Create a Mix</a>
+    <a href="/mixes.html">Mixes</a>
     <a href="/quick-servers.html">Quick Servers</a>
   </nav>
 </aside>
@@ -61,7 +60,7 @@
     </div>
     <h1 class="card-error-title">Mix not found</h1>
     <p class="card-error-desc">This mix may have been deleted or the link might be incorrect.</p>
-    <a href="/explore.html" class="btn-secondary" style="margin-bottom: 12px;">← Browse Mixes</a>
+    <a href="/mixes.html" class="btn-secondary" style="margin-bottom: 12px;">← Browse Mixes</a>
     <a href="/" class="btn-primary">← Back to Loom</a>
   </div>
 
@@ -155,7 +154,7 @@
 
     <!-- Back to explore -->
     <div class="card-back-link">
-      <a href="/explore.html">← Browse more Mixes</a>
+      <a href="/mixes.html">← Browse more Mixes</a>
     </div>
   </div>
 </main>
@@ -175,8 +174,7 @@
           <h4>Product</h4>
           <a href="/features.html">Features</a>
           <a href="/quick-servers.html">Quick Servers</a>
-          <a href="/explore.html">Explore Mixes</a>
-          <a href="/create.html">Create a Mix</a>
+          <a href="/mixes.html">Mixes</a>
           <a href="/release.html">Latest Release</a>
         </div>
         <div class="footer-col">
@@ -339,18 +337,20 @@ function renderMix(data) {
   // Mods
   if (java.mods?.length) {
     document.getElementById('modsSection').style.display = 'block';
-    document.getElementById('modList').innerHTML = java.mods.map(mod => {
-      const src = mod.projectId ? `https://cdn.modrinth.com/data/${mod.projectId}/icon.png` : '';
+    document.getElementById('modList').innerHTML = java.mods.map((mod, idx) => {
       const initial = (mod.name || '?')[0].toUpperCase();
-      const icon = src
-        ? `<img class="card-mod-icon" src="${src}" alt="" onerror="this.outerHTML='<div class=card-mod-icon-fb style=background:hsl(${hashStr(mod.name) % 360},40%,30%)><span>${initial}</span></div>'">`
-        : `<div class="card-mod-icon-fb" style="background:hsl(${hashStr(mod.name) % 360},40%,30%)"><span>${initial}</span></div>`;
+      const hue = hashStr(mod.name) % 360;
+      // Render letter-circle fallback initially; real icons fetched async below
+      const icon = `<div class="card-mod-icon-fb" data-mod-idx="${idx}" style="background:hsl(${hue},40%,30%)"><span>${initial}</span></div>`;
       const nameHtml = mod.projectId
         ? `<a class="card-mod-name" href="https://modrinth.com/mod/${esc(mod.slug || mod.projectId)}" target="_blank" rel="noopener">${esc(mod.name)}</a>`
         : `<div class="card-mod-name">${esc(mod.name)}</div>`;
       const ver = cleanVersion(mod.version);
       return `<div class="card-mod-item">${icon}<div class="card-mod-info">${nameHtml}${ver ? `<div class="card-mod-ver">${esc(ver)}</div>` : ''}</div>${sourceBadge(mod.source)}</div>`;
     }).join('');
+
+    // Batch-fetch actual icons from Modrinth
+    fetchModIcons(java.mods);
   }
 
   if (java.shaderPacks?.length) {
@@ -457,6 +457,12 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
     // Mark as downloaded → show rating form
     localStorage.setItem(`mix-downloaded-${mixId}`, 'true');
     showRatingForm();
+
+    // Redirect to install guide after a brief delay
+    const mixName = encodeURIComponent(data.name || 'mix');
+    setTimeout(() => {
+      window.location.href = `/install.html?name=${mixName}`;
+    }, 800);
   } catch (e) {
     console.error('Download failed:', e);
     alert('Download failed. Please try again.');
@@ -546,6 +552,48 @@ document.getElementById('rateSubmitBtn').addEventListener('click', async () => {
     btn.disabled = false;
   }
 });
+
+// ── Batch-fetch mod icons from Modrinth ──
+async function fetchModIcons(mods) {
+  const projectIds = mods
+    .map((m, idx) => ({ id: m.projectId, idx }))
+    .filter(p => p.id);
+  if (projectIds.length === 0) return;
+
+  try {
+    // Modrinth bulk project lookup
+    const ids = projectIds.map(p => `"${p.id}"`).join(',');
+    const resp = await fetch(`https://api.modrinth.com/v2/projects?ids=[${ids}]`, {
+      headers: { 'User-Agent': 'Loom-Website/1.0 (loommc.com)' }
+    });
+    if (!resp.ok) return;
+    const projects = await resp.json();
+
+    // Build map of projectId -> icon_url
+    const iconMap = {};
+    for (const proj of projects) {
+      if (proj.icon_url) iconMap[proj.id] = proj.icon_url;
+    }
+
+    // Replace fallback divs with actual images
+    for (const { id, idx } of projectIds) {
+      const iconUrl = iconMap[id];
+      if (!iconUrl) continue;
+      const fb = document.querySelector(`[data-mod-idx="${idx}"]`);
+      if (!fb) continue;
+      const img = document.createElement('img');
+      img.className = 'card-mod-icon';
+      img.src = iconUrl;
+      img.alt = '';
+      img.onerror = () => { /* keep fallback if image fails */ };
+      // Replace the fallback with the image
+      fb.replaceWith(img);
+    }
+  } catch (e) {
+    console.warn('Failed to fetch mod icons:', e);
+    // Fallback circles are already shown, so this is non-critical
+  }
+}
 
 // ── Helpers ──
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }

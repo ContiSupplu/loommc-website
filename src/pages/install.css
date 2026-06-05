@@ -1,0 +1,303 @@
+/* ════════════════════════════════════════════════
+   Install Guide Page
+   ════════════════════════════════════════════════ */
+
+.install-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + var(--sp-48)) var(--sp-24) var(--sp-64);
+  min-height: 80vh;
+  animation: cardFadeUp 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes cardFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Success Banner ── */
+.install-banner {
+  text-align: center;
+  padding: var(--sp-48) var(--sp-24) var(--sp-32);
+}
+.install-banner-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--sp-24);
+  border-radius: var(--r-lg);
+  background: linear-gradient(135deg, rgba(30, 185, 84, 0.15), rgba(106, 91, 232, 0.1));
+  border: 1.5px solid rgba(30, 185, 84, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1db954;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+@keyframes iconPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(30, 185, 84, 0.2); }
+  50% { box-shadow: 0 0 20px 8px rgba(30, 185, 84, 0.1); }
+}
+.install-banner-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.install-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--sp-12);
+}
+.install-banner-desc {
+  font-size: var(--text-body);
+  color: var(--text-1);
+  line-height: 1.6;
+}
+.install-filename {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  color: var(--brand-light);
+}
+
+/* ── Tabs ── */
+.install-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  margin-bottom: var(--sp-32);
+  overflow-x: auto;
+}
+.install-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: calc(var(--r-md) - 2px);
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.install-tab svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.install-tab:hover {
+  color: var(--text-0);
+  background: rgba(255, 255, 255, 0.03);
+}
+.install-tab.active {
+  background: var(--surface-2);
+  color: var(--text-0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Panels ── */
+.install-panels {
+  position: relative;
+}
+.install-panel {
+  display: none;
+}
+.install-panel.active {
+  display: block;
+  animation: panelFade 300ms ease forwards;
+}
+@keyframes panelFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Steps ── */
+.install-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.install-step {
+  display: flex;
+  gap: var(--sp-16);
+  padding: var(--sp-24) 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.install-step:last-child {
+  border-bottom: none;
+}
+.install-step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand), var(--brand-dim));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--brand-glow);
+}
+.install-step-content {
+  flex: 1;
+  min-width: 0;
+}
+.install-step-content h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 700;
+  margin-bottom: var(--sp-4);
+}
+.install-step-content p {
+  font-size: var(--text-small);
+  color: var(--text-1);
+  line-height: 1.6;
+}
+.install-step-content code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  color: var(--yellow);
+}
+.install-step-content a {
+  color: var(--brand-light);
+  font-weight: 600;
+  text-decoration: none;
+}
+.install-step-content a:hover {
+  text-decoration: underline;
+}
+.install-step-content strong {
+  color: var(--text-0);
+}
+
+/* ── Tip / Warning boxes ── */
+.install-tip,
+.install-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-12);
+  padding: var(--sp-16) var(--sp-20);
+  border-radius: var(--r-md);
+  margin-top: var(--sp-24);
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+.install-tip {
+  background: rgba(106, 91, 232, 0.06);
+  border: 1px solid rgba(106, 91, 232, 0.15);
+  color: var(--text-1);
+}
+.install-tip svg {
+  width: 20px;
+  height: 20px;
+  color: var(--brand);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.install-tip strong {
+  color: var(--brand-light);
+}
+.install-warning {
+  background: rgba(239, 168, 54, 0.06);
+  border: 1px solid rgba(239, 168, 54, 0.15);
+  color: var(--text-1);
+}
+.install-warning svg {
+  width: 20px;
+  height: 20px;
+  color: #efa836;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Bottom Actions ── */
+.install-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  margin-top: var(--sp-48);
+  padding-top: var(--sp-24);
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.install-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+  font-size: var(--text-small);
+  color: var(--text-1);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.install-back-btn:hover {
+  color: var(--brand-light);
+}
+.install-back-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.install-get-loom svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .install-page {
+    padding-top: calc(var(--nav-h) + var(--sp-32));
+  }
+  .install-banner {
+    padding: var(--sp-32) var(--sp-16) var(--sp-24);
+  }
+  .install-tabs {
+    gap: 2px;
+    padding: 3px;
+  }
+  .install-tab {
+    padding: 8px 10px;
+    font-size: 0.7rem;
+    gap: 4px;
+  }
+  .install-tab svg {
+    width: 14px;
+    height: 14px;
+  }
+  .install-step {
+    padding: var(--sp-16) 0;
+  }
+  .install-step-num {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+  .install-actions {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .install-back-btn {
+    justify-content: center;
+    order: 2;
+  }
+}

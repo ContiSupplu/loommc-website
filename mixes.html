@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mixes — Loom</title>
+<meta name="description" content="Discover, create, and share Minecraft mod setups. Browse community Mixes, search Modrinth, and clone instantly with Loom.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
+
+<script type="module" src="/src/mixes.js"></script>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.svg" alt="" width="36" height="36"> Loom
+    </a>
+    <div class="nav-actions">
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="nav-dl">Download</a>
+      <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Side Panel -->
+<div class="panel-overlay" id="panelOverlay"></div>
+<aside class="panel" id="panel" aria-label="Navigation menu">
+  <div class="panel-header">
+    <span>Menu</span>
+    <button class="panel-close" aria-label="Close menu" id="panelClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="panel-links">
+    <a href="/features.html">Features</a>
+    <a href="/docs.html">Docs</a>
+    <a href="/mixes.html" style="color: var(--yellow);">Mixes</a>
+    <a href="/quick-servers.html">Quick Servers</a>
+  </nav>
+</aside>
+
+<main class="mixes-page">
+  <!-- Hero -->
+  <div class="mixes-hero">
+    <h1 class="mixes-hero-title">Mixes</h1>
+    <p class="mixes-hero-desc">Discover mod setups shared by the community, or create and share your own.</p>
+    <div class="mixes-hero-actions">
+      <button class="mixes-create-btn" id="showCreateBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Create Mix
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════ BROWSE SECTION ═══════ -->
+  <div class="mixes-browse-section" id="browseSection">
+
+    <!-- Templates Carousel -->
+    <div class="explore-carousel-section" id="templatesSection" style="display:none;">
+      <div class="explore-carousel-header">
+        <span class="explore-carousel-label">Templates by _Jackoboy</span>
+        <div class="explore-carousel-nav">
+          <button class="explore-carousel-btn" id="tmplPrev" aria-label="Previous templates">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="explore-carousel-btn" id="tmplNext" aria-label="Next templates">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="explore-carousel-wrapper">
+        <div class="explore-carousel-track" id="tmplTrack"></div>
+      </div>
+    </div>
+
+    <!-- Popular Carousel -->
+    <div class="explore-carousel-section" id="popularSection" style="display:none;">
+      <div class="explore-carousel-header">
+        <span class="explore-carousel-label">Popular Mixes</span>
+        <div class="explore-carousel-nav">
+          <button class="explore-carousel-btn" id="popPrev" aria-label="Previous popular mixes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="explore-carousel-btn" id="popNext" aria-label="Next popular mixes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="explore-carousel-wrapper">
+        <div class="explore-carousel-track" id="popTrack"></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="explore-filters">
+      <div class="explore-search-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="explore-search" id="searchInput" placeholder="Search mixes…" spellcheck="false" autocomplete="off">
+      </div>
+      <select class="explore-filter-select" id="loaderFilter">
+        <option value="">Any Loader</option>
+        <option value="fabric">Fabric</option>
+        <option value="forge">Forge</option>
+        <option value="neoforge">NeoForge</option>
+        <option value="quilt">Quilt</option>
+      </select>
+      <select class="explore-filter-select" id="sortFilter">
+        <option value="popular">Most Popular</option>
+        <option value="recent">Most Recent</option>
+        <option value="downloads">Most Downloads</option>
+      </select>
+    </div>
+
+    <!-- Browse Grid -->
+    <div class="explore-grid-section">
+      <div class="explore-grid-label" id="gridLabel">Browse</div>
+      <div class="explore-grid" id="browseGrid"></div>
+
+      <!-- Loading -->
+      <div class="explore-grid-loading" id="gridLoading" style="display:none;">
+        <div class="explore-spinner"></div>
+      </div>
+
+      <!-- Empty -->
+      <div class="explore-empty" id="gridEmpty" style="display:none;">
+        <div class="explore-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h2 class="explore-empty-title">No mixes found</h2>
+        <p class="explore-empty-desc">Try a different search or filter combination.</p>
+      </div>
+
+      <!-- Scroll Sentinel (infinite scroll) -->
+      <div class="explore-scroll-sentinel" id="scrollSentinel"></div>
+
+      <!-- Load More -->
+      <div class="explore-load-more" id="loadMoreSection" style="display:none;">
+        <button class="explore-load-more-btn" id="loadMoreBtn">Load More</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════ CREATE SECTION (slide-down panel) ═══════ -->
+  <div class="mixes-create-panel" id="createPanel">
+
+    <button class="mixes-back-btn" id="backToExploreBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to browsing
+    </button>
+
+    <!-- Auth Section (shown when not signed in) -->
+    <div id="authSection" class="create-auth">
+      <div class="create-auth-text">Sign in with your Microsoft account to verify your Minecraft identity and post Mixes.</div>
+      <button class="create-auth-btn" id="signInBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h11.5v11.5H0zM12.5 0H24v11.5H12.5zM0 12.5h11.5V24H0zM12.5 12.5H24V24H12.5z"/></svg>
+        Sign in with Microsoft
+      </button>
+      <div class="create-auth-notice">
+        <strong>Privacy Notice:</strong> Loom uses Microsoft sign-in to verify your Minecraft identity. Your credentials are encrypted end-to-end — Loom never sees or stores your password. We only access your Minecraft username and UUID.
+      </div>
+    </div>
+
+    <!-- User Badge (shown when signed in) -->
+    <div id="userBadge" class="create-user-badge" style="display:none;">
+      <div class="create-user-avatar" id="userAvatar"></div>
+      <div class="create-user-info">
+        <div class="create-user-name" id="userName">—</div>
+        <div class="create-user-uuid" id="userUuid">—</div>
+      </div>
+      <button class="create-user-signout" id="signOutBtn">Sign Out</button>
+    </div>
+
+    <!-- Create Form (shown when signed in) -->
+    <div id="createForm" class="create-form" style="display:none;">
+
+      <!-- Template Toggle (only for _Jackoboy) -->
+      <div class="create-template-toggle" id="templateToggle" style="display:none;">
+        <input type="checkbox" id="isTemplate">
+        <label for="isTemplate">Post as Template (featured in Templates section)</label>
+      </div>
+
+      <!-- Mix Details -->
+      <div class="create-section">
+        <div class="create-section-title">Mix Details</div>
+
+        <div class="create-icon-picker">
+          <div class="create-icon-preview" id="iconPreview" title="Click to upload icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <input type="file" id="iconInput" accept="image/png,image/jpeg,image/webp" style="display:none;">
+          <span class="create-icon-text">Click to upload an icon (optional)</span>
+        </div>
+
+        <div class="create-field">
+          <label class="create-label" for="mixName">Mix Name *</label>
+          <input type="text" class="create-input" id="mixName" placeholder="e.g. Performance Pack" maxlength="60" required>
+        </div>
+
+        <div class="create-field">
+          <label class="create-label" for="mixDesc">Description</label>
+          <textarea class="create-input" id="mixDesc" placeholder="What does this mix do? What's it for?" maxlength="500"></textarea>
+        </div>
+
+        <div class="create-row">
+          <div class="create-field">
+            <label class="create-label" for="mcVersion">Minecraft Version *</label>
+            <input type="text" class="create-input" id="mcVersion" placeholder="e.g. 1.21.1" maxlength="20" required>
+          </div>
+          <div class="create-field">
+            <label class="create-label" for="modLoader">Mod Loader *</label>
+            <select class="create-select" id="modLoader" required>
+              <option value="">Select…</option>
+              <option value="fabric">Fabric</option>
+              <option value="forge">Forge</option>
+              <option value="neoforge">NeoForge</option>
+              <option value="quilt">Quilt</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Mods -->
+      <div class="create-section">
+        <div class="create-section-title">Mods</div>
+
+        <div class="create-mod-search-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="create-mod-search" id="modSearch" placeholder="Search Modrinth for mods…" spellcheck="false" autocomplete="off">
+        </div>
+
+        <!-- Search Results -->
+        <div id="modResults" class="create-mod-results"></div>
+
+        <!-- Selected Mods -->
+        <div class="create-selected-label" id="selectedLabel" style="display:none;">Your Mods (<span id="selectedCount">0</span>)</div>
+        <div id="selectedMods" class="create-selected-mods"></div>
+
+        <div class="create-mods-empty" id="modsEmpty">
+          No mods added yet. Search Modrinth above to add mods to your mix.
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="create-submit-section">
+        <button class="create-submit-btn" id="submitBtn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Post Mix
+        </button>
+        <div class="create-error-msg" id="errorMsg" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Success State -->
+    <div id="successSection" class="create-success" style="display:none;">
+      <div class="create-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="create-success-title">Mix Posted!</h2>
+      <p class="create-success-desc">Your mix is now live and can be found on this page.</p>
+      <a id="successLink" href="#" class="create-success-link">View your Mix →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">
+          <img src="/loom-icon.svg" alt="" width="28" height="28"> Loom
+        </p>
+        <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/features.html">Features</a>
+          <a href="/quick-servers.html">Quick Servers</a>
+          <a href="/mixes.html">Mixes</a>
+          <a href="/release.html">Latest Release</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/docs.html">Docs</a>
+          <a href="/contact.html">Contact</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════ Explore Logic (Firebase) ═══════ -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js';
+import { getFirestore, collection, query, where, orderBy, limit, startAfter, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-storage.js';
+
+const app = initializeApp({
+  apiKey: 'AIzaSyDqVh8cp1_zW_BYFF55IihLBo91bMN-Tbw',
+  authDomain: 'loom-cards.firebaseapp.com',
+  projectId: 'loom-cards',
+  storageBucket: 'loom-cards.firebasestorage.app',
+  messagingSenderId: '387698383350',
+  appId: '1:387698383350:web:569c2834c57aa3ee96cfd7'
+});
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+// ════════════════════════════════════════════════
+//  VIEW SWITCHING: Explore ↔ Create
+// ════════════════════════════════════════════════
+const browseSection = document.getElementById('browseSection');
+const createPanel = document.getElementById('createPanel');
+const heroEl = document.querySelector('.mixes-hero');
+
+function showCreate() {
+  browseSection.classList.add('hidden');
+  createPanel.classList.add('active');
+  heroEl.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showBrowse() {
+  createPanel.classList.remove('active');
+  browseSection.classList.remove('hidden');
+  heroEl.style.display = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('showCreateBtn').addEventListener('click', showCreate);
+document.getElementById('backToExploreBtn').addEventListener('click', showBrowse);
+
+// ════════════════════════════════════════════════
+//  EXPLORE LOGIC
+// ════════════════════════════════════════════════
+const PAGE_SIZE = 20;
+let allMixes = [];
+let lastDoc = null;
+let hasMore = true;
+let isLoading = false;
+let searchTerm = '';
+let loaderFilterVal = '';
+let sortFilterVal = 'popular';
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < (s || '').length; i++) { h = ((h << 5) - h + s.charCodeAt(i)) | 0; }
+  return Math.abs(h);
+}
+
+function ico(n) {
+  const m = {
+    puzzle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 16V7a2 2 0 00-2-2H6a2 2 0 00-2 2v9m16 0H4m16 0l1.28 2.55a1 1 0 01-.9 1.45H3.62a1 1 0 01-.9-1.45L4 16"/></svg>',
+    download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    loom: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+    eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+  };
+  return m[n] || '';
+}
+
+function renderStars(avg) {
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= Math.round(avg)) {
+      html += '<svg class="star-filled" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+    } else {
+      html += '<svg class="star-empty" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+    }
+  }
+  return html;
+}
+
+function createCardHTML(data, id) {
+  const java = data.java || {};
+  const stats = data.stats || {};
+  const isTemplate = data.type === 'template';
+  const downloads = stats.downloads || 0;
+  const opens = stats.opens || 0;
+  const ratingAvg = stats.ratingCount > 0 ? (stats.ratingSum / stats.ratingCount) : 0;
+  const modCount = java.mods?.length || 0;
+  const avatarSrc = data.author?.uuid
+    ? `https://crafatar.com/avatars/${data.author.uuid}?size=48&overlay`
+    : '';
+
+  return `
+    <a href="/mix/?id=${esc(id)}" class="explore-card" data-id="${esc(id)}">
+      ${isTemplate ? '<div class="explore-card-badge">Template</div>' : ''}
+      <div class="explore-card-icon">
+        ${avatarSrc
+          ? `<img src="${avatarSrc}" alt="" onerror="this.parentElement.innerHTML='${ico('loom')}'">` 
+          : ico('loom')
+        }
+      </div>
+      <div class="explore-card-name">${esc(data.name || 'Untitled Mix')}</div>
+      <div class="explore-card-author">by <strong>${esc(data.author?.username || 'Unknown')}</strong></div>
+      <div class="explore-card-meta">
+        ${java.version ? `<span class="explore-card-tag">${esc(java.version)}</span>` : ''}
+        ${java.loader ? `<span class="explore-card-tag">${esc(java.loader)}</span>` : ''}
+        ${modCount > 0 ? `<span class="explore-card-tag">${modCount} mod${modCount !== 1 ? 's' : ''}</span>` : ''}
+      </div>
+      <div class="explore-card-stats">
+        <span class="explore-card-stat">
+          ${ico('download')}
+          <strong>${formatNum(downloads)}</strong>
+        </span>
+        <span class="explore-card-stat">
+          ${ico('eye')}
+          <strong>${formatNum(opens)}</strong>
+        </span>
+        ${ratingAvg > 0 ? `
+          <span class="explore-card-stat">
+            <span class="explore-card-rating">${renderStars(ratingAvg)}</span>
+            <span class="explore-card-rating-text">${ratingAvg.toFixed(1)}</span>
+          </span>
+        ` : ''}
+      </div>
+    </a>
+  `;
+}
+
+function formatNum(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+  return String(n);
+}
+
+function setupCarousel(track, prevBtn, nextBtn) {
+  const scrollAmount = 240;
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+}
+
+async function loadTemplates() {
+  try {
+    const q = query(
+      collection(db, 'cards'),
+      where('type', '==', 'template'),
+      orderBy('stats.downloads', 'desc'),
+      limit(10)
+    );
+    const snap = await getDocs(q);
+    if (snap.empty) return;
+
+    const section = document.getElementById('templatesSection');
+    const track = document.getElementById('tmplTrack');
+    section.style.display = 'block';
+
+    let html = '';
+    snap.forEach(doc => { html += createCardHTML(doc.data(), doc.id); });
+    track.innerHTML = html;
+
+    setupCarousel(track, document.getElementById('tmplPrev'), document.getElementById('tmplNext'));
+  } catch (e) {
+    console.error('Failed to load templates:', e);
+  }
+}
+
+async function loadPopular() {
+  try {
+    const q = query(
+      collection(db, 'cards'),
+      where('type', '!=', 'template'),
+      orderBy('stats.downloads', 'desc'),
+      limit(10)
+    );
+    const snap = await getDocs(q);
+
+    let docs = [];
+    if (snap.empty) {
+      const fallback = query(collection(db, 'cards'), orderBy('stats.downloads', 'desc'), limit(10));
+      const fbSnap = await getDocs(fallback);
+      fbSnap.forEach(d => { if (d.data().type !== 'template') docs.push(d); });
+    } else {
+      snap.forEach(d => docs.push(d));
+    }
+
+    if (docs.length === 0) return;
+
+    const section = document.getElementById('popularSection');
+    const track = document.getElementById('popTrack');
+    section.style.display = 'block';
+
+    let html = '';
+    docs.forEach(d => { html += createCardHTML(d.data(), d.id); });
+    track.innerHTML = html;
+
+    setupCarousel(track, document.getElementById('popPrev'), document.getElementById('popNext'));
+  } catch (e) {
+    console.error('Failed to load popular:', e);
+    try {
+      const fallback = query(collection(db, 'cards'), orderBy('stats.downloads', 'desc'), limit(10));
+      const fbSnap = await getDocs(fallback);
+      if (fbSnap.empty) return;
+      const section = document.getElementById('popularSection');
+      const track = document.getElementById('popTrack');
+      section.style.display = 'block';
+      let html = '';
+      fbSnap.forEach(d => { if (d.data().type !== 'template') html += createCardHTML(d.data(), d.id); });
+      if (html) { track.innerHTML = html; setupCarousel(track, document.getElementById('popPrev'), document.getElementById('popNext')); }
+    } catch (e2) { console.error('Fallback popular load failed:', e2); }
+  }
+}
+
+async function loadBrowse(reset = false) {
+  if (isLoading) return;
+  isLoading = true;
+
+  const grid = document.getElementById('browseGrid');
+  const loadingEl = document.getElementById('gridLoading');
+  const emptyEl = document.getElementById('gridEmpty');
+  const loadMoreEl = document.getElementById('loadMoreSection');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+  if (reset) {
+    grid.innerHTML = '';
+    allMixes = [];
+    lastDoc = null;
+    hasMore = true;
+  }
+
+  loadingEl.style.display = 'flex';
+  emptyEl.style.display = 'none';
+  loadMoreEl.style.display = 'none';
+  loadMoreBtn.disabled = true;
+
+  try {
+    const constraints = [collection(db, 'cards')];
+    if (loaderFilterVal) constraints.push(where('java.loader', '==', loaderFilterVal));
+
+    switch (sortFilterVal) {
+      case 'recent': constraints.push(orderBy('createdAt', 'desc')); break;
+      case 'downloads': constraints.push(orderBy('stats.downloads', 'desc')); break;
+      case 'popular': default: constraints.push(orderBy('stats.opens', 'desc')); break;
+    }
+
+    constraints.push(limit(PAGE_SIZE));
+    if (lastDoc) constraints.push(startAfter(lastDoc));
+
+    const q = query(...constraints);
+    const snap = await getDocs(q);
+
+    loadingEl.style.display = 'none';
+
+    if (snap.empty && allMixes.length === 0) {
+      emptyEl.style.display = 'flex';
+      hasMore = false;
+    } else {
+      let html = '';
+      const docs = [];
+      snap.forEach(d => docs.push(d));
+
+      const filtered = docs.filter(d => {
+        const data = d.data();
+        if (!searchTerm) return true;
+        const term = searchTerm.toLowerCase();
+        return (
+          (data.name || '').toLowerCase().includes(term) ||
+          (data.description || '').toLowerCase().includes(term) ||
+          (data.author?.username || '').toLowerCase().includes(term) ||
+          (data.java?.mods || []).some(m => (m.name || '').toLowerCase().includes(term))
+        );
+      });
+
+      filtered.forEach(d => { html += createCardHTML(d.data(), d.id); allMixes.push(d); });
+      grid.innerHTML += html;
+
+      if (docs.length > 0) lastDoc = docs[docs.length - 1];
+      hasMore = docs.length === PAGE_SIZE;
+
+      if (hasMore) {
+        loadMoreEl.style.display = 'flex';
+        loadMoreBtn.disabled = false;
+      }
+
+      if (allMixes.length === 0 || (grid.innerHTML.trim() === '')) {
+        emptyEl.style.display = 'flex';
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load browse:', e);
+    loadingEl.style.display = 'none';
+    if (loaderFilterVal) {
+      console.warn('Compound query failed, trying without loader filter');
+      loaderFilterVal = '';
+      document.getElementById('loaderFilter').value = '';
+      await loadBrowse(true);
+      return;
+    }
+  }
+
+  isLoading = false;
+}
+
+// ── Explore Event Listeners ──
+let exploreDebounce;
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  clearTimeout(exploreDebounce);
+  exploreDebounce = setTimeout(() => { searchTerm = e.target.value.trim(); loadBrowse(true); }, 350);
+});
+document.getElementById('loaderFilter').addEventListener('change', (e) => { loaderFilterVal = e.target.value; loadBrowse(true); });
+document.getElementById('sortFilter').addEventListener('change', (e) => { sortFilterVal = e.target.value; loadBrowse(true); });
+document.getElementById('loadMoreBtn').addEventListener('click', () => { loadBrowse(false); });
+
+// ── Infinite Scroll ──
+const scrollSentinel = document.getElementById('scrollSentinel');
+if (scrollSentinel) {
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && hasMore && !isLoading) {
+      loadBrowse(false);
+    }
+  }, { rootMargin: '200px' });
+  observer.observe(scrollSentinel);
+}
+
+// ════════════════════════════════════════════════
+//  CREATE LOGIC
+// ════════════════════════════════════════════════
+let currentUser = null;
+let selectedMods = [];
+let selectedIcon = null;
+
+const MSAL_CLIENT_ID = '82748b0e-d68d-4bed-b8a7-89a22f6a41d9';
+const REDIRECT_URI = window.location.origin + '/mixes.html';
+
+function generatePKCE() {
+  const verifier = crypto.getRandomValues(new Uint8Array(32));
+  const verifierStr = btoa(String.fromCharCode(...verifier)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifierStr)).then(hash => {
+    const challenge = btoa(String.fromCharCode(...new Uint8Array(hash))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return { verifier: verifierStr, challenge };
+  });
+}
+
+document.getElementById('signInBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('signInBtn');
+  btn.disabled = true;
+  btn.textContent = 'Redirecting…';
+
+  try {
+    const { verifier, challenge } = await generatePKCE();
+    sessionStorage.setItem('pkce_verifier', verifier);
+
+    const params = new URLSearchParams({
+      client_id: MSAL_CLIENT_ID,
+      response_type: 'code',
+      redirect_uri: REDIRECT_URI,
+      scope: 'XboxLive.signin offline_access',
+      code_challenge: challenge,
+      code_challenge_method: 'S256',
+      prompt: 'select_account'
+    });
+
+    window.location.href = `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?${params}`;
+  } catch (e) {
+    console.error('Auth redirect failed:', e);
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h11.5v11.5H0zM12.5 0H24v11.5H12.5zM0 12.5h11.5V24H0zM12.5 12.5H24V24H12.5z"/></svg> Sign in with Microsoft';
+  }
+});
+
+async function handleCallback() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  if (!code) return false;
+
+  const verifier = sessionStorage.getItem('pkce_verifier');
+  if (!verifier) { console.error('Missing PKCE verifier'); return false; }
+
+  try {
+    const tokenResp = await fetch('https://login.microsoftonline.com/consumers/oauth2/v2.0/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: MSAL_CLIENT_ID,
+        code,
+        redirect_uri: REDIRECT_URI,
+        grant_type: 'authorization_code',
+        code_verifier: verifier
+      })
+    });
+    const tokens = await tokenResp.json();
+    if (!tokens.access_token) throw new Error('No access token');
+
+    const xblResp = await fetch('https://user.auth.xboxlive.com/user/authenticate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        Properties: { AuthMethod: 'RPS', SiteName: 'user.auth.xboxlive.com', RpsTicket: `d=${tokens.access_token}` },
+        RelyingParty: 'http://auth.xboxlive.com',
+        TokenType: 'JWT'
+      })
+    });
+    const xbl = await xblResp.json();
+    const xblToken = xbl.Token;
+    const userHash = xbl.DisplayClaims?.xui?.[0]?.uhs;
+
+    const xstsResp = await fetch('https://xsts.auth.xboxlive.com/xsts/authorize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        Properties: { SandboxId: 'RETAIL', UserTokens: [xblToken] },
+        RelyingParty: 'rp://api.minecraftservices.com/',
+        TokenType: 'JWT'
+      })
+    });
+    const xsts = await xstsResp.json();
+
+    const mcResp = await fetch('https://api.minecraftservices.com/authentication/login_with_xbox', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identityToken: `XBL3.0 x=${userHash};${xsts.Token}` })
+    });
+    const mc = await mcResp.json();
+
+    const profileResp = await fetch('https://api.minecraftservices.com/minecraft/profile', {
+      headers: { Authorization: `Bearer ${mc.access_token}` }
+    });
+    const profile = await profileResp.json();
+
+    if (!profile.id || !profile.name) throw new Error('Invalid Minecraft profile');
+
+    currentUser = { username: profile.name, uuid: profile.id, mcToken: mc.access_token };
+    sessionStorage.setItem('loom_user', JSON.stringify(currentUser));
+    sessionStorage.removeItem('pkce_verifier');
+    window.history.replaceState({}, '', '/mixes.html');
+
+    showSignedIn();
+    showCreate(); // Switch to create view after sign-in
+    return true;
+  } catch (e) {
+    console.error('OAuth callback failed:', e);
+    return false;
+  }
+}
+
+function showSignedIn() {
+  document.getElementById('authSection').style.display = 'none';
+  document.getElementById('userBadge').style.display = 'flex';
+  document.getElementById('createForm').style.display = 'block';
+
+  document.getElementById('userName').textContent = currentUser.username;
+  document.getElementById('userUuid').textContent = currentUser.uuid;
+
+  const avatar = document.getElementById('userAvatar');
+  const img = document.createElement('img');
+  img.src = `https://crafatar.com/avatars/${currentUser.uuid}?size=40&overlay`;
+  img.alt = currentUser.username;
+  img.onerror = () => img.remove();
+  avatar.innerHTML = '';
+  avatar.appendChild(img);
+
+  if (currentUser.username.toLowerCase() === '_jackoboy' || currentUser.username.toLowerCase() === '_jackogirl') {
+    document.getElementById('templateToggle').style.display = 'flex';
+  }
+
+  validateForm();
+}
+
+document.getElementById('signOutBtn').addEventListener('click', () => {
+  currentUser = null;
+  sessionStorage.removeItem('loom_user');
+  document.getElementById('authSection').style.display = 'flex';
+  document.getElementById('userBadge').style.display = 'none';
+  document.getElementById('createForm').style.display = 'none';
+});
+
+// ── Icon Upload ──
+document.getElementById('iconPreview').addEventListener('click', () => {
+  document.getElementById('iconInput').click();
+});
+
+document.getElementById('iconInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  selectedIcon = file;
+  const preview = document.getElementById('iconPreview');
+  preview.classList.add('has-image');
+  const img = document.createElement('img');
+  img.src = URL.createObjectURL(file);
+  img.alt = 'Mix icon';
+  preview.innerHTML = '';
+  preview.appendChild(img);
+});
+
+// ── Modrinth Search ──
+let modSearchDebounce;
+document.getElementById('modSearch').addEventListener('input', (e) => {
+  clearTimeout(modSearchDebounce);
+  const term = e.target.value.trim();
+  if (!term) { document.getElementById('modResults').innerHTML = ''; return; }
+  modSearchDebounce = setTimeout(() => searchModrinth(term), 300);
+});
+
+async function searchModrinth(term) {
+  const results = document.getElementById('modResults');
+  results.innerHTML = '<div class="create-mod-searching"><div class="mini-spinner"></div>Searching…</div>';
+
+  const version = document.getElementById('mcVersion').value.trim();
+  const loader = document.getElementById('modLoader').value;
+
+  try {
+    const facets = [];
+    facets.push(['project_type:mod']);
+    if (version) facets.push([`versions:${version}`]);
+    if (loader) facets.push([`categories:${loader}`]);
+
+    const params = new URLSearchParams({
+      query: term,
+      limit: '10',
+      facets: JSON.stringify(facets)
+    });
+
+    const resp = await fetch(`https://api.modrinth.com/v2/search?${params}`, {
+      headers: { 'User-Agent': 'Loom-Website/1.0 (loommc.com)' }
+    });
+    const data = await resp.json();
+
+    if (!data.hits?.length) {
+      results.innerHTML = '<div class="create-mod-searching">No mods found</div>';
+      return;
+    }
+
+    results.innerHTML = data.hits.map(hit => {
+      const isAdded = selectedMods.some(m => m.projectId === hit.project_id);
+      const iconSrc = hit.icon_url || '';
+      const initial = (hit.title || '?')[0].toUpperCase();
+      const hue = hashStr(hit.title) % 360;
+
+      return `
+        <div class="create-mod-result" data-id="${esc(hit.project_id)}" data-slug="${esc(hit.slug)}" data-name="${esc(hit.title)}" data-icon="${esc(iconSrc)}">
+          ${iconSrc
+            ? `<img class="create-mod-result-icon" src="${esc(iconSrc)}" alt="" onerror="this.outerHTML='<div class=create-mod-result-icon-fb style=background:hsl(${hue},40%,30%)>${initial}</div>'">`
+            : `<div class="create-mod-result-icon-fb" style="background:hsl(${hue},40%,30%)">${initial}</div>`
+          }
+          <div class="create-mod-result-info">
+            <div class="create-mod-result-name">${esc(hit.title)}</div>
+            <div class="create-mod-result-desc">${esc(hit.description || '')}</div>
+          </div>
+          <button class="create-mod-add-btn${isAdded ? ' added' : ''}" ${isAdded ? 'disabled' : ''}>
+            ${isAdded ? '✓ Added' : '+ Add'}
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    results.querySelectorAll('.create-mod-add-btn:not(.added)').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const row = btn.closest('.create-mod-result');
+        const projectId = row.dataset.id;
+        const slug = row.dataset.slug;
+        const name = row.dataset.name;
+        const iconUrl = row.dataset.icon;
+
+        btn.disabled = true;
+        btn.textContent = '…';
+
+        const version = document.getElementById('mcVersion').value.trim();
+        const loader = document.getElementById('modLoader').value;
+        let modVersion = '';
+        let fileName = '';
+
+        try {
+          const vParams = new URLSearchParams();
+          if (loader) vParams.set('loaders', JSON.stringify([loader]));
+          if (version) vParams.set('game_versions', JSON.stringify([version]));
+
+          const vResp = await fetch(`https://api.modrinth.com/v2/project/${projectId}/version?${vParams}`, {
+            headers: { 'User-Agent': 'Loom-Website/1.0 (loommc.com)' }
+          });
+          const versions = await vResp.json();
+          if (versions.length > 0) {
+            modVersion = versions[0].version_number || '';
+            fileName = versions[0].files?.[0]?.filename || '';
+          }
+        } catch (e) { /* no version info available */ }
+
+        selectedMods.push({ projectId, slug, name, version: modVersion, fileName, iconUrl, source: 'modrinth' });
+        btn.classList.add('added');
+        btn.textContent = '✓ Added';
+        renderSelectedMods();
+        validateForm();
+      });
+    });
+  } catch (e) {
+    console.error('Search failed:', e);
+    results.innerHTML = '<div class="create-mod-searching">Search failed — try again</div>';
+  }
+}
+
+function renderSelectedMods() {
+  const container = document.getElementById('selectedMods');
+  const label = document.getElementById('selectedLabel');
+  const empty = document.getElementById('modsEmpty');
+  const count = document.getElementById('selectedCount');
+
+  if (selectedMods.length === 0) {
+    container.innerHTML = '';
+    label.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  label.style.display = 'block';
+  empty.style.display = 'none';
+  count.textContent = selectedMods.length;
+
+  container.innerHTML = selectedMods.map((mod, idx) => {
+    const initial = (mod.name || '?')[0].toUpperCase();
+    const hue = hashStr(mod.name) % 360;
+    return `
+      <div class="create-selected-mod" data-idx="${idx}">
+        ${mod.iconUrl
+          ? `<img class="create-selected-mod-icon" src="${esc(mod.iconUrl)}" alt="" onerror="this.outerHTML='<div class=create-selected-mod-icon-fb style=background:hsl(${hue},40%,30%)>${initial}</div>'">`
+          : `<div class="create-selected-mod-icon-fb" style="background:hsl(${hue},40%,30%)">${initial}</div>`
+        }
+        <div class="create-selected-mod-info">
+          <div class="create-selected-mod-name">${esc(mod.name)}</div>
+          ${mod.version ? `<div class="create-selected-mod-ver">${esc(mod.version)}</div>` : ''}
+        </div>
+        <button class="create-selected-remove" title="Remove">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.create-selected-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.closest('.create-selected-mod').dataset.idx);
+      selectedMods.splice(idx, 1);
+      renderSelectedMods();
+      validateForm();
+      document.querySelectorAll('.create-mod-add-btn.added').forEach(ab => {
+        const row = ab.closest('.create-mod-result');
+        if (row && !selectedMods.some(m => m.projectId === row.dataset.id)) {
+          ab.classList.remove('added');
+          ab.disabled = false;
+          ab.textContent = '+ Add';
+        }
+      });
+    });
+  });
+}
+
+function validateForm() {
+  const name = document.getElementById('mixName').value.trim();
+  const version = document.getElementById('mcVersion').value.trim();
+  const loader = document.getElementById('modLoader').value;
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = !(name && version && loader && selectedMods.length > 0 && currentUser);
+}
+
+['mixName', 'mcVersion'].forEach(id => { document.getElementById(id).addEventListener('input', validateForm); });
+document.getElementById('modLoader').addEventListener('change', validateForm);
+
+// ── Submit ──
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  if (!currentUser) return;
+
+  const btn = document.getElementById('submitBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  btn.disabled = true;
+  btn.textContent = 'Posting…';
+  errorMsg.style.display = 'none';
+
+  try {
+    let iconUrl = '';
+    if (selectedIcon) {
+      try {
+        const iconId = Date.now() + '-' + Math.random().toString(36).slice(2);
+        const iconRef = ref(storage, `mix-icons/${iconId}`);
+        await uploadBytes(iconRef, selectedIcon);
+        iconUrl = await getDownloadURL(iconRef);
+      } catch (e) {
+        console.warn('Icon upload failed, continuing without icon:', e);
+      }
+    }
+
+    const isTemplate = document.getElementById('isTemplate')?.checked || false;
+    const mixName = document.getElementById('mixName').value.trim();
+    const mixDesc = document.getElementById('mixDesc').value.trim();
+    const mcVersion = document.getElementById('mcVersion').value.trim();
+    const modLoader = document.getElementById('modLoader').value;
+
+    const mixDoc = {
+      type: isTemplate ? 'template' : 'mix',
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      author: { username: currentUser.username, uuid: currentUser.uuid },
+      name: mixName,
+      description: mixDesc,
+      iconUrl: iconUrl || '',
+      tags: [],
+      edition: 'java',
+      java: {
+        version: mcVersion,
+        loader: modLoader,
+        mods: selectedMods.map(m => ({
+          name: m.name, projectId: m.projectId || '', slug: m.slug || '',
+          version: m.version || '', fileName: m.fileName || '', source: m.source || 'modrinth'
+        })),
+        shaderPacks: [],
+        resourcePacks: [],
+      },
+      sharing: { visibility: 'public' },
+      stats: { opens: 0, clones: 0, downloads: 0, ratingSum: 0, ratingCount: 0 }
+    };
+
+    const docRef = await addDoc(collection(db, 'cards'), mixDoc);
+
+    document.getElementById('createForm').style.display = 'none';
+    document.getElementById('userBadge').style.display = 'none';
+    document.getElementById('successSection').style.display = 'block';
+    document.getElementById('successLink').href = `/mix/?id=${docRef.id}`;
+  } catch (e) {
+    console.error('Post failed:', e);
+    errorMsg.textContent = `Failed to post: ${e.message || 'Unknown error'}`;
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Post Mix';
+  }
+});
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+async function init() {
+  // Check for OAuth callback
+  if (window.location.search.includes('code=')) {
+    const ok = await handleCallback();
+    if (ok) return;
+  }
+
+  // Check for saved session
+  const saved = sessionStorage.getItem('loom_user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      showSignedIn();
+    } catch (e) { /* invalid */ }
+  }
+
+  // Always load explore content
+  loadTemplates();
+  loadPopular();
+  loadBrowse(true);
+}
+
+init();
+</script>
+
+</body>
+</html>
