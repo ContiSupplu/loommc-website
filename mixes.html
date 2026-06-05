@@ -645,6 +645,7 @@ let selectedIcon = null;
 
 const MSAL_CLIENT_ID = 'a1c7a6b1-a44d-4a0a-ac92-e964c57491a8';
 const REDIRECT_URI = window.location.origin + '/mixes.html';
+const AUTH_WORKER_URL = 'https://loom-auth.contisupplu.workers.dev';
 
 function generatePKCE() {
   const verifier = crypto.getRandomValues(new Uint8Array(32));
@@ -692,66 +693,31 @@ async function handleCallback() {
   if (!verifier) { console.error('Missing PKCE verifier'); return false; }
 
   try {
-    const tokenResp = await fetch('https://login.microsoftonline.com/consumers/oauth2/v2.0/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: MSAL_CLIENT_ID,
-        code,
-        redirect_uri: REDIRECT_URI,
-        grant_type: 'authorization_code',
-        code_verifier: verifier
-      })
-    });
-    const tokens = await tokenResp.json();
-    if (!tokens.access_token) throw new Error('No access token');
-
-    const xblResp = await fetch('https://user.auth.xboxlive.com/user/authenticate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        Properties: { AuthMethod: 'RPS', SiteName: 'user.auth.xboxlive.com', RpsTicket: `d=${tokens.access_token}` },
-        RelyingParty: 'http://auth.xboxlive.com',
-        TokenType: 'JWT'
-      })
-    });
-    const xbl = await xblResp.json();
-    const xblToken = xbl.Token;
-    const userHash = xbl.DisplayClaims?.xui?.[0]?.uhs;
-
-    const xstsResp = await fetch('https://xsts.auth.xboxlive.com/xsts/authorize', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        Properties: { SandboxId: 'RETAIL', UserTokens: [xblToken] },
-        RelyingParty: 'rp://api.minecraftservices.com/',
-        TokenType: 'JWT'
-      })
-    });
-    const xsts = await xstsResp.json();
-
-    const mcResp = await fetch('https://api.minecraftservices.com/authentication/login_with_xbox', {
+    // Send auth code to Cloudflare Worker — it handles Xbox/XSTS/Minecraft server-side
+    const resp = await fetch(AUTH_WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ identityToken: `XBL3.0 x=${userHash};${xsts.Token}` })
+      body: JSON.stringify({
+        code,
+        verifier,
+        redirect_uri: REDIRECT_URI,
+        client_id: MSAL_CLIENT_ID,
+      })
     });
-    const mc = await mcResp.json();
+    const result = await resp.json();
 
-    const profileResp = await fetch('https://api.minecraftservices.com/minecraft/profile', {
-      headers: { Authorization: `Bearer ${mc.access_token}` }
-    });
-    const profile = await profileResp.json();
+    if (!resp.ok || !result.username || !result.uuid) {
+      throw new Error(result.error || 'Auth failed');
+    }
 
-    if (!profile.id || !profile.name) throw new Error('Invalid Minecraft profile');
-
-    currentUser = { username: profile.name, uuid: profile.id, mcToken: mc.access_token };
+    currentUser = { username: result.username, uuid: result.uuid };
     localStorage.setItem('loom_user', JSON.stringify(currentUser));
     localStorage.removeItem('pkce_verifier');
     localStorage.removeItem('loom_return_to_create');
     window.history.replaceState({}, '', '/mixes.html');
 
     showSignedIn();
-    showCreate(); // Switch to create view after sign-in
+    showCreate();
     return true;
   } catch (e) {
     console.error('OAuth callback failed:', e);
