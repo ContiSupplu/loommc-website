@@ -57,9 +57,13 @@ export default {
       }
 
       // Step 1: Exchange auth code for Microsoft access token
+      // Microsoft requires SPA apps to send an Origin header (AADSTS90023)
       const tokenResp = await fetch('https://login.microsoftonline.com/consumers/oauth2/v2.0/token', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Origin': 'https://loommc.com',
+        },
         body: new URLSearchParams({
           client_id,
           code,

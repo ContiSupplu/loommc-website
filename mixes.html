@@ -48,9 +48,10 @@
   <!-- Hero -->
   <div class="mixes-hero">
     <h1 class="mixes-hero-title">Mixes</h1>
-    <p class="mixes-hero-desc">Discover mod setups shared by the community, or create and share your own.</p>
+    <p class="mixes-hero-desc">Discover mod setups shared by the community.</p>
     <div class="mixes-hero-actions">
-      <button class="mixes-create-btn" id="showCreateBtn">
+      <!-- Create Mix button hidden until Minecraft app registration is approved -->
+      <button class="mixes-create-btn" id="showCreateBtn" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Create Mix
       </button>
@@ -147,7 +148,8 @@
   </div>
 
   <!-- ═══════ CREATE SECTION (slide-down panel) ═══════ -->
-  <div class="mixes-create-panel" id="createPanel">
+  <!-- Create panel hidden until Minecraft app registration is approved -->
+  <div class="mixes-create-panel" id="createPanel" style="display:none !important;">
 
     <button class="mixes-back-btn" id="backToExploreBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
