@@ -407,7 +407,7 @@ function createCardHTML(data, id) {
       ${isTemplate ? '<div class="explore-card-badge">Template</div>' : ''}
       <div class="explore-card-icon">
         ${avatarSrc
-          ? `<img src="${avatarSrc}" alt="" onerror="this.parentElement.innerHTML='${ico('loom')}'">` 
+          ? `<img src="${avatarSrc}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">${ico('loom').replace('<svg ', '<svg style="display:none" ')}`
           : ico('loom')
         }
       </div>

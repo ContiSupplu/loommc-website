@@ -555,43 +555,75 @@ document.getElementById('rateSubmitBtn').addEventListener('click', async () => {
 
 // ── Batch-fetch mod icons from Modrinth ──
 async function fetchModIcons(mods) {
-  const projectIds = mods
+  const headers = { 'User-Agent': 'Loom-Website/1.0 (loommc.com)' };
+
+  // ── Pass 1: bulk-fetch mods that already have a projectId ──
+  const withId = mods
     .map((m, idx) => ({ id: m.projectId, idx }))
     .filter(p => p.id);
-  if (projectIds.length === 0) return;
 
-  try {
-    // Modrinth bulk project lookup
-    const ids = projectIds.map(p => `"${p.id}"`).join(',');
-    const resp = await fetch(`https://api.modrinth.com/v2/projects?ids=[${ids}]`, {
-      headers: { 'User-Agent': 'Loom-Website/1.0 (loommc.com)' }
-    });
-    if (!resp.ok) return;
-    const projects = await resp.json();
+  const resolvedIds = new Set(); // track which indices got an icon
 
-    // Build map of projectId -> icon_url
-    const iconMap = {};
-    for (const proj of projects) {
-      if (proj.icon_url) iconMap[proj.id] = proj.icon_url;
-    }
+  if (withId.length > 0) {
+    try {
+      const ids = withId.map(p => `"${p.id}"`).join(',');
+      const resp = await fetch(`https://api.modrinth.com/v2/projects?ids=[${ids}]`, { headers });
+      if (resp.ok) {
+        const projects = await resp.json();
+        const iconMap = {};
+        for (const proj of projects) {
+          if (proj.icon_url) iconMap[proj.id] = proj.icon_url;
+        }
+        for (const { id, idx } of withId) {
+          const iconUrl = iconMap[id];
+          if (!iconUrl) continue;
+          replaceIcon(idx, iconUrl);
+          resolvedIds.add(idx);
+        }
+      }
+    } catch (e) { console.warn('Bulk icon fetch failed:', e); }
+  }
 
-    // Replace fallback divs with actual images
-    for (const { id, idx } of projectIds) {
-      const iconUrl = iconMap[id];
-      if (!iconUrl) continue;
-      const fb = document.querySelector(`[data-mod-idx="${idx}"]`);
-      if (!fb) continue;
-      const img = document.createElement('img');
-      img.className = 'card-mod-icon';
-      img.src = iconUrl;
-      img.alt = '';
-      img.onerror = () => { /* keep fallback if image fails */ };
-      // Replace the fallback with the image
-      fb.replaceWith(img);
-    }
-  } catch (e) {
-    console.warn('Failed to fetch mod icons:', e);
-    // Fallback circles are already shown, so this is non-critical
+  // ── Pass 2: search Modrinth by name for mods WITHOUT a projectId ──
+  const withoutId = mods
+    .map((m, idx) => ({ name: m.name, slug: m.slug, idx }))
+    .filter(p => !p.name ? false : !resolvedIds.has(p.idx) && !mods[p.idx].projectId);
+
+  // Search in small batches to avoid hammering the API
+  const BATCH = 5;
+  for (let i = 0; i < withoutId.length; i += BATCH) {
+    const batch = withoutId.slice(i, i + BATCH);
+    await Promise.allSettled(batch.map(async ({ name, slug, idx }) => {
+      try {
+        // Try slug-based direct lookup first (faster, more accurate)
+        if (slug) {
+          const r = await fetch(`https://api.modrinth.com/v2/project/${encodeURIComponent(slug)}`, { headers });
+          if (r.ok) {
+            const proj = await r.json();
+            if (proj.icon_url) { replaceIcon(idx, proj.icon_url); return; }
+          }
+        }
+        // Fallback: search by name
+        const params = new URLSearchParams({ query: name, limit: '1', facets: '[["project_type:mod"]]' });
+        const r = await fetch(`https://api.modrinth.com/v2/search?${params}`, { headers });
+        if (!r.ok) return;
+        const data = await r.json();
+        if (data.hits?.[0]?.icon_url) {
+          replaceIcon(idx, data.hits[0].icon_url);
+        }
+      } catch { /* non-critical */ }
+    }));
+  }
+
+  function replaceIcon(idx, iconUrl) {
+    const fb = document.querySelector(`[data-mod-idx="${idx}"]`);
+    if (!fb) return;
+    const img = document.createElement('img');
+    img.className = 'card-mod-icon';
+    img.src = iconUrl;
+    img.alt = '';
+    img.onerror = () => { /* keep fallback if image fails */ };
+    fb.replaceWith(img);
   }
 }
 
