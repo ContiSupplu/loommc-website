@@ -9,12 +9,18 @@
 <link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
 <link rel="canonical" href="https://loommc.com/404">
 
-<!-- SPA Routing: Redirect /card/{id} to the card viewer -->
+<!-- SPA Routing: Redirect /mix/{id} and /card/{id} to the mix viewer -->
 <script>
 (function() {
-  var match = window.location.pathname.match(/^\/card\/([^\/]+)\/?$/);
-  if (match) {
-    window.location.replace('/card/?id=' + encodeURIComponent(match[1]));
+  var mixMatch = window.location.pathname.match(/^\/mix\/([^\/]+)\/?$/);
+  if (mixMatch) {
+    window.location.replace('/mix/?id=' + encodeURIComponent(mixMatch[1]));
+    return;
+  }
+  var cardMatch = window.location.pathname.match(/^\/card\/([^\/]+)\/?$/);
+  if (cardMatch) {
+    window.location.replace('/mix/?id=' + encodeURIComponent(cardMatch[1]));
+    return;
   }
 })();
 </script>
@@ -50,6 +56,8 @@
   <nav class="panel-links">
     <a href="/features.html">Features</a>
     <a href="/docs.html">Docs</a>
+    <a href="/explore.html">Explore Mixes</a>
+    <a href="/create.html">Create a Mix</a>
     <a href="/quick-servers.html">Quick Servers</a>
   </nav>
 </aside>
@@ -89,6 +97,8 @@
           <h4>Product</h4>
           <a href="/features.html">Features</a>
           <a href="/quick-servers.html">Quick Servers</a>
+          <a href="/explore.html">Explore Mixes</a>
+          <a href="/create.html">Create a Mix</a>
           <a href="/release.html">Latest Release</a>
         </div>
         <div class="footer-col">

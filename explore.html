@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Mixes — Loom</title>
+<meta name="description" content="Discover community-made Minecraft mod setups. Browse, search, and clone Mixes shared by Loom players.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
+
+<script type="module" src="/src/explore.js"></script>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.svg" alt="" width="36" height="36"> Loom
+    </a>
+    <div class="nav-actions">
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="nav-dl">Download</a>
+      <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Side Panel -->
+<div class="panel-overlay" id="panelOverlay"></div>
+<aside class="panel" id="panel" aria-label="Navigation menu">
+  <div class="panel-header">
+    <span>Menu</span>
+    <button class="panel-close" aria-label="Close menu" id="panelClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="panel-links">
+    <a href="/features.html">Features</a>
+    <a href="/docs.html">Docs</a>
+    <a href="/explore.html" style="color: var(--yellow);">Explore Mixes</a>
+    <a href="/create.html">Create a Mix</a>
+    <a href="/quick-servers.html">Quick Servers</a>
+  </nav>
+</aside>
+
+<main class="explore-page">
+  <!-- Hero -->
+  <div class="explore-hero">
+    <h1 class="explore-hero-title">Explore Mixes</h1>
+    <p class="explore-hero-desc">Discover mod setups shared by the community. Find the perfect starting point for your next adventure.</p>
+  </div>
+
+  <!-- Templates Carousel -->
+  <div class="explore-carousel-section" id="templatesSection" style="display:none;">
+    <div class="explore-carousel-header">
+      <span class="explore-carousel-label">✦ Templates by _Jackoboy</span>
+      <div class="explore-carousel-nav">
+        <button class="explore-carousel-btn" id="tmplPrev" aria-label="Previous templates">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="explore-carousel-btn" id="tmplNext" aria-label="Next templates">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="explore-carousel-wrapper">
+      <div class="explore-carousel-track" id="tmplTrack"></div>
+    </div>
+  </div>
+
+  <!-- Popular Carousel -->
+  <div class="explore-carousel-section" id="popularSection" style="display:none;">
+    <div class="explore-carousel-header">
+      <span class="explore-carousel-label">🔥 Popular Mixes</span>
+      <div class="explore-carousel-nav">
+        <button class="explore-carousel-btn" id="popPrev" aria-label="Previous popular mixes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="explore-carousel-btn" id="popNext" aria-label="Next popular mixes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="explore-carousel-wrapper">
+      <div class="explore-carousel-track" id="popTrack"></div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="explore-filters">
+    <div class="explore-search-wrapper">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="explore-search" id="searchInput" placeholder="Search mixes…" spellcheck="false" autocomplete="off">
+    </div>
+    <select class="explore-filter-select" id="loaderFilter">
+      <option value="">Any Loader</option>
+      <option value="fabric">Fabric</option>
+      <option value="forge">Forge</option>
+      <option value="neoforge">NeoForge</option>
+      <option value="quilt">Quilt</option>
+    </select>
+    <select class="explore-filter-select" id="sortFilter">
+      <option value="popular">Most Popular</option>
+      <option value="recent">Most Recent</option>
+      <option value="downloads">Most Downloads</option>
+    </select>
+  </div>
+
+  <!-- Browse Grid -->
+  <div class="explore-grid-section">
+    <div class="explore-grid-label" id="gridLabel">Browse</div>
+    <div class="explore-grid" id="browseGrid"></div>
+
+    <!-- Loading -->
+    <div class="explore-grid-loading" id="gridLoading" style="display:none;">
+      <div class="explore-spinner"></div>
+    </div>
+
+    <!-- Empty -->
+    <div class="explore-empty" id="gridEmpty" style="display:none;">
+      <div class="explore-empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h2 class="explore-empty-title">No mixes found</h2>
+      <p class="explore-empty-desc">Try a different search or filter combination.</p>
+    </div>
+
+    <!-- Load More -->
+    <div class="explore-load-more" id="loadMoreSection" style="display:none;">
+      <button class="explore-load-more-btn" id="loadMoreBtn">Load More</button>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">
+          <img src="/loom-icon.svg" alt="" width="28" height="28"> Loom
+        </p>
+        <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/features.html">Features</a>
+          <a href="/quick-servers.html">Quick Servers</a>
+          <a href="/explore.html">Explore Mixes</a>
+          <a href="/create.html">Create a Mix</a>
+          <a href="/release.html">Latest Release</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/docs.html">Docs</a>
+          <a href="/contact.html">Contact</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK + Explore Logic -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js';
+import { getFirestore, collection, query, where, orderBy, limit, startAfter, getDocs } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
+
+const app = initializeApp({
+  apiKey: 'AIzaSyDqVh8cp1_zW_BYFF55IihLBo91bMN-Tbw',
+  authDomain: 'loom-cards.firebaseapp.com',
+  projectId: 'loom-cards',
+  storageBucket: 'loom-cards.firebasestorage.app',
+  messagingSenderId: '387698383350',
+  appId: '1:387698383350:web:569c2834c57aa3ee96cfd7'
+});
+const db = getFirestore(app);
+
+const PAGE_SIZE = 20;
+let allMixes = [];
+let lastDoc = null;
+let hasMore = true;
+let isLoading = false;
+let searchTerm = '';
+let loaderFilter = '';
+let sortFilter = 'popular';
+
+// ── SVG Helpers ──
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function ico(n) {
+  const m = {
+    puzzle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 16V7a2 2 0 00-2-2H6a2 2 0 00-2 2v9m16 0H4m16 0l1.28 2.55a1 1 0 01-.9 1.45H3.62a1 1 0 01-.9-1.45L4 16"/></svg>',
+    download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    loom: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+    eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+  };
+  return m[n] || '';
+}
+
+function renderStars(avg) {
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= Math.round(avg)) {
+      html += '<svg class="star-filled" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+    } else {
+      html += '<svg class="star-empty" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+    }
+  }
+  return html;
+}
+
+// ── Card HTML ──
+function createCardHTML(data, id) {
+  const java = data.java || {};
+  const stats = data.stats || {};
+  const isTemplate = data.type === 'template';
+  const downloads = stats.downloads || 0;
+  const opens = stats.opens || 0;
+  const ratingAvg = stats.ratingCount > 0 ? (stats.ratingSum / stats.ratingCount) : 0;
+  const modCount = java.mods?.length || 0;
+
+  const avatarSrc = data.author?.uuid
+    ? `https://crafatar.com/avatars/${data.author.uuid}?size=48&overlay`
+    : '';
+
+  return `
+    <a href="/mix/?id=${esc(id)}" class="explore-card" data-id="${esc(id)}">
+      ${isTemplate ? '<div class="explore-card-badge">Template</div>' : ''}
+      <div class="explore-card-icon">
+        ${avatarSrc
+          ? `<img src="${avatarSrc}" alt="" onerror="this.parentElement.innerHTML='${ico('loom')}'">`
+          : ico('loom')
+        }
+      </div>
+      <div class="explore-card-name">${esc(data.name || 'Untitled Mix')}</div>
+      <div class="explore-card-author">by <strong>${esc(data.author?.username || 'Unknown')}</strong></div>
+      <div class="explore-card-meta">
+        ${java.version ? `<span class="explore-card-tag">${esc(java.version)}</span>` : ''}
+        ${java.loader ? `<span class="explore-card-tag">${esc(java.loader)}</span>` : ''}
+        ${modCount > 0 ? `<span class="explore-card-tag">${modCount} mod${modCount !== 1 ? 's' : ''}</span>` : ''}
+      </div>
+      <div class="explore-card-stats">
+        <span class="explore-card-stat">
+          ${ico('download')}
+          <strong>${formatNum(downloads)}</strong>
+        </span>
+        <span class="explore-card-stat">
+          ${ico('eye')}
+          <strong>${formatNum(opens)}</strong>
+        </span>
+        ${ratingAvg > 0 ? `
+          <span class="explore-card-stat">
+            <span class="explore-card-rating">${renderStars(ratingAvg)}</span>
+            <span class="explore-card-rating-text">${ratingAvg.toFixed(1)}</span>
+          </span>
+        ` : ''}
+      </div>
+    </a>
+  `;
+}
+
+function formatNum(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+  return String(n);
+}
+
+// ── Carousel Setup ──
+function setupCarousel(track, prevBtn, nextBtn) {
+  const scrollAmount = 240;
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+}
+
+// ── Load Templates ──
+async function loadTemplates() {
+  try {
+    const q = query(
+      collection(db, 'cards'),
+      where('type', '==', 'template'),
+      orderBy('stats.downloads', 'desc'),
+      limit(10)
+    );
+    const snap = await getDocs(q);
+    if (snap.empty) return;
+
+    const section = document.getElementById('templatesSection');
+    const track = document.getElementById('tmplTrack');
+    section.style.display = 'block';
+
+    let html = '';
+    snap.forEach(doc => {
+      html += createCardHTML(doc.data(), doc.id);
+    });
+    track.innerHTML = html;
+
+    setupCarousel(
+      track,
+      document.getElementById('tmplPrev'),
+      document.getElementById('tmplNext')
+    );
+  } catch (e) {
+    console.error('Failed to load templates:', e);
+  }
+}
+
+// ── Load Popular ──
+async function loadPopular() {
+  try {
+    const q = query(
+      collection(db, 'cards'),
+      where('type', '!=', 'template'),
+      orderBy('stats.downloads', 'desc'),
+      limit(10)
+    );
+    const snap = await getDocs(q);
+
+    // Fallback: if no popular mixes with type!=template, try without type filter
+    let docs = [];
+    if (snap.empty) {
+      const fallback = query(
+        collection(db, 'cards'),
+        orderBy('stats.downloads', 'desc'),
+        limit(10)
+      );
+      const fbSnap = await getDocs(fallback);
+      fbSnap.forEach(d => { if (d.data().type !== 'template') docs.push(d); });
+    } else {
+      snap.forEach(d => docs.push(d));
+    }
+
+    if (docs.length === 0) return;
+
+    const section = document.getElementById('popularSection');
+    const track = document.getElementById('popTrack');
+    section.style.display = 'block';
+
+    let html = '';
+    docs.forEach(d => {
+      html += createCardHTML(d.data(), d.id);
+    });
+    track.innerHTML = html;
+
+    setupCarousel(
+      track,
+      document.getElementById('popPrev'),
+      document.getElementById('popNext')
+    );
+  } catch (e) {
+    console.error('Failed to load popular:', e);
+    // Fallback: try loading all mixes sorted by downloads
+    try {
+      const fallback = query(
+        collection(db, 'cards'),
+        orderBy('stats.downloads', 'desc'),
+        limit(10)
+      );
+      const fbSnap = await getDocs(fallback);
+      if (fbSnap.empty) return;
+
+      const section = document.getElementById('popularSection');
+      const track = document.getElementById('popTrack');
+      section.style.display = 'block';
+
+      let html = '';
+      fbSnap.forEach(d => {
+        if (d.data().type !== 'template') {
+          html += createCardHTML(d.data(), d.id);
+        }
+      });
+      if (html) {
+        track.innerHTML = html;
+        setupCarousel(track, document.getElementById('popPrev'), document.getElementById('popNext'));
+      }
+    } catch (e2) {
+      console.error('Fallback popular load failed:', e2);
+    }
+  }
+}
+
+// ── Load Browse Grid ──
+async function loadBrowse(reset = false) {
+  if (isLoading) return;
+  isLoading = true;
+
+  const grid = document.getElementById('browseGrid');
+  const loadingEl = document.getElementById('gridLoading');
+  const emptyEl = document.getElementById('gridEmpty');
+  const loadMoreEl = document.getElementById('loadMoreSection');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+  if (reset) {
+    grid.innerHTML = '';
+    allMixes = [];
+    lastDoc = null;
+    hasMore = true;
+  }
+
+  loadingEl.style.display = 'flex';
+  emptyEl.style.display = 'none';
+  loadMoreEl.style.display = 'none';
+  loadMoreBtn.disabled = true;
+
+  try {
+    // Build query
+    const constraints = [collection(db, 'cards')];
+
+    // Loader filter
+    if (loaderFilter) {
+      constraints.push(where('java.loader', '==', loaderFilter));
+    }
+
+    // Sort
+    switch (sortFilter) {
+      case 'recent':
+        constraints.push(orderBy('createdAt', 'desc'));
+        break;
+      case 'downloads':
+        constraints.push(orderBy('stats.downloads', 'desc'));
+        break;
+      case 'popular':
+      default:
+        constraints.push(orderBy('stats.opens', 'desc'));
+        break;
+    }
+
+    constraints.push(limit(PAGE_SIZE));
+
+    if (lastDoc) {
+      constraints.push(startAfter(lastDoc));
+    }
+
+    const q = query(...constraints);
+    const snap = await getDocs(q);
+
+    loadingEl.style.display = 'none';
+
+    if (snap.empty && allMixes.length === 0) {
+      emptyEl.style.display = 'flex';
+      hasMore = false;
+    } else {
+      let html = '';
+      const docs = [];
+      snap.forEach(d => docs.push(d));
+
+      // Client-side search filter
+      const filtered = docs.filter(d => {
+        const data = d.data();
+        if (!searchTerm) return true;
+        const term = searchTerm.toLowerCase();
+        return (
+          (data.name || '').toLowerCase().includes(term) ||
+          (data.description || '').toLowerCase().includes(term) ||
+          (data.author?.username || '').toLowerCase().includes(term) ||
+          (data.java?.mods || []).some(m => (m.name || '').toLowerCase().includes(term))
+        );
+      });
+
+      filtered.forEach(d => {
+        html += createCardHTML(d.data(), d.id);
+        allMixes.push(d);
+      });
+
+      grid.innerHTML += html;
+
+      if (docs.length > 0) {
+        lastDoc = docs[docs.length - 1];
+      }
+
+      hasMore = docs.length === PAGE_SIZE;
+
+      if (hasMore) {
+        loadMoreEl.style.display = 'flex';
+        loadMoreBtn.disabled = false;
+      }
+
+      // Show empty if search filter removed all results
+      if (allMixes.length === 0 || (grid.innerHTML.trim() === '')) {
+        emptyEl.style.display = 'flex';
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load browse:', e);
+    loadingEl.style.display = 'none';
+
+    // Fallback: try simpler query without compound index
+    if (loaderFilter) {
+      console.warn('Compound query failed, trying without loader filter');
+      loaderFilter = '';
+      document.getElementById('loaderFilter').value = '';
+      await loadBrowse(true);
+      return;
+    }
+  }
+
+  isLoading = false;
+}
+
+// ── Event Listeners ──
+let searchDebounce;
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => {
+    searchTerm = e.target.value.trim();
+    loadBrowse(true);
+  }, 350);
+});
+
+document.getElementById('loaderFilter').addEventListener('change', (e) => {
+  loaderFilter = e.target.value;
+  loadBrowse(true);
+});
+
+document.getElementById('sortFilter').addEventListener('change', (e) => {
+  sortFilter = e.target.value;
+  loadBrowse(true);
+});
+
+document.getElementById('loadMoreBtn').addEventListener('click', () => {
+  loadBrowse(false);
+});
+
+// ── Init ──
+loadTemplates();
+loadPopular();
+loadBrowse(true);
+</script>
+
+</body>
+</html>

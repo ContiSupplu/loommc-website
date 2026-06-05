@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loom Mix</title>
+<meta name="description" content="A Loom Mix — shareable Minecraft instance snapshot. Clone mods, shaders, and resource packs into your launcher.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/loom-icon.svg">
+
+<script type="module" src="/src/mix.js"></script>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="contain">
+    <a href="/" class="nav-logo" aria-label="Loom home">
+      <img src="/loom-icon.svg" alt="" width="36" height="36"> Loom
+    </a>
+    <div class="nav-actions">
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="nav-dl">Download</a>
+      <button class="nav-menu-btn" aria-label="Open menu" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Side Panel -->
+<div class="panel-overlay" id="panelOverlay"></div>
+<aside class="panel" id="panel" aria-label="Navigation menu">
+  <div class="panel-header">
+    <span>Menu</span>
+    <button class="panel-close" aria-label="Close menu" id="panelClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="panel-links">
+    <a href="/features.html">Features</a>
+    <a href="/docs.html">Docs</a>
+    <a href="/explore.html">Explore Mixes</a>
+    <a href="/create.html">Create a Mix</a>
+    <a href="/quick-servers.html">Quick Servers</a>
+  </nav>
+</aside>
+
+<main class="card-page">
+  <!-- Loading State -->
+  <div id="loading" class="card-loading">
+    <div class="card-spinner"></div>
+    <div class="card-loading-text">Loading mix…</div>
+  </div>
+
+  <!-- Error State -->
+  <div id="error" class="card-error" style="display:none;">
+    <div class="card-error-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <h1 class="card-error-title">Mix not found</h1>
+    <p class="card-error-desc">This mix may have been deleted or the link might be incorrect.</p>
+    <a href="/explore.html" class="btn-secondary" style="margin-bottom: 12px;">← Browse Mixes</a>
+    <a href="/" class="btn-primary">← Back to Loom</a>
+  </div>
+
+  <!-- Mix View -->
+  <div id="card" class="card-view" style="display:none;">
+    <!-- Header -->
+    <div class="card-header">
+      <div class="card-avatar" id="cardAvatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="card-header-info">
+        <h1 class="card-title" id="cardTitle">—</h1>
+        <div class="card-author">by <strong id="cardAuthor">—</strong></div>
+      </div>
+    </div>
+
+    <p class="card-description" id="cardDesc"></p>
+
+    <!-- Meta Tags -->
+    <div class="card-meta" id="cardMeta"></div>
+
+    <!-- Rating Display -->
+    <div class="card-rating-display" id="ratingDisplay" style="display:none;">
+      <div class="card-stars" id="ratingStars"></div>
+      <span class="card-rating-text" id="ratingText"></span>
+    </div>
+
+    <!-- Stat Badges (mod/shader/pack counts) -->
+    <div class="card-stat-badges" id="statBadges"></div>
+
+    <!-- Mods -->
+    <div class="card-section" id="modsSection" style="display:none;">
+      <div class="card-section-title">Mods</div>
+      <div class="card-mod-list" id="modList"></div>
+    </div>
+
+    <!-- Shaders -->
+    <div class="card-section" id="shadersSection" style="display:none;">
+      <div class="card-section-title">Shader Packs</div>
+      <div class="card-pack-list" id="shaderList"></div>
+    </div>
+
+    <!-- Resource Packs -->
+    <div class="card-section" id="resourcesSection" style="display:none;">
+      <div class="card-section-title">Resource Packs</div>
+      <div class="card-pack-list" id="resourceList"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card-cta">
+      <!-- Download .mrpack -->
+      <button class="card-download-btn" id="downloadBtn" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download .mrpack
+      </button>
+
+      <p class="card-cta-text">Open this mix in Loom Launcher to clone it to your library.</p>
+      <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher/releases/latest/download/Loom-Setup-1.6.6.exe" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Get Loom Launcher
+      </a>
+      <div class="card-stats">
+        <div class="card-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <strong id="statOpens">0</strong> views
+        </div>
+        <div class="card-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <strong id="statClones">0</strong> clones
+        </div>
+        <div class="card-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <strong id="statDownloads">0</strong> downloads
+        </div>
+      </div>
+    </div>
+
+    <!-- Rate this Mix (visible after download) -->
+    <div class="card-rate-section" id="rateSection" style="display:none;">
+      <div class="card-section-title">Rate this Mix</div>
+      <div class="card-rate-stars" id="rateStars">
+        <button class="card-rate-star" data-value="1">★</button>
+        <button class="card-rate-star" data-value="2">★</button>
+        <button class="card-rate-star" data-value="3">★</button>
+        <button class="card-rate-star" data-value="4">★</button>
+        <button class="card-rate-star" data-value="5">★</button>
+      </div>
+      <button class="card-rate-submit" id="rateSubmitBtn" disabled>Submit Rating</button>
+      <div class="card-rate-thanks" id="rateThanks" style="display:none;">Thanks for rating!</div>
+    </div>
+
+    <!-- Back to explore -->
+    <div class="card-back-link">
+      <a href="/explore.html">← Browse more Mixes</a>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">
+          <img src="/loom-icon.svg" alt="" width="28" height="28"> Loom
+        </p>
+        <p class="footer-brand-desc">A Minecraft launcher with AI crash diagnosis, one-click mods, and instant multiplayer. Built by _jackoboy.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/features.html">Features</a>
+          <a href="/quick-servers.html">Quick Servers</a>
+          <a href="/explore.html">Explore Mixes</a>
+          <a href="/create.html">Create a Mix</a>
+          <a href="/release.html">Latest Release</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/docs.html">Docs</a>
+          <a href="/contact.html">Contact</a>
+          <a href="https://github.com/Loom-Minecraft/Loom-MC-Launcher" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Loom</p>
+      <p class="footer-disclaimer">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js';
+import { getFirestore, doc, getDoc, updateDoc, increment, collection as fbCollection, addDoc, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
+
+const app = initializeApp({
+  apiKey: 'AIzaSyDqVh8cp1_zW_BYFF55IihLBo91bMN-Tbw',
+  authDomain: 'loom-cards.firebaseapp.com',
+  projectId: 'loom-cards',
+  storageBucket: 'loom-cards.firebasestorage.app',
+  messagingSenderId: '387698383350',
+  appId: '1:387698383350:web:569c2834c57aa3ee96cfd7'
+});
+const db = getFirestore(app);
+
+// Extract mix ID from ?id= or path
+const params = new URLSearchParams(window.location.search);
+let mixId = params.get('id');
+if (!mixId) {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const idx = parts.indexOf('mix');
+  mixId = idx !== -1 ? parts[idx + 1] : null;
+}
+
+if (!mixId) { showError(); } else { loadMix(mixId); }
+
+let currentMixData = null;
+
+async function loadMix(id) {
+  try {
+    const snap = await getDoc(doc(db, 'cards', id));
+    if (!snap.exists()) { showError(); return; }
+    const data = snap.data();
+    currentMixData = data;
+    renderMix(data);
+    document.title = `${data.name} — Loom Mix`;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.content = data.description || `A Loom Mix by ${data.author?.username || 'unknown'}`;
+
+    // Increment opens
+    try {
+      await updateDoc(doc(db, 'cards', id), { 'stats.opens': increment(1) });
+    } catch (e) { /* non-critical */ }
+
+    // Check if user has downloaded (show rating form)
+    const hasDownloaded = localStorage.getItem(`mix-downloaded-${id}`);
+    if (hasDownloaded) {
+      showRatingForm();
+    }
+  } catch (e) {
+    console.error('Failed to load mix:', e);
+    showError();
+  }
+}
+
+function showError() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display = 'flex';
+}
+
+// ── Clean version string ──
+function cleanVersion(v) {
+  if (!v) return '';
+  // Remove loader/mc suffixes like "mc1.21.11-0.8.12-fabric" → "0.8.12"
+  const cleaned = v
+    .replace(/^mc[\d.]+[-_]/i, '')
+    .replace(/[-_](fabric|forge|neoforge|quilt)$/i, '')
+    .replace(/[-+](build|beta|alpha|rc|snapshot)\.\d+$/i, '');
+  return cleaned;
+}
+
+// ── Source badge color ──
+function sourceBadge(source) {
+  if (!source) return '';
+  const s = source.toLowerCase();
+  let cls = 'card-mod-source';
+  if (s.includes('modrinth')) cls += ' modrinth';
+  else if (s.includes('curseforge')) cls += ' curseforge';
+  return `<span class="${cls}">${esc(source)}</span>`;
+}
+
+function renderMix(data) {
+  document.getElementById('loading').style.display = 'none';
+  const el = document.getElementById('card');
+  el.style.display = 'block';
+
+  document.getElementById('cardTitle').textContent = data.name || 'Untitled Mix';
+  document.getElementById('cardAuthor').textContent = data.author?.username || 'Unknown';
+
+  if (data.author?.uuid) {
+    const av = document.getElementById('cardAvatar');
+    const img = document.createElement('img');
+    img.src = `https://crafatar.com/avatars/${data.author.uuid}?size=48&overlay`;
+    img.alt = data.author.username;
+    img.onerror = () => img.remove();
+    av.innerHTML = '';
+    av.appendChild(img);
+  }
+
+  const desc = document.getElementById('cardDesc');
+  if (data.description) { desc.textContent = data.description; } else { desc.style.display = 'none'; }
+
+  const java = data.java || {};
+  const tags = [];
+  if (java.version) tags.push({ icon: 'cube', text: `Minecraft ${java.version}` });
+  if (java.loader) tags.push({ icon: 'loader', text: java.loader.charAt(0).toUpperCase() + java.loader.slice(1) });
+
+  document.getElementById('cardMeta').innerHTML = tags.map(t =>
+    `<div class="card-meta-tag">${ico(t.icon)}${t.text}</div>`
+  ).join('');
+
+  // Stat badges
+  const modCount = java.mods?.length || 0;
+  const shaderCount = java.shaderPacks?.length || 0;
+  const rpCount = java.resourcePacks?.length || 0;
+  let badgesHtml = '';
+  if (modCount) badgesHtml += `<div class="card-stat-badge accent">${ico('puzzle')}<strong>${modCount}</strong> Mod${modCount !== 1 ? 's' : ''}</div>`;
+  if (shaderCount) badgesHtml += `<div class="card-stat-badge">${ico('shader')}<strong>${shaderCount}</strong> Shader${shaderCount !== 1 ? 's' : ''}</div>`;
+  if (rpCount) badgesHtml += `<div class="card-stat-badge">${ico('palette')}<strong>${rpCount}</strong> Resource Pack${rpCount !== 1 ? 's' : ''}</div>`;
+  document.getElementById('statBadges').innerHTML = badgesHtml;
+
+  // Rating display
+  const stats = data.stats || {};
+  if (stats.ratingCount > 0) {
+    const avg = stats.ratingSum / stats.ratingCount;
+    const display = document.getElementById('ratingDisplay');
+    display.style.display = 'flex';
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+      starsHtml += i <= Math.round(avg)
+        ? '<span class="star-filled">★</span>'
+        : '<span class="star-empty">☆</span>';
+    }
+    document.getElementById('ratingStars').innerHTML = starsHtml;
+    document.getElementById('ratingText').textContent = `${avg.toFixed(1)} (${stats.ratingCount} rating${stats.ratingCount !== 1 ? 's' : ''})`;
+  }
+
+  // Mods
+  if (java.mods?.length) {
+    document.getElementById('modsSection').style.display = 'block';
+    document.getElementById('modList').innerHTML = java.mods.map(mod => {
+      const src = mod.projectId ? `https://cdn.modrinth.com/data/${mod.projectId}/icon.png` : '';
+      const initial = (mod.name || '?')[0].toUpperCase();
+      const icon = src
+        ? `<img class="card-mod-icon" src="${src}" alt="" onerror="this.outerHTML='<div class=card-mod-icon-fb style=background:hsl(${hashStr(mod.name) % 360},40%,30%)><span>${initial}</span></div>'">`
+        : `<div class="card-mod-icon-fb" style="background:hsl(${hashStr(mod.name) % 360},40%,30%)"><span>${initial}</span></div>`;
+      const nameHtml = mod.projectId
+        ? `<a class="card-mod-name" href="https://modrinth.com/mod/${esc(mod.slug || mod.projectId)}" target="_blank" rel="noopener">${esc(mod.name)}</a>`
+        : `<div class="card-mod-name">${esc(mod.name)}</div>`;
+      const ver = cleanVersion(mod.version);
+      return `<div class="card-mod-item">${icon}<div class="card-mod-info">${nameHtml}${ver ? `<div class="card-mod-ver">${esc(ver)}</div>` : ''}</div>${sourceBadge(mod.source)}</div>`;
+    }).join('');
+  }
+
+  if (java.shaderPacks?.length) {
+    document.getElementById('shadersSection').style.display = 'block';
+    document.getElementById('shaderList').innerHTML = java.shaderPacks.map(p =>
+      `<div class="card-pack-item">${ico('shader')}${esc(p.name || p.fileName)}</div>`
+    ).join('');
+  }
+
+  if (java.resourcePacks?.length) {
+    document.getElementById('resourcesSection').style.display = 'block';
+    document.getElementById('resourceList').innerHTML = java.resourcePacks.map(p =>
+      `<div class="card-pack-item">${ico('palette')}${esc(p.name || p.fileName)}</div>`
+    ).join('');
+  }
+
+  document.getElementById('statOpens').textContent = stats.opens || 0;
+  document.getElementById('statClones').textContent = stats.clones || 0;
+  document.getElementById('statDownloads').textContent = stats.downloads || 0;
+
+  // Show download button if mods exist
+  if (java.mods?.length > 0) {
+    document.getElementById('downloadBtn').style.display = 'inline-flex';
+  }
+}
+
+// ── Download .mrpack ──
+document.getElementById('downloadBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('downloadBtn');
+  btn.disabled = true;
+  btn.textContent = 'Preparing…';
+
+  try {
+    const data = currentMixData;
+    const java = data.java || {};
+
+    // Build modrinth.index.json
+    const files = [];
+    for (const mod of (java.mods || [])) {
+      if (mod.projectId) {
+        // Try to resolve download URL from Modrinth
+        try {
+          const resp = await fetch(`https://api.modrinth.com/v2/project/${mod.projectId}/version?loaders=["${java.loader || 'fabric'}"]&game_versions=["${java.version || ''}"]`);
+          if (resp.ok) {
+            const versions = await resp.json();
+            if (versions.length > 0 && versions[0].files?.length > 0) {
+              const file = versions[0].files[0];
+              files.push({
+                path: `mods/${file.filename}`,
+                hashes: { sha512: file.hashes?.sha512 || '', sha1: file.hashes?.sha1 || '' },
+                downloads: [file.url],
+                fileSize: file.size || 0
+              });
+              continue;
+            }
+          }
+        } catch (e) { /* fall through */ }
+      }
+      // Fallback: mark as manual install
+      files.push({
+        path: `mods/${mod.fileName || mod.slug || mod.name}.jar`,
+        hashes: {},
+        downloads: [],
+        fileSize: 0,
+        env: { client: 'required', server: 'unsupported' }
+      });
+    }
+
+    const indexJson = {
+      formatVersion: 1,
+      game: 'minecraft',
+      versionId: '1.0.0',
+      name: data.name || 'Loom Mix',
+      summary: data.description || '',
+      files: files,
+      dependencies: {
+        minecraft: java.version || '',
+        [java.loader === 'forge' ? 'forge' : java.loader === 'neoforge' ? 'neoforge' : java.loader === 'quilt' ? 'quilt-loader' : 'fabric-loader']: java.loaderVersion || '*'
+      }
+    };
+
+    // Use JSZip to create .mrpack (loaded from CDN)
+    const JSZip = (await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm')).default;
+    const zip = new JSZip();
+    zip.file('modrinth.index.json', JSON.stringify(indexJson, null, 2));
+
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(data.name || 'mix').replace(/[^a-zA-Z0-9_-]/g, '_')}.mrpack`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    // Increment download count
+    try {
+      await updateDoc(doc(db, 'cards', mixId), { 'stats.downloads': increment(1) });
+      const dl = document.getElementById('statDownloads');
+      dl.textContent = parseInt(dl.textContent) + 1;
+    } catch (e) { /* non-critical */ }
+
+    // Mark as downloaded → show rating form
+    localStorage.setItem(`mix-downloaded-${mixId}`, 'true');
+    showRatingForm();
+  } catch (e) {
+    console.error('Download failed:', e);
+    alert('Download failed. Please try again.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download .mrpack';
+  }
+});
+
+// ── Rating Form ──
+let selectedRating = 0;
+
+function showRatingForm() {
+  const already = localStorage.getItem(`mix-rated-${mixId}`);
+  if (already) return;
+
+  document.getElementById('rateSection').style.display = 'block';
+}
+
+document.querySelectorAll('.card-rate-star').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedRating = parseInt(star.dataset.value);
+    document.querySelectorAll('.card-rate-star').forEach((s, i) => {
+      s.classList.toggle('active', i < selectedRating);
+    });
+    document.getElementById('rateSubmitBtn').disabled = false;
+  });
+
+  star.addEventListener('mouseenter', () => {
+    const val = parseInt(star.dataset.value);
+    document.querySelectorAll('.card-rate-star').forEach((s, i) => {
+      s.classList.toggle('hover', i < val);
+    });
+  });
+
+  star.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.card-rate-star').forEach(s => {
+      s.classList.remove('hover');
+    });
+  });
+});
+
+document.getElementById('rateSubmitBtn').addEventListener('click', async () => {
+  if (!selectedRating || !mixId) return;
+
+  const btn = document.getElementById('rateSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  try {
+    // Generate a visitor ID from localStorage
+    let visitorId = localStorage.getItem('loom-visitor-id');
+    if (!visitorId) {
+      visitorId = 'web-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem('loom-visitor-id', visitorId);
+    }
+
+    // Check if already rated
+    const ratingsRef = fbCollection(db, 'cards', mixId, 'ratings');
+    const existing = await getDocs(query(ratingsRef, where('visitorId', '==', visitorId)));
+    if (!existing.empty) {
+      localStorage.setItem(`mix-rated-${mixId}`, 'true');
+      document.getElementById('rateSection').style.display = 'none';
+      return;
+    }
+
+    // Submit rating
+    await addDoc(ratingsRef, {
+      visitorId,
+      rating: selectedRating,
+      createdAt: new Date()
+    });
+
+    // Update aggregate
+    await updateDoc(doc(db, 'cards', mixId), {
+      'stats.ratingSum': increment(selectedRating),
+      'stats.ratingCount': increment(1)
+    });
+
+    localStorage.setItem(`mix-rated-${mixId}`, 'true');
+    document.getElementById('rateStars').style.display = 'none';
+    btn.style.display = 'none';
+    document.getElementById('rateThanks').style.display = 'block';
+  } catch (e) {
+    console.error('Rating failed:', e);
+    btn.textContent = 'Failed — try again';
+    btn.disabled = false;
+  }
+});
+
+// ── Helpers ──
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < (s || '').length; i++) {
+    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h);
+}
+
+function ico(n) {
+  const m = {
+    cube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>',
+    loader: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+    puzzle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 16V7a2 2 0 00-2-2H6a2 2 0 00-2 2v9m16 0H4m16 0l1.28 2.55a1 1 0 01-.9 1.45H3.62a1 1 0 01-.9-1.45L4 16"/></svg>',
+    shader: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"/><path d="M5 19l1 3 1-3 3-1-3-1-1-3-1 3-3 1 3 1z"/></svg>',
+    palette: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17.5 10.5l-5-5L2 16l6 6 4-4"/><path d="M15 17l5 5"/><path d="M20 12l-9.5 9.5"/></svg>',
+  };
+  return m[n] || '';
+}
+</script>
+
+</body>
+</html>
