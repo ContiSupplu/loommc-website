@@ -662,7 +662,8 @@ document.getElementById('signInBtn').addEventListener('click', async () => {
 
   try {
     const { verifier, challenge } = await generatePKCE();
-    sessionStorage.setItem('pkce_verifier', verifier);
+    localStorage.setItem('pkce_verifier', verifier);
+    localStorage.setItem('loom_return_to_create', 'true');
 
     const params = new URLSearchParams({
       client_id: MSAL_CLIENT_ID,
@@ -687,7 +688,7 @@ async function handleCallback() {
   const code = params.get('code');
   if (!code) return false;
 
-  const verifier = sessionStorage.getItem('pkce_verifier');
+  const verifier = localStorage.getItem('pkce_verifier');
   if (!verifier) { console.error('Missing PKCE verifier'); return false; }
 
   try {
@@ -744,8 +745,9 @@ async function handleCallback() {
     if (!profile.id || !profile.name) throw new Error('Invalid Minecraft profile');
 
     currentUser = { username: profile.name, uuid: profile.id, mcToken: mc.access_token };
-    sessionStorage.setItem('loom_user', JSON.stringify(currentUser));
-    sessionStorage.removeItem('pkce_verifier');
+    localStorage.setItem('loom_user', JSON.stringify(currentUser));
+    localStorage.removeItem('pkce_verifier');
+    localStorage.removeItem('loom_return_to_create');
     window.history.replaceState({}, '', '/mixes.html');
 
     showSignedIn();
@@ -782,7 +784,7 @@ function showSignedIn() {
 
 document.getElementById('signOutBtn').addEventListener('click', () => {
   currentUser = null;
-  sessionStorage.removeItem('loom_user');
+  localStorage.removeItem('loom_user');
   document.getElementById('authSection').style.display = 'flex';
   document.getElementById('userBadge').style.display = 'none';
   document.getElementById('createForm').style.display = 'none';
@@ -1051,18 +1053,31 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
 // ════════════════════════════════════════════════
 async function init() {
   // Check for OAuth callback
+  let returnToCreate = false;
   if (window.location.search.includes('code=')) {
     const ok = await handleCallback();
-    if (ok) return;
+    if (ok) returnToCreate = true;
   }
 
   // Check for saved session
-  const saved = sessionStorage.getItem('loom_user');
-  if (saved) {
-    try {
-      currentUser = JSON.parse(saved);
-      showSignedIn();
-    } catch (e) { /* invalid */ }
+  if (!currentUser) {
+    const saved = localStorage.getItem('loom_user');
+    if (saved) {
+      try {
+        currentUser = JSON.parse(saved);
+        showSignedIn();
+      } catch (e) { /* invalid */ }
+    }
+  }
+
+  // Return to create view if we just came back from OAuth or had the flag set
+  if (!returnToCreate && localStorage.getItem('loom_return_to_create') === 'true' && currentUser) {
+    localStorage.removeItem('loom_return_to_create');
+    returnToCreate = true;
+  }
+
+  if (returnToCreate) {
+    showCreate();
   }
 
   // Always load explore content
